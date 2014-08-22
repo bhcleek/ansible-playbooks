@@ -1,0 +1,30 @@
+---
+- name: awscli
+  pip: name=awscli state=latest
+
+- name: coffeescript
+  npm: name=coffee-script global=true production=true state=latest
+
+- name: bower
+  npm: name=bower global=true production=true state=latest
+
+- name: grunt-cli
+  npm: name=grunt-cli global=true production=true state=latest
+
+- name: git doglog alias
+  command: git config --global alias.doglog 'log --decorate --oneline --graph'
+
+- name: git config core.excludesfile
+  command: git config --global core.excludesfile "~/.gitignore"
+
+- name: git config core.editor
+  command: git config --global core.editor vim
+
+- name: git config color.ui
+  command: git config --global color.ui auto
+
+- name: git config insteadOf https://github.com
+  command: git config --global url.git@github.com:.insteadOf https://github.com
+
+- name: git config push.default
+  command: git config --global push.default simple

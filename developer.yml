@@ -1,0 +1,9 @@
+---
+# file: developer.yml
+- include: base.yml
+- hosts: localhost
+  roles:
+    - common
+    - osx-developer
+    - developer
+

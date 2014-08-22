@@ -1,0 +1,40 @@
+---
+- name: git
+  homebrew: name=git state=latest
+
+- name: mercurial
+  homebrew: name=mercurial state=latest
+
+- name: boot2docker
+  homebrew: name=boot2docker state=latest
+
+- name: nodejs
+  homebrew: name=nodejs state=latest
+
+# pip install awscli
+# git
+# mercurial
+# nodejs
+# boot2docker
+# bower
+# git config core.excludesfile
+# git core.excludesfile
+
+# nginx --with-debug
+# virtualbox
+# docker
+# ~/.bashrc
+# ~/.bash_profile
+# ~/.gitignore
+# sourcetree
+# colloquy
+# hipchat
+# go
+# cross compile go for linux, darwin, and windows
+# chrome
+# firefox
+# firebug
+# balsamiq
+# IntelliJ
+# iTerm2
+

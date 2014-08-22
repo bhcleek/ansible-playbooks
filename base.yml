@@ -1,0 +1,16 @@
+---
+# file: base.yml
+- hosts: all
+  tasks:
+    - group_by: key={{ ansible_distribution }}
+
+- hosts: MacOSX
+  gather_facts: False
+  tasks: 
+    - name: install Homebrew
+      command: ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+      args:
+        creates: /usr/local/bin/brew 
+    - name: update homebrew
+      homebrew: update_homebrew=yes
+

@@ -1,0 +1,4 @@
+---
+# file: site.yml
+- include: base.yml
+- include: developer.yml
