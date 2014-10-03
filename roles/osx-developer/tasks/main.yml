@@ -11,6 +11,9 @@
 - name: nodejs
   homebrew: name=nodejs state=latest
 
+- name: dash
+  homebrew: name=dash state=latest
+
 # pip install awscli
 # git
 # mercurial
