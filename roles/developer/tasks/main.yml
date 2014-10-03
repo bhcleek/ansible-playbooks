@@ -23,8 +23,8 @@
 - name: git config color.ui
   command: git config --global color.ui auto
 
-- name: git config insteadOf https://github.com
-  command: git config --global url.git@github.com:.insteadOf https://github.com
+- name: git config insteadOf https://github.com/
+  command: git config --global url.git@github.com:.insteadOf https://github.com/
 
 - name: git config push.default
   command: git config --global push.default simple
