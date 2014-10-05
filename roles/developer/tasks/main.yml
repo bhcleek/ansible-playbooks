@@ -28,3 +28,6 @@
 
 - name: git config push.default
   command: git config --global push.default simple
+
+- name: tmux-config
+  copy: dest=~/.tmux.conf src=tmux.conf backup=yes

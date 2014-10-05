@@ -20,8 +20,9 @@
 - name: reattach-to-user-namespace
   homebrew: name=reattach-to-user-namespace state=latest
 
-- name: tmux-config
-  copy: dest=~/.tmux.conf src=tmux.conf 
+- name: tmux-osx.conf
+  copy: dest=~/.tmux-osx.conf src=tmux-osx.conf backup=yes
+
 # pip install awscli
 # git
 # mercurial
