@@ -31,3 +31,9 @@
 
 - name: tmux-config
   copy: dest=~/.tmux.conf src=tmux.conf backup=yes
+    
+- name: bash_profile
+  copy: dest=~/.bash_profile src=bash_profile backup=yes
+
+- name: bashrc
+  copy: dest=~/.bashrc src=bashrc backup=yes

@@ -23,6 +23,9 @@
 - name: tmux-osx.conf
   copy: dest=~/.tmux-osx.conf src=tmux-osx.conf backup=yes
 
+- name: bashrc-osx
+  copy: dest=~/.bashrc-osx src=bashrc-osx backup=yes
+
 - name: python site-packages
   copy: dest=~/Library/Python/2.7/lib/python/site-packages/homebrew.pth src=homebrew.pth
 # pip install awscli
