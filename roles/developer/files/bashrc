@@ -40,11 +40,14 @@ if [ -d /usr/libexec/java_home ]
 then
 	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
-export GOPATH=$HOME/develop/go
+export GOPATH=$HOME
 
 export PATH=$HOME/bin:$HOME/bin/packer:$GOPATH/bin:/usr/local/go/bin:/usr/local/bin:$PATH 
 
 if [ "$(uname)" == "Darwin" ]
 then
-	source ~/.bashrc-osx
+	if [ -f "~/.bashrc-osx" ] 
+	then
+		source ~/.bashrc-osx
+	fi
 fi

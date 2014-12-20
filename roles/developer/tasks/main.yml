@@ -1,15 +1,50 @@
 ---
-- name: awscli
-  pip: name=awscli state=latest
+- name: install packages
+  homebrew: name={{ item }} state=latest
+  with_items:
+    - vim
+    - python
+    - git
+    - mercurial
+    - boot2docker
+    - nodejs
+    - dash
+    - tmux
+    - reattach-to-user-namespace 
+  when: ansible_distribution == 'MacOSX'
 
-- name: coffeescript
-  npm: name=coffee-script global=true production=true state=latest
+- name: global npm packages
+  npm: name={{ item }} global=true production=true state=latest
+  with_items:
+    - coffee-script
+    - bower
+    - grunt-cli
 
-- name: bower
-  npm: name=bower global=true production=true state=latest
+- name: install pip packages
+  pip: name={{ item }} state=latest
+  with_items:
+    - awscli
 
-- name: grunt-cli
-  npm: name=grunt-cli global=true production=true state=latest
+- name: tmux-config
+  copy: dest=~/.tmux.conf src=tmux.conf backup=yes
+    
+- name: tmux-osx.conf
+  copy: dest=~/.tmux-osx.conf src=tmux-osx.conf backup=yes
+  when: ansible_distribution == 'MacOSX'
+
+- name: bashrc
+  copy: dest=~/.bashrc src=bashrc backup=yes
+
+- name: bashrc-osx
+  copy: dest=~/.bashrc-osx src=bashrc-osx backup=yes
+  when: ansible_distribution == 'MacOSX'
+
+- name: bash_profile
+  copy: dest=~/.bash_profile src=bash_profile backup=yes
+
+- name: python site-packages configuration
+  copy: dest=~/Library/Python/2.7/lib/python/site-packages/homebrew.pth src=homebrew.pth
+  when: ansible_distribution == 'MacOSX'
 
 - name: git doglog alias
   command: git config --global alias.doglog 'log --decorate --oneline --graph'
@@ -29,11 +64,29 @@
 - name: git config push.default
   command: git config --global push.default simple
 
-- name: tmux-config
-  copy: dest=~/.tmux.conf src=tmux.conf backup=yes
-    
-- name: bash_profile
-  copy: dest=~/.bash_profile src=bash_profile backup=yes
+# pip install awscli
+# git
+# mercurial
+# nodejs
+# boot2docker
+# bower
+# git config core.excludesfile
+# git core.excludesfile
+# ~/.bashrc
+# ~/.bash_profile
 
-- name: bashrc
-  copy: dest=~/.bashrc src=bashrc backup=yes
+# nginx --with-debug
+# virtualbox
+# docker
+# ~/.gitignore
+# sourcetree
+# colloquy
+# hipchat
+# go
+# cross compile go for linux, darwin, and windows
+# chrome
+# firefox
+# firebug
+# balsamiq
+# IntelliJ
+# iTerm2
