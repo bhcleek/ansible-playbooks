@@ -1,4 +1,7 @@
 ---
+- name: python
+  homebrew: name=python state=latest
+
 - name: git
   homebrew: name=git state=latest
 
@@ -36,12 +39,12 @@
 # bower
 # git config core.excludesfile
 # git core.excludesfile
+# ~/.bashrc
+# ~/.bash_profile
 
 # nginx --with-debug
 # virtualbox
 # docker
-# ~/.bashrc
-# ~/.bash_profile
 # ~/.gitignore
 # sourcetree
 # colloquy

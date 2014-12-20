@@ -1,3 +1,5 @@
+export PATH=$PATH:~/Library/Python/2.7/bin
+
 launchctl setenv PATH "${PATH}"
 launchctl setenv GOPATH "${GOPATH}"
 
