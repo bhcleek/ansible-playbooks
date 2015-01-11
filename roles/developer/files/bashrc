@@ -40,7 +40,7 @@ if [ -d /usr/libexec/java_home ]
 then
 	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
-export GOPATH=$HOME
+export GOPATH=$HOME/develop/go
 
 export PATH=$HOME/bin:$HOME/bin/packer:$GOPATH/bin:/usr/local/go/bin:/usr/local/bin:$PATH 
 
