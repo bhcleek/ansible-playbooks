@@ -42,7 +42,7 @@ then
 fi
 export GOPATH=$HOME/develop/go
 
-export PATH=$HOME/bin:$HOME/bin/packer:$GOPATH/bin:/usr/local/go/bin:/usr/local/bin:$PATH 
+export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:/usr/local/go/bin:/usr/local/bin:$PATH 
 
 if [ "$(uname)" == "Darwin" ]
 then
