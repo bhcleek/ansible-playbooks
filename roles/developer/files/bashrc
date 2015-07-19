@@ -15,13 +15,13 @@
 
 if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
 	source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
-else
+elif [ -f ~/.git-completion.bash ]; then
 	source ~/.git-completion.bash
 fi
 
 if [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
 	source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-else
+elif [ -f ~/.git-prompt.sh ]; then
 	source ~/.git-prompt.sh
 fi
 

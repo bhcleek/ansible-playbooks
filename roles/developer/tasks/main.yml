@@ -2,6 +2,7 @@
 - name: install packages
   homebrew: name={{ item }} state=latest
   with_items:
+    - caskroom/cask/brew-cask
     - vim
     - python
     - git
