@@ -12,7 +12,7 @@
     - nodejs
     - dash
     - tmux
-    - reattach-to-user-namespace 
+    - reattach-to-user-namespace
     - jq
   when: ansible_distribution == 'MacOSX'
 
@@ -30,7 +30,7 @@
 
 - name: tmux-config
   copy: dest=~/.tmux.conf src=tmux.conf backup=yes
-    
+
 - name: tmux-osx.conf
   copy: dest=~/.tmux-osx.conf src=tmux-osx.conf backup=yes
   when: ansible_distribution == 'MacOSX'
@@ -45,6 +45,7 @@
 - name: bash_profile
   copy: dest=~/.bash_profile src=bash_profile backup=yes
 
+# https://docs.python.org/2/library/site.html
 - name: python site-packages configuration
   copy: dest=~/Library/Python/2.7/lib/python/site-packages/homebrew.pth src=homebrew.pth
   when: ansible_distribution == 'MacOSX'
