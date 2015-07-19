@@ -7,10 +7,13 @@
     - git
     - mercurial
     - boot2docker
+    - docker-machine
+    - docker-compose
     - nodejs
     - dash
     - tmux
     - reattach-to-user-namespace 
+    - jq
   when: ansible_distribution == 'MacOSX'
 
 - name: global npm packages
