@@ -5,22 +5,19 @@ echo 'Installing Ansible'
 
 # prefer pip for installing python packages over the older easy_install
 #
-if [[ ! -x `which pip` ]]; then
+if ! command -v pip > /dev/null 2>&1
     sudo easy_install pip
 fi
 
-if [[ -x `which pip` && ! -x `which ansible` ]]; then
+if ! command -v ansible-playbook > /dev/null 2>&1
     sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
 fi
 
-if [[ -x `which brew` ]]; then
+if ! command -v brew > /dev/null 2>&1
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install caskroom/cask/brew-cask
 fi
 
 echo 'Running Ansible to configure Dev machine'
-
-if [[ -x `which ansible` ]]; then
-    ansible-playbook -i localhost.inv site.yml --ask-sudo-pass
-fi
+ansible-playbook -i localhost.inv --ask-sudo-pass site.yml
 
