@@ -47,18 +47,21 @@
   copy: dest=~/.bash_profile src=bash_profile backup=yes
 
 # https://docs.python.org/2/library/site.html
+- name: python site-packages directory
+  file: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages" state=directory
+
 - name: python site-packages configuration
   copy: dest=~/Library/Python/2.7/lib/python/site-packages/homebrew.pth src=homebrew.pth
   when: ansible_distribution == 'MacOSX'
+
+- name: create global git config directory
+  file: dest="{{ ansible_env.HOME }}/.config/git" state=directory
 
 - name: git doglog alias
   command: git config --global alias.doglog 'log --decorate --oneline --graph'
 
 - name: git config serve alias
   command: git config --global alias.serve 'daemon --reuseaddr --verbose --base-path=. --export-all ./.git'
-
-- name: git config core.excludesfile
-  command: git config --global core.excludesfile "~/.gitignore"
 
 - name: git config core.editor
   command: git config --global core.editor vim
