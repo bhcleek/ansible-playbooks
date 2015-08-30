@@ -17,6 +17,12 @@
     - jq
   when: ansible_distribution == 'MacOSX'
 
+- name: install packages
+  homebrew_cask: name={{ item }} state=latest
+  with_items:
+    - iterm2
+    - slack
+
 - name: global npm packages
   npm: name={{ item }} global=true production=true state=latest
   with_items:
@@ -85,6 +91,8 @@
 # git core.excludesfile
 # ~/.bashrc
 # ~/.bash_profile
+# iTerm2
+# slack
 
 # nginx --with-debug
 # virtualbox
@@ -94,10 +102,8 @@
 # colloquy
 # hipchat
 # go
-# cross compile go for linux, darwin, and windows
 # chrome
 # firefox
 # firebug
 # balsamiq
 # IntelliJ
-# iTerm2
