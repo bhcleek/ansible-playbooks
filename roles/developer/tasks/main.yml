@@ -77,23 +77,38 @@
 - name: global git config file exists
   copy: content= dest="{{ ansible_env.HOME }}/.config/git/config" backup=yes force=no
 
-- name: git doglog alias
+- name: git config core.editor
+  command: git config --global core.editor vim
+
+- name: git config core.autocrlf
+  command: git config --global core.autocrlf false
+
+- name: git config color.ui
+  command: git config --global color.ui auto
+
+- name: git config doglog alias
   command: git config --global alias.doglog 'log --decorate --oneline --graph'
 
 - name: git config serve alias
   command: git config --global alias.serve 'daemon --reuseaddr --verbose --base-path=. --export-all ./.git'
 
-- name: git config core.editor
-  command: git config --global core.editor vim
+- name: git config credential.helper
+  command: git config --global credential.helper cache
 
-- name: git config color.ui
-  command: git config --global color.ui auto
+- name: git config http.cookiefile
+  command: git config --global http.cookiefile ~/.cache/git/cookies 
 
-- name: git config insteadOf https://github.com/
-  command: git config --global url.git@github.com:.insteadOf https://github.com/
+- name: git config merge.tool
+  command: git config --global merge.tool opendiff
+
+- name: git config pull.rebase
+  command: git config --global pull.rebase preserve
 
 - name: git config push.default
   command: git config --global push.default simple
+
+- name: git config url insteadOf https://github.com/
+  command: git config --global url.git@github.com:.insteadOf https://github.com/
 
 # pip install awscli
 # git
