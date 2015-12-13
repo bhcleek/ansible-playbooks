@@ -16,12 +16,16 @@
     - reattach-to-user-namespace
     - jq
   when: ansible_distribution == 'MacOSX'
+  tags:
+    - packages
 
 - name: install packages
   homebrew_cask: name={{ item }} state=latest
   with_items:
     - iterm2
     - slack
+  tags:
+    - packages
 
 - name: global npm packages
   npm: name={{ item }} global=true production=true state=latest
@@ -29,11 +33,15 @@
     - coffee-script
     - bower
     - grunt-cli
+  tags:
+    - packages
 
 - name: install pip packages
   pip: name={{ item }} state=latest
   with_items:
     - awscli
+  tags:
+    - packages
 
 - name: tmux-config
   copy: dest=~/.tmux.conf src=tmux.conf backup=yes
@@ -62,6 +70,12 @@
 
 - name: create global git config directory
   file: dest="{{ ansible_env.HOME }}/.config/git" state=directory
+
+- name: create global git ignore file
+  copy: src=gitignore dest="{{ ansible_env.HOME }}/.config/git/ignore" force=yes backup=no
+
+- name: global git config file exists
+  copy: content= dest="{{ ansible_env.HOME }}/.config/git/config" backup=yes force=no
 
 - name: git doglog alias
   command: git config --global alias.doglog 'log --decorate --oneline --graph'

@@ -11,6 +11,11 @@
       command: ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
       args:
         creates: /usr/local/bin/brew 
+      tags:
+        - packages
+
     - name: update homebrew
       homebrew: update_homebrew=yes
+      tags:
+        - packages
 
