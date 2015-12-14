@@ -1,6 +1,6 @@
 # Vim files
 .*.swp # named swap files
-.swp # unnamed swap files
+*.swp # unnamed swap files
 *.un~
 Session.vim
 .netrwhist
