@@ -51,3 +51,10 @@ then
 		source ~/.bashrc-osx
 	fi
 fi
+
+XDG_VIMRC="${HOME}/.config/vim/vimrc"
+if  [ -f "$XDG_VIMRC" ]
+then
+	export XDG_VIMRC
+	export VIMINIT='let $MYVIMRC="$XDG_VIMRC" | source $MYVIMRC'
+fi
