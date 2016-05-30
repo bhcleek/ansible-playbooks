@@ -8,6 +8,7 @@
     - git
     - mercurial
     - boot2docker
+    - docker
     - docker-machine
     - docker-compose
     - nodejs
