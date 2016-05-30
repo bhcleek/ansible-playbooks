@@ -110,6 +110,10 @@
 - name: git config url insteadOf https://github.com/
   command: git config --global url.git@github.com:.insteadOf https://github.com/
 
+- name: git config web.browser
+  command: git config --global web.browser open
+  when: ansible_os_family == "Darwin"
+
 # pip install awscli
 # git
 # mercurial
