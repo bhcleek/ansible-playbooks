@@ -58,3 +58,22 @@ then
 	export XDG_VIMRC
 	export VIMINIT='let $MYVIMRC="$XDG_VIMRC" | source $MYVIMRC'
 fi
+
+# start the default tmux session if it doesn't already exist
+if command -v tmux &> /dev/null
+then
+	if ! tmux has-session
+	then
+		tmux start-server
+		tmux new-session -s default -n dashboard -d
+		tmux split-window -h 'ulimit -n 4096 && godoc -http=:6060 -analysis=type,pointer -notes="BUG|TODO"'
+		tmux split-window -v
+		tmux select-pane -t 0
+		tmux select-layout main-vertical
+		if [ -d "$GOPATH/src/github.com" ]
+		then
+			tmux new-window -n workspace -c $GOPATH/src/github.com/
+		fi
+		exec tmux attach
+	fi
+fi
