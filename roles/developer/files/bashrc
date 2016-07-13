@@ -25,6 +25,18 @@ elif [ -f ~/.git-prompt.sh ]; then
 	source ~/.git-prompt.sh
 fi
 
+if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]
+then
+	# updates PATH for the Google Cloud SDK.
+	source "$HOME/google-cloud-sdk/path.bash.inc"
+fi
+
+if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]
+then
+	# The next line enables shell command completion for gcloud.
+	source "$HOME/google-cloud-sdk/completion.bash.inc"
+fi
+
 #export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 export PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 export CLICOLOR=1
