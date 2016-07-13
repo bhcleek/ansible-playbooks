@@ -37,6 +37,13 @@ then
 	source "$HOME/google-cloud-sdk/completion.bash.inc"
 fi
 
+export HISTTIMEFORMAT='%F %T '
+export HISTFILESIZE=               # allow ~/.bash_history to grow without bound
+export HISTSIZE=                   # keep all commands in history
+export HISTCONTROL=ignoredups      # don't store more than one copy of repeated commands
+export HISTIGNORE=?:??             # ignore one or two letter commands
+shopt -s histappend                # append to history, don't overwrite it
+
 #export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 export PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 export CLICOLOR=1
