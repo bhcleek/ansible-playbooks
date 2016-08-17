@@ -16,6 +16,7 @@
     - tmux
     - reattach-to-user-namespace
     - jq
+    - git-lfs
   when: ansible_distribution == 'MacOSX'
   tags:
     - packages
@@ -116,6 +117,16 @@
 - name: git config web.browser
   command: git config --global web.browser open
   when: ansible_os_family == "Darwin"
+
+- name: git config tag.sort
+  command: git config --global tag.sort version:refname
+
+- name: git config version.prereleaseSuffix -alpha
+  command: git config --global version.prereleaseSuffix -alpha
+- name: git config version.prereleaseSuffix -beta
+  command: git config --global version.prereleaseSuffix -beta
+- name: git config version.prereleaseSuffix -rc
+  command: git config --global version.prereleaseSuffix -rc
 
 # pip install awscli
 # git
