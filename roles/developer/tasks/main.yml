@@ -72,62 +72,9 @@
   copy: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages/homebrew.pth" src=homebrew.pth
   when: ansible_distribution == 'MacOSX'
 
-- name: create global git config directory
-  file: dest="{{ ansible_env.HOME }}/.config/git" state=directory
-
-- name: create global git ignore file
-  copy: src=gitignore dest="{{ ansible_env.HOME }}/.config/git/ignore" force=yes backup=no
-
-- name: global git config file exists
-  copy: content= dest="{{ ansible_env.HOME }}/.config/git/config" backup=yes force=no
-
-- name: git config core.editor
-  command: git config --global core.editor vim
-
-- name: git config core.autocrlf
-  command: git config --global core.autocrlf false
-
-- name: git config color.ui
-  command: git config --global color.ui auto
-
-- name: git config doglog alias
-  command: git config --global alias.doglog 'log --decorate --oneline --graph'
-
-- name: git config serve alias
-  command: git config --global alias.serve 'daemon --reuseaddr --verbose --base-path=. --export-all ./.git'
-
-- name: git config credential.helper
-  command: git config --global credential.helper cache
-
-- name: git config http.cookiefile
-  command: git config --global http.cookiefile ~/.cache/git/cookies 
-
-- name: git config merge.tool
-  command: git config --global merge.tool opendiff
-
-- name: git config pull.rebase
-  command: git config --global pull.rebase preserve
-
-- name: git config push.default
-  command: git config --global push.default simple
-
-- name: git config url insteadOf https://github.com/
-  command: git config --global url.git@github.com:.insteadOf https://github.com/
-
-- name: git config web.browser
-  command: git config --global web.browser open
-  when: ansible_os_family == "Darwin"
-
-- name: git config tag.sort
-  command: git config --global tag.sort version:refname
-
-- name: git config version.prereleaseSuffix -alpha
-  command: git config --global version.prereleaseSuffix -alpha
-- name: git config version.prereleaseSuffix -beta
-  command: git config --global version.prereleaseSuffix -beta
-- name: git config version.prereleaseSuffix -rc
-  command: git config --global version.prereleaseSuffix -rc
-
+- include: git.yml
+  tags:
+    - git
 # pip install awscli
 # git
 # mercurial
