@@ -24,7 +24,7 @@
   command: git config --global alias.serve 'daemon --reuseaddr --verbose --base-path=. --export-all ./.git'
 
 - name: git config alias.pr (thanks @jfrazelle!)
-  command: git config --global alias.pr '!"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"'
+  raw: git config --global alias.pr '!pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr'
 
 - name: git config apply.whitepace
   command: git config --global apply.whitespace fix
