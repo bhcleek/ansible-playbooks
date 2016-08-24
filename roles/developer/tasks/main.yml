@@ -72,6 +72,10 @@
   copy: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages/homebrew.pth" src=homebrew.pth
   when: ansible_distribution == 'MacOSX'
 
+- name: install patched Inconsolata
+  copy: dest="{{ ansible_env.HOME }}/Library/Fonts/Inconsolata for Powerline.otf" src="fonts/Inconsolata/Inconsolata for Powerline.otf"
+  when: ansible_distribution == 'MacOSX'
+
 - include: git.yml
   tags:
     - git
