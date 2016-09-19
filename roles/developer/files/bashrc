@@ -61,8 +61,10 @@ then
 fi
 export GOPATH=$HOME/develop/go
 
-export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:/usr/local/go/bin:/usr/local/bin:$PATH
-export CDPATH=.:${GOPATH}/src/github.com:${GOPATH}/src/golang.org:${HOME}/develop:${GOPATH}/src
+: ${ORIG_PATH:=${PATH}}
+export ORIG_PATH
+export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:/usr/local/go/bin:/usr/local/bin:${ORIG_PATH}
+export CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/develop:${GOPATH//:/src:}/src
 
 if [ "$(uname)" == "Darwin" ]
 then
