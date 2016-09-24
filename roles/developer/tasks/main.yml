@@ -1,8 +1,13 @@
 ---
-- name: install packages
-  homebrew: name={{ item }} state=latest
+- name: add homebrew taps
+  homebrew_tap: tap="{{ item }}" state=present
+  when: ansible_distribution == 'MacOSX'
   with_items:
-    - caskroom/cask/brew-cask
+    - caskroom/cask
+
+- name: install packages
+  homebrew: name="{{ item }}" state=latest
+  with_items:
     - vim
     - python
     - git
@@ -22,7 +27,7 @@
     - packages
 
 - name: install packages
-  homebrew_cask: name={{ item }} state=latest
+  homebrew_cask: name="{{ item }}" state=present
   with_items:
     - iterm2
     - slack
@@ -30,7 +35,7 @@
     - packages
 
 - name: global npm packages
-  npm: name={{ item }} global=true production=true state=latest
+  npm: name="{{ item }}" global=true production=true state=latest
   with_items:
     - coffee-script
     - bower
@@ -39,7 +44,7 @@
     - packages
 
 - name: install pip packages
-  pip: name={{ item }} state=latest
+  pip: name="{{ item }}" state=latest
   with_items:
     - awscli
   tags:
