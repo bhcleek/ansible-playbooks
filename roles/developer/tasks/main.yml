@@ -12,7 +12,6 @@
     - python
     - git
     - mercurial
-    - boot2docker
     - docker
     - docker-machine
     - docker-compose
@@ -22,6 +21,9 @@
     - reattach-to-user-namespace
     - jq
     - git-lfs
+    - pinentry-mac
+    - gpg-agent
+    - gnupg2
   when: ansible_distribution == 'MacOSX'
   tags:
     - packages
@@ -80,6 +82,12 @@
 - name: install patched Inconsolata
   copy: dest="{{ ansible_env.HOME }}/Library/Fonts/Inconsolata for Powerline.otf" src="fonts/Inconsolata/Inconsolata for Powerline.otf"
   when: ansible_distribution == 'MacOSX'
+
+- name: gpg-agent.conf
+  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
+
+- name: gpg.conf
+  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg.conf" src=gpg.conf.j2
 
 - include: git.yml
   tags:

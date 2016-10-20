@@ -75,10 +75,24 @@ then
 fi
 
 XDG_VIMRC="${HOME}/.config/vim/vimrc"
-if  [ -f "$XDG_VIMRC" ]
+if [ -f "$XDG_VIMRC" ]
 then
 	export XDG_VIMRC
 	export VIMINIT='let $MYVIMRC="$XDG_VIMRC" | source $MYVIMRC'
+fi
+
+if command -v gpg-agent > /dev/null 2>&1; then
+	GPG_TTY=$(tty)
+	export GPG_TTY
+	if [ ! -f ~/.gnupg/.gpg-agent-info ]; then
+		# fire up gpg-agent and allow it to act as the ssh-agent
+		eval $(gpg-agent --daemon --enable-ssh-support --write-env-file ~/.gnupg/.gpg-agent-info)
+	else
+		# export gpg-agent's variables.
+		source ~/.gnupg/.gpg-agent-info
+		export GPG_AGENT_INFO
+		export SSH_AUTH_SOCK
+	fi
 fi
 
 # start the default tmux session if it doesn't already exist

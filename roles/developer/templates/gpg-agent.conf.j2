@@ -1,0 +1,7 @@
+# Enables GPG to find gpg-agent
+use-standard-socket
+
+{% if ansible_distribution == "MacOSX" %}
+# Use pinentry-mac as the PIN entry.
+pinentry-program /usr/local/bin/pinentry-mac
+{% endif %}

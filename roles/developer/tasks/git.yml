@@ -74,3 +74,5 @@
 - name: git config version.prereleaseSuffix -rc
   command: git config --global version.prereleaseSuffix -rc
 
+- name: git config gpg.program gpg2
+  command: git config --global gpg.program gpg2
