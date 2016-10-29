@@ -92,23 +92,9 @@
 - include: git.yml
   tags:
     - git
-# pip install awscli
-# git
-# mercurial
-# nodejs
-# boot2docker
-# bower
-# git config core.excludesfile
-# git core.excludesfile
-# ~/.bashrc
-# ~/.bash_profile
-# iTerm2
-# slack
 
 # nginx --with-debug
 # virtualbox
-# docker
-# ~/.gitignore
 # sourcetree
 # colloquy
 # hipchat
