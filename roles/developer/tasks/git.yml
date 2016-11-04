@@ -5,6 +5,9 @@
 - name: create global git ignore file
   copy: src=gitignore dest="{{ ansible_env.HOME }}/.config/git/ignore" force=yes backup=no
 
+- name: create global git attributes file
+  copy: src=gitattributes dest="{{ ansible_env.HOME }}/.config/git/attributes" force=yes backup=no
+
 - name: global git config file exists
   copy: content= dest="{{ ansible_env.HOME }}/.config/git/config" backup=yes force=no
 
@@ -76,3 +79,12 @@
 
 - name: git config gpg.program gpg2
   command: git config --global gpg.program gpg2
+
+- name: create $HOME/bin directory
+  file: dest="{{ ansible_env.HOME }}/bin" state=directory
+
+- name: create $HOME/bin/vault-diff.sh
+  copy: src=vault-diff.sh dest="{{ ansible_env.HOME }}/bin/vault-diff.sh" force=yes backup=no
+
+- name: git config diff.vault.command
+  command: git config --global diff.vault.command vault-diff.sh
