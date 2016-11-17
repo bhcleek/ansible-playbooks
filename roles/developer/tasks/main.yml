@@ -83,6 +83,10 @@
   copy: dest="{{ ansible_env.HOME }}/Library/Fonts/Inconsolata for Powerline.otf" src="fonts/Inconsolata/Inconsolata for Powerline.otf"
   when: ansible_distribution == 'MacOSX'
 
+- name: install go fonts
+  copy: dest="{{ ansible_env.HOME }}/Library/Fonts" src="fonts/go/"
+  when: ansible_distribution == 'MacOSX'
+
 - name: gpg-agent.conf
   template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
 
