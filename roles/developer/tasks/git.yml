@@ -52,11 +52,11 @@
 - name: git config push.default
   command: git config --global push.default simple
 
-- name: unset multi-value git config value, url.git@github.com:.insteadOf
-  command: git config --global --unset-all url.git@github.com:.insteadOf 
+- name: remove github.com insteadof section
+  command: "git config --global --remove-section url.git@github.com:"
   ignore_errors: yes # ignore any errors; when the option doesn't exist, git-config returns an error.
 
-- name: git config url insteadOf git://github.com/
+- name: git config url.git@github.com:insteadOf
   command: git config --global --add url.git@github.com:.insteadOf "{{ item }}"
   with_items:
     - git://github.com/
