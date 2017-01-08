@@ -1,3 +1,9 @@
+function _start_gpg_agent {
+	# fire up gpg-agent and allow it to act as the ssh-agent
+	gpg-agent --daemon --enable-ssh-support --write-env-file "${HOME}/.gnupg/.gpg-agent-info" > /dev/null 2>&1
+	source "${HOME}/.gnupg/.gpg-agent-info"
+}
+
 # set options
 # Use a vi-style line editing interface.  By default, Bash is in emacs mode;
 # Use vi mode instead.
@@ -11,7 +17,6 @@
 #if [ -f $(brew --prefix)/etc/bash_completion.d/go-completion.bash ]; then
 #	source $(brew --prefix)/etc/bash_completion.d/go-completion.bash
 #fi
-
 
 if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
 	source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
@@ -85,14 +90,18 @@ if command -v gpg-agent > /dev/null 2>&1; then
 	GPG_TTY=$(tty)
 	export GPG_TTY
 	if [ ! -f ~/.gnupg/.gpg-agent-info ]; then
-		# fire up gpg-agent and allow it to act as the ssh-agent
-		eval $(gpg-agent --daemon --enable-ssh-support --write-env-file ~/.gnupg/.gpg-agent-info)
+		_start_gpg_agent;
 	else
-		# export gpg-agent's variables.
 		source ~/.gnupg/.gpg-agent-info
-		export GPG_AGENT_INFO
-		export SSH_AUTH_SOCK
+		if ! kill -0 ${SSH_AGENT_PID} > /dev/null 2>&1; then
+			# gpg-agent not running, restarting
+			_start_gpg_agent;
+		fi
 	fi
+	# export gpg-agent's variables.
+	export GPG_AGENT_INFO
+	export SSH_AUTH_SOCK
+	export SSH_AGENT_PID
 fi
 
 # start the default tmux session if it doesn't already exist
