@@ -1,9 +1,58 @@
+function _config_vim {
+	XDG_VIMRC="${HOME}/.config/vim/vimrc"
+	if [ -f "$XDG_VIMRC" ]
+	then
+		export XDG_VIMRC
+		export VIMINIT='let $MYVIMRC="$XDG_VIMRC" | source $MYVIMRC'
+	fi
+}
+
 function _start_gpg_agent {
 	# fire up gpg-agent and allow it to act as the ssh-agent
 	gpg-agent --daemon --enable-ssh-support --write-env-file "${HOME}/.gnupg/.gpg-agent-info" > /dev/null 2>&1
 	source "${HOME}/.gnupg/.gpg-agent-info"
 }
 
+function _run_gpg_agent {
+	if command -v gpg-agent > /dev/null 2>&1; then
+		GPG_TTY=$(tty)
+		export GPG_TTY
+		if [ ! -f ~/.gnupg/.gpg-agent-info ]; then
+			_start_gpg_agent;
+		else
+			source ~/.gnupg/.gpg-agent-info
+			if ! kill -0 ${SSH_AGENT_PID} > /dev/null 2>&1; then
+				# gpg-agent not running, restarting
+				_start_gpg_agent;
+			fi
+		fi
+		# export gpg-agent's variables.
+		export GPG_AGENT_INFO
+		export SSH_AUTH_SOCK
+		export SSH_AGENT_PID
+	fi
+}
+
+function _run_tmux {
+	# start the default tmux session if it doesn't already exist
+	if command -v tmux &> /dev/null
+	then
+		if ! tmux has-session
+		then
+			tmux start-server
+			tmux new-session -s default -n dashboard -d
+			tmux split-window -h 'ulimit -n 4096 && godoc -http=:6060 -analysis=type,pointer -notes="BUG|TODO"'
+			tmux split-window -v
+			tmux select-pane -t 0
+			tmux select-layout main-vertical
+			if [ -d "$GOPATH/src/github.com" ]
+			then
+				tmux new-window -n workspace -c $GOPATH/src/github.com/
+			fi
+			exec tmux attach
+		fi
+	fi
+}
 # set options
 # Use a vi-style line editing interface.  By default, Bash is in emacs mode;
 # Use vi mode instead.
@@ -79,46 +128,6 @@ then
 	fi
 fi
 
-XDG_VIMRC="${HOME}/.config/vim/vimrc"
-if [ -f "$XDG_VIMRC" ]
-then
-	export XDG_VIMRC
-	export VIMINIT='let $MYVIMRC="$XDG_VIMRC" | source $MYVIMRC'
-fi
-
-if command -v gpg-agent > /dev/null 2>&1; then
-	GPG_TTY=$(tty)
-	export GPG_TTY
-	if [ ! -f ~/.gnupg/.gpg-agent-info ]; then
-		_start_gpg_agent;
-	else
-		source ~/.gnupg/.gpg-agent-info
-		if ! kill -0 ${SSH_AGENT_PID} > /dev/null 2>&1; then
-			# gpg-agent not running, restarting
-			_start_gpg_agent;
-		fi
-	fi
-	# export gpg-agent's variables.
-	export GPG_AGENT_INFO
-	export SSH_AUTH_SOCK
-	export SSH_AGENT_PID
-fi
-
-# start the default tmux session if it doesn't already exist
-if command -v tmux &> /dev/null
-then
-	if ! tmux has-session
-	then
-		tmux start-server
-		tmux new-session -s default -n dashboard -d
-		tmux split-window -h 'ulimit -n 4096 && godoc -http=:6060 -analysis=type,pointer -notes="BUG|TODO"'
-		tmux split-window -v
-		tmux select-pane -t 0
-		tmux select-layout main-vertical
-		if [ -d "$GOPATH/src/github.com" ]
-		then
-			tmux new-window -n workspace -c $GOPATH/src/github.com/
-		fi
-		exec tmux attach
-	fi
-fi
+_config_vim
+_run_gpg_agent
+_run_tmux
