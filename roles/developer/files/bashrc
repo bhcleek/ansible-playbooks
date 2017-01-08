@@ -49,7 +49,6 @@ function _run_tmux {
 			then
 				tmux new-window -n workspace -c $GOPATH/src/github.com/
 			fi
-			exec tmux attach
 		fi
 	fi
 }
