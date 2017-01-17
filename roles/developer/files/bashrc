@@ -15,6 +15,7 @@ function _start_gpg_agent {
 
 function _run_gpg_agent {
 	if command -v gpg-agent > /dev/null 2>&1; then
+		: ${ORIG_SSH_AUTH_SOCK:=${SSH_AUTH_SOCK}}
 		GPG_TTY=$(tty)
 		export GPG_TTY
 		if [ ! -f ~/.gnupg/.gpg-agent-info ]; then
@@ -26,6 +27,7 @@ function _run_gpg_agent {
 				_start_gpg_agent;
 			fi
 		fi
+		export ORIG_SSH_AUTH_SOCK
 		# export gpg-agent's variables.
 		export GPG_AGENT_INFO
 		export SSH_AUTH_SOCK
