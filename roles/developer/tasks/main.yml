@@ -12,9 +12,6 @@
     - python
     - git
     - mercurial
-    - docker
-    - docker-machine
-    - docker-compose
     - nodejs
     - dash
     - tmux
@@ -31,6 +28,7 @@
 - name: install packages
   homebrew_cask: name="{{ item }}" state=present
   with_items:
+    - docker
     - iterm2
     - slack
   tags:
