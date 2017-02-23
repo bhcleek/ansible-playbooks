@@ -95,6 +95,9 @@
   tags:
     - git
 
+- include: proto.yml
+  tags:
+    - proto
 # nginx --with-debug
 # virtualbox
 # sourcetree

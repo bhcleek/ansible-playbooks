@@ -1,0 +1,18 @@
+---
+- name: install proto
+  unarchive: src=protoc-3.2.0-osx-x86_64.zip dest=/usr/local
+  become: yes
+  when: ansible_system == 'Darwin'
+
+- name: install proto
+  unarchive: src=protoc-3.2.0-linux-x86_64.zip dest=/usr/local
+  become: yes
+  when: ansible_system == 'Linux'
+  
+- name: install Go protoc plugin
+  command: go get -u github.com/golang/protobuf/{{ item }}
+  environment:
+    GOPATH: "{{ansible_env.GOPATH}}"
+  with_items:
+    - proto
+    - protoc-gen-go
