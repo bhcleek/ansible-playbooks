@@ -1,0 +1,15 @@
+---
+- name: download go{{ golang_version }} archive
+  get_url: url=https://storage.googleapis.com/golang/{{ golang_pkg }}
+            sha256sum={{ golang_checksums[ansible_os_family] }}
+            dest=/tmp/{{ golang_pkg }}
+            timeout=600
+
+- name: remove go
+  file: path=/usr/local/go state=absent
+
+- name: unpack go{{ golang_version }} archive
+  unarchive: src=/tmp/{{ golang_pkg }} dest=/usr/local copy=no
+
+- name: remove go archive
+  file: path=/tmp/{{ golang_pkg }} state=absent

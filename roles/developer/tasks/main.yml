@@ -95,15 +95,19 @@
   tags:
     - git
 
+- include: golang.yml
+  tags:
+    - golang
+
 - include: proto.yml
   tags:
     - proto
-# nginx --with-debug
+
 # virtualbox
 # sourcetree
 # colloquy
 # hipchat
-# go
+
 # chrome
 # firefox
 # firebug
