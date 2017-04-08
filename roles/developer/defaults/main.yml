@@ -1,5 +1,5 @@
 ---
-golang_version: "1.8"
+golang_version: "1.8.1"
 golang_checksums:
   Darwin: "6fdc9f98b76a28655a8770a1fc8197acd8ef746dd4d8a60589ce19604ba2a120"
   Linux: "53ab94104ee3923e228a2cb2116e5e462ad3ebaeea06ff04463479d7f12d27ca"
