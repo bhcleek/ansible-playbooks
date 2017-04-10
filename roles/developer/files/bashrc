@@ -1,5 +1,3 @@
-GPG_AGENT_INFO=${HOME}/.gnupg/.gpg-agent-info
-
 function _config_vim {
 	XDG_VIMRC="${HOME}/.config/vim/vimrc"
 	if [ -f "$XDG_VIMRC" ]
@@ -10,30 +8,22 @@ function _config_vim {
 }
 
 function _start_gpg_agent {
-	# fire up gpg-agent and allow it to act as the ssh-agent
-	gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO}" > /dev/null 2>&1
-	source "${HOME}/.gnupg/.gpg-agent-info"
+	# fire up gpg-agent
+	gpgconf --launch gpg-agent > /dev/null 2>&1
 }
 
 function _run_gpg_agent {
 	if command -v gpg-agent > /dev/null 2>&1; then
 		: ${ORIG_SSH_AUTH_SOCK:=${SSH_AUTH_SOCK}}
+		: ${ORIG_SSH_AGENT_PID:=${SSH_AGENT_PID}}
 		GPG_TTY=$(tty)
 		export GPG_TTY
-		if [ ! -f "${GPG_AGENT_INFO}" ]; then
-			_start_gpg_agent;
-		else
-			source "${GPG_AGENT_INFO}"
-			if ! gpg-connect-agent /bye 2> /dev/null; then
-				# gpg-agent not running, restarting
-				_start_gpg_agent;
-			fi
-		fi
+		# make sure gpg-agent is running
+		gpgconf --launch gpg-agent > /dev/null
 		export ORIG_SSH_AUTH_SOCK
 		# export gpg-agent's variables.
-		export GPG_AGENT_INFO
-		export SSH_AUTH_SOCK
-		export SSH_AGENT_PID
+		export SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh
+		unset SSH_AGENT_PID
 	fi
 }
 
