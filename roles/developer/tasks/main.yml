@@ -97,10 +97,12 @@
 
 - include: golang.yml
   tags:
+    - packages
     - golang
 
 - include: proto.yml
   tags:
+    - packages
     - proto
 
 # virtualbox

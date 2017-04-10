@@ -19,5 +19,5 @@ if ! command -v brew > /dev/null 2>&1
 fi
 
 echo 'Running Ansible to configure Dev machine'
-ansible-playbook -i localhost.inv --ask-sudo-pass site.yml
+ansible-playbook -i localhost.inv --ask-become-pass site.yml
 

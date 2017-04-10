@@ -1,14 +1,17 @@
 ---
-- name: install proto
-  unarchive: src=protoc-3.2.0-osx-x86_64.zip dest=/usr/local
-  become: yes
-  when: ansible_system == 'Darwin'
+- name: check protoc
+  command: command -v protoc
+  ignore_errors: yes
+  register: protoc_check
 
-- name: install proto
-  unarchive: src=protoc-3.2.0-linux-x86_64.zip dest=/usr/local
-  become: yes
-  when: ansible_system == 'Linux'
-  
+- name: protoc version check
+  command: protoc --version
+  when: protoc_check.rc == 0
+  register: installed_protoc_version
+
+- include: install-proto.yml
+  when: protoc_check.rc != 0 or installed_protoc_version.stdout.find('libprotoc {{ protoc_version }}') != 0
+
 - name: install Go protoc plugin
   command: go get -u github.com/golang/protobuf/{{ item }}
   environment:

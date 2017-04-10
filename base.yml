@@ -2,9 +2,9 @@
 # file: base.yml
 - hosts: all
   tasks:
-    - group_by: key={{ ansible_distribution }}
+    - group_by: key=os_{{ ansible_distribution }}
 
-- hosts: MacOSX
+- hosts: os_MacOSX
   gather_facts: False
   tasks: 
     - name: install Homebrew
