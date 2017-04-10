@@ -35,7 +35,7 @@ function _run_tmux {
 		then
 			tmux start-server
 			tmux new-session -s default -n dashboard -d
-			tmux split-window -h 'ulimit -n 4096 && godoc -http=:6060 -analysis=type,pointer -notes="BUG|TODO"'
+			tmux split-window -h 'ulimit -n 4096 && godoc -http=:6060 -analysis=type -notes="BUG|TODO"'
 			tmux split-window -v
 			tmux select-pane -t 0
 			tmux select-layout main-vertical
