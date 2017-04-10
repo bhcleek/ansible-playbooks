@@ -41,7 +41,7 @@ function _run_tmux {
 	# start the default tmux session if it doesn't already exist
 	if command -v tmux &> /dev/null
 	then
-		if ! tmux has-session
+		if ! tmux has-session 2> /dev/null
 		then
 			tmux start-server
 			tmux new-session -s default -n dashboard -d
