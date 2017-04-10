@@ -11,5 +11,16 @@
 - name: unpack go{{ golang_version }} archive
   unarchive: src=/tmp/{{ golang_pkg }} dest=/usr/local copy=no
 
+- name: build go toolchain
+  command: go install std
+  environment:
+    GOOS: "{{ item | lower }}"
+    GOARCH: amd64
+    PATH: /usr/local/go/bin:{{ ansible_env.PATH }}
+  with_items:
+    - Linux
+    - Darwin
+  when: ansible_os_family != item
+
 - name: remove go archive
   file: path=/tmp/{{ golang_pkg }} state=absent

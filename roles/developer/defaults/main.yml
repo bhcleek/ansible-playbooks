@@ -1,6 +1,6 @@
 ---
 golang_version: "1.8.1"
 golang_checksums:
-  Darwin: "6fdc9f98b76a28655a8770a1fc8197acd8ef746dd4d8a60589ce19604ba2a120"
-  Linux: "53ab94104ee3923e228a2cb2116e5e462ad3ebaeea06ff04463479d7f12d27ca"
-golang_pkg: "go1.8.{{ ansible_os_family | lower }}-amd64.tar.gz"
+  Darwin: "25b026fe2f4de7c80b227f69588b06b93787f5b5f134fbf2d652926c08c04bcd"
+  Linux: "a579ab19d5237e263254f1eac5352efcf1d70b9dacadb6d6bb12b0911ede8994"
+golang_pkg: "go{{golang_version}}.{{ ansible_os_family | lower }}-amd64.tar.gz"

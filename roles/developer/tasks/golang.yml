@@ -15,14 +15,3 @@
 
 - include: install-go.yml
   when: golang_check.rc != 0 or installed_golang_version.stdout.find('go version go{{ golang_version }}') != 0
-
-- name: build go toolchain
-  command: go install std
-  environment:
-    GOOS: "{{ item | lower }}"
-    GOARCH: amd64
-    PATH: /usr/local/go/bin:{{ ansible_env.PATH }}
-  with_items:
-    - Linux
-    - Darwin
-  when: ansible_os_family != item
