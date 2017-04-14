@@ -9,6 +9,6 @@
         - always
 
   roles:
-    - common
     - developer
+    - gpg-user
 

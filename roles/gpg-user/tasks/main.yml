@@ -1,0 +1,36 @@
+---
+- name: install gpg
+  homebrew: name="{{ item }}" state=latest
+  with_items:
+    - pinentry-mac
+    - gpg-agent
+    - gnupg2
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - packages
+    - gnupg
+
+- name: gpg-agent.conf
+  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
+  tags:
+    - gnupg
+    - gpg
+    - gpg2
+    - conf
+
+- name: gpg.conf
+  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg.conf" src=gpg.conf.j2
+  tags:
+    - gnupg
+    - gpg
+    - gpg2
+    - conf
+
+- name: dirmngr.conf
+  template: dest="{{ ansible_env.HOME }}/.gnupg/dirmngr.conf" src=dirmngr.conf.j2
+  tags:
+    - gnupg
+    - gpg
+    - gpg2
+    - conf
+

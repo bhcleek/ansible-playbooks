@@ -18,9 +18,6 @@
     - reattach-to-user-namespace
     - jq
     - git-lfs
-    - pinentry-mac
-    - gpg-agent
-    - gnupg2
   when: ansible_distribution == 'MacOSX'
   tags:
     - packages
@@ -52,26 +49,40 @@
 
 - name: create tmux config directory
   file: dest="{{ ansible_env.HOME }}/.config/tmux" state=directory
+  tags:
+    - conf
 
 - name: tmux.conf
   copy: dest="{{ ansible_env.HOME }}/.tmux.conf" src=tmux.conf backup=yes
+  tags:
+    - conf
 
 - name: tmux config files
   copy: dest="{{ ansible_env.HOME }}/.config/tmux" src=tmux/ backup=yes
+  tags:
+    - conf
 
 - name: bashrc
   copy: dest="{{ ansible_env.HOME }}/.bashrc" src=bashrc backup=yes
+  tags:
+    - conf
 
 - name: bashrc-osx
   copy: dest="{{ ansible_env.HOME }}/.bashrc-osx" src=bashrc-osx backup=yes
   when: ansible_distribution == 'MacOSX'
+  tags:
+    - conf
 
 - name: bash_profile
   copy: dest="{{ ansible_env.HOME }}/.bash_profile" src=bash_profile backup=yes
+  tags:
+    - conf
 
 # https://docs.python.org/2/library/site.html
 - name: python site-packages directory
   file: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages" state=directory
+  tags:
+    - conf
 
 - name: python site-packages configuration
   copy: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages/homebrew.pth" src=homebrew.pth
@@ -85,15 +96,10 @@
   copy: dest="{{ ansible_env.HOME }}/Library/Fonts" src="fonts/go/"
   when: ansible_distribution == 'MacOSX'
 
-- name: gpg-agent.conf
-  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
-
-- name: gpg.conf
-  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg.conf" src=gpg.conf.j2
-
 - include: git.yml
   tags:
     - git
+    - conf
 
 - include: golang.yml
   tags:
