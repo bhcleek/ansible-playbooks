@@ -3,11 +3,6 @@
 - include: base.yml
 
 - hosts: localhost
-  pre_tasks:
-    - include_vars: os_{{ ansible_os_family }}.yml
-      tags:
-        - always
-
   roles:
     - developer
     - gpg-user

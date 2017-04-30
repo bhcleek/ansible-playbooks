@@ -3,6 +3,9 @@
 - hosts: all
   tasks:
     - group_by: key=os_{{ ansible_distribution }}
+    - group_by: key=os_{{ ansible_os_family }}
+  tags:
+    - always
 
 - hosts: os_MacOSX
   gather_facts: False
