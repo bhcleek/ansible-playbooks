@@ -1,0 +1,4 @@
+---
+protoc_os: linux
+npm_become: yes
+pip_become: yes

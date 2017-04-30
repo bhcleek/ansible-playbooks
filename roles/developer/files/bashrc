@@ -22,8 +22,9 @@ function _run_gpg_agent {
 		gpgconf --launch gpg-agent > /dev/null
 		export ORIG_SSH_AUTH_SOCK
 		# export gpg-agent's variables.
-		export SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh
+		export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 		unset SSH_AGENT_PID
+
 	fi
 }
 
@@ -60,16 +61,20 @@ function _run_tmux {
 #	source $(brew --prefix)/etc/bash_completion.d/go-completion.bash
 #fi
 
-if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
+if [ "$(uname -s)" = "Darwin" ] && command -v brew > /dev/null && [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
 	source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
 elif [ -f ~/.git-completion.bash ]; then
 	source ~/.git-completion.bash
+elif [ -f /usr/share/bash-completion/completions/git ]; then
+	source /usr/share/bash-completion/completions/git
 fi
 
-if [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
+if [ "$(uname -s)" = "Darwin" ] && command -v brew > /dev/null && [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
 	source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
 elif [ -f ~/.git-prompt.sh ]; then
 	source ~/.git-prompt.sh
+elif [ -f /etc/bash_completion.d/git-prompt ]; then
+	source /etc/bash_completion.d/git-prompt
 fi
 
 if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]

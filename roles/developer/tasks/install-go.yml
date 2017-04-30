@@ -1,15 +1,17 @@
 ---
 - name: download go{{ golang_version }} archive
   get_url: url=https://storage.googleapis.com/golang/{{ golang_pkg }}
-            sha256sum={{ golang_checksums[ansible_os_family] }}
+            sha256sum={{ golang_checksums[ansible_system] }}
             dest=/tmp/{{ golang_pkg }}
             timeout=600
 
 - name: remove go
   file: path=/usr/local/go state=absent
+  become: yes
 
 - name: unpack go{{ golang_version }} archive
   unarchive: src=/tmp/{{ golang_pkg }} dest=/usr/local copy=no
+  become: yes
 
 - name: build go toolchain
   command: go install std
@@ -20,7 +22,8 @@
   with_items:
     - Linux
     - Darwin
-  when: ansible_os_family != item
+  when: ansible_system != item
+  become: yes
 
 - name: remove go archive
   file: path=/tmp/{{ golang_pkg }} state=absent

@@ -1,6 +1,6 @@
 ---
 - name: check golang
-  command: command -v go
+  shell: command -v go
   environment:
     PATH: /usr/local/go/bin:{{ ansible_env.PATH }}
   ignore_errors: yes

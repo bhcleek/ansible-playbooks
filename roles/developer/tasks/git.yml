@@ -77,8 +77,8 @@
 - name: git config version.prereleaseSuffix -rc
   command: git config --global version.prereleaseSuffix -rc
 
-- name: git config gpg.program gpg2
-  command: git config --global gpg.program gpg2
+- name: git config gpg.program gpg
+  command: git config --global gpg.program gpg
 
 - name: create $HOME/bin directory
   file: dest="{{ ansible_env.HOME }}/bin" state=directory

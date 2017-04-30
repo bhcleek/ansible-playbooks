@@ -1,7 +1,7 @@
 ---
 - name: download protoc {{ protoc_version }} archive
   get_url: url=https://github.com/google/protobuf/releases/download/v{{ protoc_version }}/{{ protoc_pkg }}
-            sha256sum={{ protoc_checksums[ansible_os_family] }}
+            sha256sum={{ protoc_checksums[ansible_system] }}
             dest=/tmp/{{ protoc_pkg }}
             timeout=600
 
@@ -11,3 +11,11 @@
 
 - name: remove protoc archive
   file: path=/tmp/{{ protoc_pkg }} state=absent
+
+- name: set permissions on protoc
+  file: dest=/usr/local/bin/protoc mode=0755
+  become: yes
+
+- name: set permissions on /usr/local/include
+  file: dest=/usr/local/include mode=ugo+rX recurse=yes
+  become: yes

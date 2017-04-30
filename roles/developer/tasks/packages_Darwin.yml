@@ -1,0 +1,32 @@
+- name: add homebrew taps
+  homebrew_tap: tap="{{ item }}" state=present
+  when: ansible_distribution == 'MacOSX'
+  with_items:
+    - caskroom/cask
+
+- name: install packages
+  homebrew: name="{{ item }}" state=latest
+  with_items:
+    - vim
+    - python
+    - git
+    - mercurial
+    - nodejs
+    - dash
+    - tmux
+    - reattach-to-user-namespace
+    - jq
+    - git-lfs
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - packages
+
+- name: install packages
+  homebrew_cask: name="{{ item }}" state=present
+  with_items:
+    - docker
+    - iterm2
+    - slack
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - packages

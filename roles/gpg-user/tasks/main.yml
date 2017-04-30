@@ -10,6 +10,20 @@
     - packages
     - gnupg
 
+- name: install gpg
+  apt: name="{{ item }}" state=latest
+  when: ansible_os_family == 'Debian'
+  become: yes
+  with_items:
+    - pcsc-tools
+    - pcscd
+    - scdaemon
+    - gpg-agent
+    - gnupg
+  tags:
+    - packages
+    - gnupg
+
 - name: gpg-agent.conf
   template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
   tags:

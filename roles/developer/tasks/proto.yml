@@ -1,6 +1,6 @@
 ---
 - name: check protoc
-  command: command -v protoc
+  shell: command -v protoc
   ignore_errors: yes
   register: protoc_check
 
@@ -14,8 +14,8 @@
 
 - name: install Go protoc plugin
   command: go get -u github.com/golang/protobuf/{{ item }}
-  environment:
-    GOPATH: "{{ansible_env.GOPATH}}"
+  #environment:
+          # GOPATH: "{{ansible_env.GOPATH}}"
   with_items:
     - proto
     - protoc-gen-go

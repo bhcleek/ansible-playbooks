@@ -1,35 +1,8 @@
 ---
-- name: add homebrew taps
-  homebrew_tap: tap="{{ item }}" state=present
-  when: ansible_distribution == 'MacOSX'
-  with_items:
-    - caskroom/cask
 
-- name: install packages
-  homebrew: name="{{ item }}" state=latest
-  with_items:
-    - vim
-    - python
-    - git
-    - mercurial
-    - nodejs
-    - dash
-    - tmux
-    - reattach-to-user-namespace
-    - jq
-    - git-lfs
-  when: ansible_distribution == 'MacOSX'
-  tags:
-    - packages
+- include: packages_{{ ansible_os_family }}.yml
+  tags: packages
 
-- name: install packages
-  homebrew_cask: name="{{ item }}" state=present
-  with_items:
-    - docker
-    - iterm2
-    - slack
-  tags:
-    - packages
 
 - name: global npm packages
   npm: name="{{ item }}" global=true production=true state=latest
@@ -37,6 +10,7 @@
     - coffee-script
     - bower
     - grunt-cli
+  become: "{{ npm_become }}"
   tags:
     - packages
 
@@ -44,6 +18,7 @@
   pip: name="{{ item }}" state=latest
   with_items:
     - awscli
+  become: "{{ pip_become }}"
   tags:
     - packages
 
