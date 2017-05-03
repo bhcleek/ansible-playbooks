@@ -12,3 +12,4 @@ protoc_checksums:
   Darwin: 69fbd04599c53af7826f9a6cf2a34f15aec6e0800c24cd572f4f5ba9e156a2cb
 npm_become: no
 pip_become: no
+user_font_dir: "{{ ansible_env.HOME }}/.fonts"

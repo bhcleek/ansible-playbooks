@@ -1,2 +1,3 @@
 ---
 protoc_os: osx
+user_font_dir: "{{ ansible_env.HOME }}/Library/Fonts"
