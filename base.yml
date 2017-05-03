@@ -2,8 +2,7 @@
 # file: base.yml
 - hosts: all
   tasks:
-    - group_by: key=os_{{ ansible_distribution }}
-    - group_by: key=os_{{ ansible_os_family }}
+    - group_by: key=os_{{ ansible_system }}
   tags:
     - always
 
