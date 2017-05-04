@@ -112,13 +112,15 @@ if [ -d /usr/libexec/java_home ]
 then
 	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
-#export GOPATH=$HOME/develop/go
-GOPATH=$(go env GOPATH)
-
+#export GOPATH=$HOME/go
 : ${ORIG_PATH:=${PATH}}
 export ORIG_PATH
-export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:/usr/local/go/bin:/usr/local/bin:${ORIG_PATH}
-export CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/develop:${GOPATH//:/src:}/src
+export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
+
+GOPATH=$(go env GOPATH)
+
+export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:/usr/local/go/bin:${PATH}
+export CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
 
 if [ "$(uname)" == "Darwin" ]
 then

@@ -3,7 +3,6 @@
 - include: packages_{{ ansible_os_family }}.yml
   tags: packages
 
-
 - name: global npm packages
   npm: name="{{ item }}" global=true production=true state=latest
   with_items:
