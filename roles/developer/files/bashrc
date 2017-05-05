@@ -119,7 +119,7 @@ export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
 
 GOPATH=$(go env GOPATH)
 
-export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:/usr/local/go/bin:${PATH}
+export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:${PATH}
 export CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
 
 if [ "$(uname)" == "Darwin" ]
