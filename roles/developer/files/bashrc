@@ -124,9 +124,9 @@ export CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/gola
 
 if [ "$(uname)" == "Darwin" ]
 then
-	if [ -f "~/.bashrc-osx" ]
+	if [ -f "~/.config/bash/darwin" ]
 	then
-		source ~/.bashrc-osx
+		source ~/.config/bash/darwin
 	fi
 fi
 

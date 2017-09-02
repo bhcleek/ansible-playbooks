@@ -1,5 +1,4 @@
 ---
-
 - include: packages_{{ ansible_os_family }}.yml
   tags: packages
 
@@ -36,14 +35,20 @@
   tags:
     - conf
 
+- name: create bash config directory
+  file: dest="{{ ansible_env.HOME }}/.config/bash" state=directory
+  tags:
+    - conf
+
 - name: bashrc
   copy: dest="{{ ansible_env.HOME }}/.bashrc" src=bashrc backup=yes
   tags:
     - conf
 
-- name: bashrc-osx
-  copy: dest="{{ ansible_env.HOME }}/.bashrc-osx" src=bashrc-osx backup=yes
-  when: ansible_os_family == 'Darwin'
+- name: bashrc extensions
+  copy: dest="{{ ansible_env.HOME }}/.config/bash/{{item}}" src=bashrc.d/{{item}} backup=yes
+  items:
+    - darwin
   tags:
     - conf
 
