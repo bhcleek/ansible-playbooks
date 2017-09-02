@@ -14,7 +14,7 @@
     - packages
 
 - name: install pip packages
-  pip: name="{{ item }}" state=latest
+  pip: name="{{ item }}" state=latest extra_args=--user
   with_items:
     - awscli
   become: "{{ pip_become }}"
