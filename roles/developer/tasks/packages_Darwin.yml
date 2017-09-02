@@ -16,6 +16,9 @@
     - reattach-to-user-namespace
     - jq
     - git-lfs
+    - docker-machine
+    - docker-compose
+    - ctags
   tags:
     - packages
 
