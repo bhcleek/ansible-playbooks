@@ -1,6 +1,5 @@
 - name: add homebrew taps
   homebrew_tap: tap="{{ item }}" state=present
-  when: ansible_distribution == 'MacOSX'
   with_items:
     - caskroom/cask
 
@@ -17,7 +16,6 @@
     - reattach-to-user-namespace
     - jq
     - git-lfs
-  when: ansible_distribution == 'MacOSX'
   tags:
     - packages
 
@@ -27,6 +25,5 @@
     - docker
     - iterm2
     - slack
-  when: ansible_distribution == 'MacOSX'
   tags:
     - packages

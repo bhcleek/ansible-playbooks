@@ -35,7 +35,7 @@
   # Make git rebase work correctly on OSX. Thanks @jfrazelle and https://www.git-tower.com/blog/make-git-rebase-safe-on-osx
 - name: git config core.trustctime
   command: git config --global core.trustctime false
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_os_family == 'Darwin'
 
 - name: git config credential.helper
   command: git config --global credential.helper cache

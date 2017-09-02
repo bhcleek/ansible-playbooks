@@ -43,7 +43,7 @@
 
 - name: bashrc-osx
   copy: dest="{{ ansible_env.HOME }}/.bashrc-osx" src=bashrc-osx backup=yes
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_os_family == 'Darwin'
   tags:
     - conf
 
@@ -55,13 +55,13 @@
 # https://docs.python.org/2/library/site.html
 - name: python site-packages directory
   file: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages" state=directory
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_os_family == 'Darwin'
   tags:
     - conf
 
 - name: python site-packages configuration
   copy: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages/homebrew.pth" src=homebrew.pth
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_os_family == 'Darwin'
 
 - name: create user font directory
   file: dest="{{ user_font_dir }}" state=directory
