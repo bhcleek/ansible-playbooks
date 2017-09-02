@@ -24,6 +24,14 @@
     - packages
     - gnupg
 
+- name: create gnupg config directory
+  file: dest="{{ ansible_env.HOME }}/.gnupg" state=directory
+  tags:
+    - gnupg
+    - gpg
+    - gpg2
+    - conf
+
 - name: gpg-agent.conf
   template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
   tags:
