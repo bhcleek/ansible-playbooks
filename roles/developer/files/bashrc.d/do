@@ -1,0 +1,3 @@
+function kubectl () {
+	$HOME/src/do/k8s/bin/docker-env kubectl $@
+}

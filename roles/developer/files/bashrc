@@ -112,7 +112,7 @@ if [ -d /usr/libexec/java_home ]
 then
 	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
-#export GOPATH=$HOME/go
+
 : ${ORIG_PATH:=${PATH}}
 export ORIG_PATH
 export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
@@ -122,12 +122,16 @@ GOPATH=$(go env GOPATH)
 export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:${PATH}
 export CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
 
-if [ "$(uname)" == "Darwin" ]
+
+for FILE in $(find $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -not -name 'os_*')
+do
+	source "$FILE"
+done
+
+
+if [ -f "$HOME/.config/bash/os_$(uname -s)" ]
 then
-	if [ -f "~/.config/bash/darwin" ]
-	then
-		source ~/.config/bash/darwin
-	fi
+	source "$FILE"
 fi
 
 _config_vim

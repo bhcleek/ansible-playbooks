@@ -46,9 +46,7 @@
     - conf
 
 - name: bashrc extensions
-  copy: dest="{{ ansible_env.HOME }}/.config/bash/{{item}}" src=bashrc.d/{{item}} backup=yes
-  items:
-    - darwin
+  copy: dest="{{ ansible_env.HOME }}/.config/bash" src=bashrc.d/ backup=yes
   tags:
     - conf
 
