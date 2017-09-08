@@ -14,4 +14,4 @@
   register: installed_golang_version
 
 - include: install-go.yml
-  when: golang_check.rc != 0 or installed_golang_version.stdout.find('go version go{{ golang_version }}') != 0
+  when: golang_check.rc != 0 or installed_golang_version.stdout.find('go version go' + golang_version) != 0
