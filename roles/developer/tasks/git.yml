@@ -11,6 +11,12 @@
 - name: global git config file exists
   copy: content= dest="{{ ansible_env.HOME }}/.config/git/config" backup=yes force=no
 
+- name: git config user.name
+  command: git config --global user.name "Billie Cleek"
+
+- name: git config user.email
+  command: git config --global user.email "bhcleek@gmail.com"
+
 - name: git config core.editor
   command: git config --global core.editor vim
 
@@ -88,3 +94,11 @@
 
 - name: git config diff.vault.command
   command: git config --global diff.vault.command vault-diff.sh
+
+- name: git config workspace e-mail
+  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ item.name }}.inc" user.email {{ item.email }}
+  with_items: "{{ workspaces }}"
+
+- name: git config includeIf workspace
+  command: git config --global --replace-all includeIf."gitdir:{{ item.gitdir }}".path {{ item.name }}.inc
+  with_items: "{{ workspaces }}"

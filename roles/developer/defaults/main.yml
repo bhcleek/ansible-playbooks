@@ -13,3 +13,8 @@ protoc_checksums:
 npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_env.HOME }}/.fonts"
+
+workspaces:
+  - name: do
+    gitdir: "~/src/do/"
+    email: bcleek@digitalocean.com
