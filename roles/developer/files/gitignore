@@ -28,3 +28,6 @@ Session.vim
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# direnv files
+.envrc

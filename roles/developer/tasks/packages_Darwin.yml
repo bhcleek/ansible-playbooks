@@ -19,6 +19,7 @@
     - docker-machine
     - docker-compose
     - ctags
+    - direnv
   tags:
     - packages
 

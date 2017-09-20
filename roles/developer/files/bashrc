@@ -134,6 +134,8 @@ then
 	source "$FILE"
 fi
 
+eval "$(direnv hook bash)"
+
 _config_vim
 _run_gpg_agent
 _run_tmux
