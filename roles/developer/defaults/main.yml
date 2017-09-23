@@ -18,3 +18,9 @@ workspaces:
   - name: do
     gitdir: "~/src/do/"
     email: bcleek@digitalocean.com
+    insteadOf:
+      base: "git@github.internal.digitalocean.com:"
+      urls:
+        - git://github.internal.digitalocean.com/
+        - "ghe:"
+        - https://github.internal.digitalocean.com/
