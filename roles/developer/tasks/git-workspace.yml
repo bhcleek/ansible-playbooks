@@ -1,0 +1,23 @@
+---
+- name: git config workspace e-mail
+  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" user.email {{ workspace.email }}
+
+# keep the creation of new insteadOf entries from adding a whole new section
+# (see: https://stackoverflow.com/questions/15935624/how-do-i-avoid-empty-sections-when-removing-a-setting-from-git-config)
+- name: keep url section
+  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" "url.{{ item.base }}.placeholder" placeholder
+  with_items: "{{ workspace.insteadOfs }}"
+
+- name: remove workspace insteadOf values
+  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" --unset-all "url.{{ item.base }}.insteadOf"
+  with_items: "{{ workspace.insteadOfs }}"
+  ignore_errors: yes # ignore any errors; when the option doesn't exist, git-config returns an error.
+
+- name: git config workspace insteadOf
+  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" --add url.{{ item.0.base }}.insteadOf "{{ item.1 }}"
+  with_subelements:
+    - "{{ workspace.insteadOfs }}"
+    - urls
+
+- name: git config includeIf workspace
+  command: git config --global --replace-all includeIf."gitdir:{{ workspace.gitdir }}".path {{ workspace.name }}.inc

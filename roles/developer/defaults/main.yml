@@ -14,13 +14,20 @@ npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_env.HOME }}/.fonts"
 
+insteadOfs:
+  - base: "git@github.com:"
+    urls:
+      - git://github.com/
+      - "github:"
+      - https://github.com/
+
 workspaces:
   - name: do
     gitdir: "~/src/do/"
     email: bcleek@digitalocean.com
-    insteadOf:
-      base: "git@github.internal.digitalocean.com:"
-      urls:
-        - git://github.internal.digitalocean.com/
-        - "ghe:"
-        - https://github.internal.digitalocean.com/
+    insteadOfs:
+      - base: "git@github.internal.digitalocean.com:"
+        urls:
+          - git://github.internal.digitalocean.com/
+          - "ghe:"
+          - https://github.internal.digitalocean.com/

@@ -58,21 +58,19 @@
 - name: git config push.default
   command: git config --global push.default simple
 
-- name: remove insteadOf section
-  command: git config --global --remove-section "url.{{ item }}"
-  items:
-    - "git@github.com:"
+# keep the creation of new insteadOf entries from adding a whole new section
+# (see: https://stackoverflow.com/questions/15935624/how-do-i-avoid-empty-sections-when-removing-a-setting-from-git-config)
+- name: keep url section
+  command: git config --global "url.{{ item.base }}.placeholder" placeholder
+  with_items: "{{ insteadOfs }}"
+
+- name: remove insteadOf values
+  command: git config --global --unset-all "url.{{ item.base }}.insteadOf"
+  with_items: "{{ insteadOfs }}"
   ignore_errors: yes # ignore any errors; when the option doesn't exist, git-config returns an error.
 
 - name: git config insteadOf
   command: git config --global --add url.{{ item.0.base }}.insteadOf "{{ item.1 }}"
-  vars:
-    - insteadOfs:
-      - base: "git@github.com:"
-        urls:
-          - git://github.com/
-          - "github:"
-          - https://github.com/
   with_subelements:
     - "{{ insteadOfs }}"
     - urls
@@ -104,21 +102,8 @@
 - name: git config diff.vault.command
   command: git config --global diff.vault.command vault-diff.sh
 
-- name: git config workspace e-mail
-  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ item.name }}.inc" user.email {{ item.email }}
+# TODO(bc): replace include with include_tasks in Ansible 2.4
+- include: git-workspace.yml
   with_items: "{{ workspaces }}"
-
-- name: remove insteadOf section
-  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ item.name }}.inc" --remove-section "url.{{ item.insteadOf.base }}"
-  with_items: "{{ workspaces }}"
-  ignore_errors: yes # ignore any errors; when the option doesn't exist, git-config returns an error.
-
-- name: git config workspace insteadOf
-  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ item.0.name }}.inc" --add url.{{ item.0.insteadOf.base }}.insteadOf "{{ item.1 }}"
-  with_subelements:
-    - "{{ workspaces }}"
-    - insteadOf.urls
-
-- name: git config includeIf workspace
-  command: git config --global --replace-all includeIf."gitdir:{{ item.gitdir }}".path {{ item.name }}.inc
-  with_items: "{{ workspaces }}"
+  loop_control:
+    loop_var: workspace
