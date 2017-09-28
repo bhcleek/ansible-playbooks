@@ -29,6 +29,9 @@
 - name: git config alias.doglog
   command: git config --global alias.doglog 'log --decorate --oneline --graph'
 
+- name: git config alias.br
+  command: git config --global alias.br "for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+
 - name: git config alias.serve
   command: git config --global alias.serve 'daemon --reuseaddr --verbose --base-path=. --export-all ./.git'
 
