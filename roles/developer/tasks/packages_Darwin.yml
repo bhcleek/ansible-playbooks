@@ -7,15 +7,16 @@
   homebrew: name="{{ item }}" state=latest
   with_items:
     - vim
-    - python
+    - tmux
     - git
+    - git-lfs
+    - git-crypt
     - mercurial
+    - python
     - nodejs
     - dash
-    - tmux
     - reattach-to-user-namespace
     - jq
-    - git-lfs
     - docker-machine
     - docker-compose
     - ctags
