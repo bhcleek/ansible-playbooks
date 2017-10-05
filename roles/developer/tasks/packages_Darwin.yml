@@ -21,6 +21,7 @@
     - docker-compose
     - ctags
     - direnv
+    - tree
   tags:
     - packages
 
