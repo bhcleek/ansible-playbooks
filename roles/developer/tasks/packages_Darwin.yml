@@ -23,6 +23,7 @@
     - direnv
     - tree
     - ffmpeg
+    - graphviz
   tags:
     - packages
 
