@@ -31,3 +31,4 @@ workspaces:
           - git://github.internal.digitalocean.com/
           - "ghe:"
           - https://github.internal.digitalocean.com/
+          - http://github.internal.digitalocean.com/
