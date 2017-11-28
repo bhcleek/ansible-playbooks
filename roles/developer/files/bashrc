@@ -90,15 +90,14 @@ then
 fi
 
 export HISTTIMEFORMAT='%F %T '
-export HISTFILESIZE=                               # allow ~/.bash_history to grow without bound
-export HISTSIZE=                                   # keep all commands in history
-export HISTCONTROL=ignoreboth                      # store neither commands that begin with a space nor more than one copy of repeated commands
-export HISTIGNORE=?:??                             # ignore one and two letter commands
-shopt -s histappend                                # append to history, don't overwrite it
-export PROMPT_COMMAND="history -a;$PROMPT_COMMAND" # append to history at each shell prompt
+export HISTFILESIZE=               # allow ~/.bash_history to grow without bound
+export HISTSIZE=                   # keep all commands in history
+export HISTCONTROL=ignoreboth      # store neither commands that begin with a space nor more than one copy of repeated commands
+export HISTIGNORE=?:??             # ignore one and two letter commands
+shopt -s histappend                # append to history, don't overwrite it
+export PROMPT_COMMAND="history -a" # append to history at each shell prompt
 
-#export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-export PROMPT_COMMAND='history -a;__git_ps1 "\u@\h:\w" "\\\$ "'
+export PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─ "'
 export CLICOLOR=1
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
