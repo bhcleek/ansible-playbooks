@@ -97,7 +97,8 @@ export HISTIGNORE=?:??             # ignore one and two letter commands
 shopt -s histappend                # append to history, don't overwrite it
 export PROMPT_COMMAND="history -a" # append to history at each shell prompt
 
-export PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─ "'
+# the right pointing brackets are U+276F
+export PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[92;1m\]❯❯❯\[\e[0m\] "'
 export CLICOLOR=1
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
