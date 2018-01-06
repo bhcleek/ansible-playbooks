@@ -13,6 +13,12 @@ protoc_checksums:
 npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_env.HOME }}/.fonts"
+gcloud_install_path: "{{ ansible_env.HOME }}"
+gcloud_version: "183.0.0"
+gcloud_checksums:
+  Darwin: "sha256:605332cb305a04d377572d61063db88433862521f1aa4887d3b3fbfaaf1519a2"
+  Linux: "sha256:6e5c76999ff3f14621d26e3c76967dc4c43613344947ab42fcc764311642c898"
+gcloud_pkg: "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_system | lower }}-x86_64.tar.gz"
 
 insteadOfs:
   - base: "git@github.com:"

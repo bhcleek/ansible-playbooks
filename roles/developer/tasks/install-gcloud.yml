@@ -1,0 +1,24 @@
+---
+- name: download gcloud {{ gcloud_version }} archive
+  get_url: url=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_pkg }}
+            checksum={{ gcloud_checksums[ansible_system] }}
+            dest=/tmp/{{ gcloud_pkg }}
+            timeout=600
+
+#- name: remove gcloud archive directory
+#  file: path=/{{ gcloud_install_path }}/google-cloud-sdk state=absent
+#  become: no
+
+- name: unpack gcloud {{ gcloud_version }} archive
+  unarchive: src=/tmp/{{ gcloud_pkg }} dest={{ ansible_env.HOME }} copy=no
+  become: no
+
+- name: install gcloud
+  shell: "{{ gcloud_install_path }}/google-cloud-sdk/install.sh --quiet"
+  environment:
+    PATH: "{{ gcloud_install_path }}/google-cloud-sdk/bin:{{ ansible_env.PATH }}"
+  become: no
+
+- name: remove gcloud archive
+  file: path=/tmp/{{ gcloud_pkg }} state=absent
+  become: no

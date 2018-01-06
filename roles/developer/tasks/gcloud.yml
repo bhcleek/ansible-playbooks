@@ -1,0 +1,14 @@
+---
+- name: check gcloud
+  shell: command -v gcloud
+  ignore_errors: yes
+  register: gcloud_check
+
+- name: gcloud version check
+  command: gcloud version
+  environment:
+  when: gcloud_check.rc == 0
+  register: installed_gcloud_version
+
+- include: install-gcloud.yml
+  when: gcloud_check.rc != 0 or installed_gcloud_version.stdout.find('Google Cloud SDK ' + gcloud_version) != 0

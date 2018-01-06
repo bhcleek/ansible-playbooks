@@ -92,13 +92,14 @@
     - packages
     - proto
 
-# virtualbox
+- include: gcloud.yml
+  tags:
+    - packages
+    - gcloud
+
 # sourcetree
-# colloquy
-# hipchat
 
 # chrome
 # firefox
 # firebug
 # balsamiq
-# IntelliJ
