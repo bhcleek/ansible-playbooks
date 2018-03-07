@@ -24,6 +24,7 @@
     - tree
     - ffmpeg
     - graphviz
+    - parallel
   tags:
     - packages
 
