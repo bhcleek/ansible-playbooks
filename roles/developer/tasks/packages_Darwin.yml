@@ -1,3 +1,4 @@
+---
 - name: add homebrew taps
   homebrew_tap: tap="{{ item }}" state=present
   with_items:
@@ -34,5 +35,19 @@
     - docker
     - iterm2
     - slack
+    - minikube
   tags:
     - packages
+
+- name: install hyperkit
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit
+    dest: /usr/local/bin/docker-machine-driver-hyperkit
+    checksum: sha256:8503151b9d3572a994aa3463f55c01e6f5f635aea6f90438aae040d177a24f57
+  tags:
+    - packages
+
+# it shouldn't be necessary to do this, but the mode doesn't get set correctly when attempting to use the mode on the get_url task.
+- name: set hyperkit perms
+  file: path=/usr/local/bin/docker-machine-driver-hyperkit mode=4755 owner=root group=admin
+  become: true
