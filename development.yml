@@ -1,6 +1,6 @@
 ---
 # file: developer.yml
-- include: base.yml
+- import_playbook: base.yml
 
 - hosts: localhost
   roles:

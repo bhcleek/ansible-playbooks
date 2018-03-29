@@ -1,4 +1,4 @@
 ---
 # file: site.yml
-- include: base.yml
-- include: development.yml
+- import_playbook: base.yml
+- import_playbook: development.yml

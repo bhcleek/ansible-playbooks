@@ -77,22 +77,22 @@
 - name: install go fonts
   copy: dest="{{ user_font_dir }}" src="fonts/go/"
 
-- include: git.yml
+- import_tasks: git.yml
   tags:
     - git
     - conf
 
-- include: golang.yml
+- import_tasks: golang.yml
   tags:
     - packages
     - golang
 
-- include: proto.yml
+- import_tasks: proto.yml
   tags:
     - packages
     - proto
 
-- include: gcloud.yml
+- import_tasks: gcloud.yml
   tags:
     - packages
     - gcloud
