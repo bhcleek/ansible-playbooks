@@ -6,7 +6,7 @@
   tags:
     - always
 
-- hosts: os_MacOSX
+- hosts: os_Darwin
   gather_facts: False
   tasks: 
     - name: install Homebrew
