@@ -38,6 +38,9 @@
 - name: git config alias.pr (thanks @jessfraz!)
   raw: git config --global alias.pr '!pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr'
 
+- name: git config alias.prlog
+  raw: git config --global alias.prlog 'log --format="format:%B" --reverse origin/master...'
+
 - name: git config apply.whitepace
   command: git config --global apply.whitespace fix
 
