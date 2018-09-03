@@ -20,6 +20,25 @@
   tags:
     - packages
 
+- name: create $HOME bin directory
+  file: dest="{{ ansible_env.HOME }}/bin" state=directory
+  tags:
+    - packages
+
+- name: install $HOME/bin/color-test
+  copy: dest="{{ ansible_env.HOME }}/bin/color-test" src=color-test backup=no mode=0755
+  tags:
+    - packages
+    - homebin
+    - bin
+
+- name: install $HOME/bin/color-gradient
+  copy: dest="{{ ansible_env.HOME }}/bin/color-gradient" src=color-gradient backup=no mode=0755
+  tags:
+    - packages
+    - homebin
+    - bin
+
 - name: create tmux config directory
   file: dest="{{ ansible_env.HOME }}/.config/tmux" state=directory
   tags:
