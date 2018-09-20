@@ -121,6 +121,7 @@ export ORIG_PATH
 export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
 
 GOPATH=$(go env GOPATH)
+export GOBIN=${GOPATH%%:*}/bin
 
 export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:${PATH}
 CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
