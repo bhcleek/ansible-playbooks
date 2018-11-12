@@ -89,6 +89,11 @@ then
 	source "$HOME/google-cloud-sdk/completion.bash.inc"
 fi
 
+if [ -f ~/.fzf.bash ]
+then
+	source ~/.fzf.bash
+fi
+
 export HISTTIMEFORMAT='%F %T '
 export HISTFILESIZE=               # allow ~/.bash_history to grow without bound
 export HISTSIZE=                   # keep all commands in history
