@@ -27,6 +27,7 @@
     - graphviz
     - parallel
     - wireshark
+    - fzf
   tags:
     - packages
 
