@@ -26,6 +26,7 @@
     - ffmpeg
     - graphviz
     - parallel
+    - wireshark
   tags:
     - packages
 
@@ -36,6 +37,7 @@
     - iterm2
     - slack
     - minikube
+    - wireshark
   tags:
     - packages
 
