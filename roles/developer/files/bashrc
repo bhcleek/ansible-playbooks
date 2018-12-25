@@ -111,6 +111,7 @@ export GIT_PS1_SHOWSTASHSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWUPSTREAM=auto
 
+export FZF_DEFAULT_OPTS='--height 25% --reverse --border'
 export VISUAL=vim
 export EDITOR=vim
 
