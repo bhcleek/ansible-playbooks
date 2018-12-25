@@ -35,7 +35,7 @@
     - python
     - python-pip
     - git
-      #   - git-lfs 
+#   - git-lfs
     - mercurial
     - nodejs
     - npm
@@ -49,6 +49,7 @@
     - ffmpeg
     - graphviz
     - parallel
+    - silversearcher-ag
   tags:
     - packages
 
