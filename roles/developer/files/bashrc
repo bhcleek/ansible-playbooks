@@ -89,9 +89,9 @@ then
 	source "$HOME/google-cloud-sdk/completion.bash.inc"
 fi
 
-if [ -f ~/.fzf.bash ]
+if [ -f ~/.config/bash/fzf.bash ]
 then
-	source ~/.fzf.bash
+	source ~/.config/bash/fzf.bash
 fi
 
 export HISTTIMEFORMAT='%F %T '
