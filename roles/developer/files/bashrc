@@ -94,16 +94,17 @@ then
 	source ~/.config/bash/fzf.bash
 fi
 
-export HISTTIMEFORMAT='%F %T '
-export HISTFILESIZE=               # allow ~/.bash_history to grow without bound
-export HISTSIZE=                   # keep all commands in history
-export HISTCONTROL=ignoreboth      # store neither commands that begin with a space nor more than one copy of repeated commands
-export HISTIGNORE=?:??             # ignore one and two letter commands
+HISTTIMEFORMAT='%F %T '
+HISTFILESIZE=               # allow ~/.bash_history to grow without bound
+HISTSIZE=                   # keep all commands in history
+HISTCONTROL=ignoreboth      # store neither commands that begin with a space nor more than one copy of repeated commands
+HISTIGNORE=?:??             # ignore one and two letter commands
 shopt -s histappend                # append to history, don't overwrite it
-export PROMPT_COMMAND="history -a" # append to history at each shell prompt
+PROMPT_COMMAND="history -a" # append to history at each shell prompt
 
 # the right pointing brackets are U+276F
-export PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
+PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
+
 export CLICOLOR=1
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
