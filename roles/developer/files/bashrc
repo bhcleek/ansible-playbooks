@@ -139,6 +139,7 @@ export GOBIN=${GOPATH%%:*}/bin
 export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:${PATH}
 CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
 
+export GOPRIVATE=*.internal.digitalocean.com,github.com/digitalocean
 
 for FILE in $(find $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -not -name 'os_*')
 do
