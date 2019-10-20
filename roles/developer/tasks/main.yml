@@ -16,6 +16,7 @@
   pip: name="{{ item }}" state=latest extra_args=--user
   with_items:
     - awscli
+    - neovim
   become: "{{ pip_become }}"
   tags:
     - packages
