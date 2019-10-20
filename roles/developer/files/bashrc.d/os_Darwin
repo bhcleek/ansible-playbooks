@@ -1,4 +1,4 @@
-export PATH=$PATH:~/Library/Python/2.7/bin
+export PATH=$PATH:~/Library/Python/3.6/bin
 
 launchctl setenv PATH "${PATH}"
 

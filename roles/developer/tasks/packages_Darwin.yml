@@ -14,6 +14,7 @@
     - git-crypt
     - mercurial
     - python
+    - python3
     - nodejs
     - dash
     - reattach-to-user-namespace
@@ -33,7 +34,7 @@
     - packages
 
 - name: install packages
-  homebrew_cask: name="{{ item }}" state=present
+  homebrew_cask: name="{{ item }}" state=present upgrade=true
   with_items:
     - docker
     - iterm2

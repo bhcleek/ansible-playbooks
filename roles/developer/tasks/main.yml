@@ -19,6 +19,7 @@
   become: "{{ pip_become }}"
   tags:
     - packages
+    - python
 
 - name: create $HOME bin directory
   file: dest="{{ ansible_env.HOME }}/bin" state=directory
@@ -74,16 +75,27 @@
   tags:
     - conf
 
-# https://docs.python.org/2/library/site.html
+# https://docs.python.org/3.6/library/site.html
+# https://docs.python.org/2.7/library/site.html
 - name: python site-packages directory
-  file: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages" state=directory
+  file: dest="{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages" state=directory
   when: ansible_os_family == 'Darwin'
+  loop:
+    - '2.7'
+    - '3.6'
   tags:
     - conf
+    - python
 
 - name: python site-packages configuration
-  copy: dest="{{ ansible_env.HOME }}/Library/Python/2.7/lib/python/site-packages/homebrew.pth" src=homebrew.pth
+  copy: dest="{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth" src=homebrew.pth
   when: ansible_os_family == 'Darwin'
+  loop:
+    - '2.7'
+    - '3.6'
+  tags:
+    - conf
+    - python
 
 - name: create user font directory
   file: dest="{{ user_font_dir }}" state=directory
