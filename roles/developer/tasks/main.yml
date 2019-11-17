@@ -41,6 +41,13 @@
     - homebin
     - bin
 
+- name: install $HOME/bin/mov2gif
+  copy: dest="{{ ansible_env.HOME }}/bin/mov2gif" src=mov2gif backup=no mode=0755
+  tags:
+    - packages
+    - homebin
+    - bin
+
 - name: create tmux config directory
   file: dest="{{ ansible_env.HOME }}/.config/tmux" state=directory
   tags:

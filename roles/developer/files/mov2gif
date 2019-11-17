@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o unset
+
+if [ -z "$1" ]
+then
+	printf "no input file\n" >&2
+	printf "usage:\n" >&2
+	printf "\t%s FILE\n" $BASH_SOURCE[0]  >&2
+fi
+
+RECORDING=$1
+shift 1
+
+OUTPUT="$(mktemp -d)/recording.gif
+
+ffmpeg -i $RECORDING -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=12 > $OUTPUT
+printf "$OUTPUT\n" >&2
