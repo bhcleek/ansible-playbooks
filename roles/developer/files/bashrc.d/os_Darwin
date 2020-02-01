@@ -1,5 +1,7 @@
 export PATH=$PATH:~/Library/Python/3.6/bin
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 launchctl setenv PATH "${PATH}"
 
 if [[ -n "${GOPATH}" ]]
