@@ -91,16 +91,18 @@
   loop:
     - '2.7'
     - '3.6'
+    - '3.7'
   tags:
     - conf
     - python
 
 - name: python site-packages configuration
-  copy: dest="{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth" src=homebrew.pth
+  template: dest="{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth" src=homebrew.pth
   when: ansible_os_family == 'Darwin'
   loop:
     - '2.7'
     - '3.6'
+    - '3.7'
   tags:
     - conf
     - python

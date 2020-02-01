@@ -1,1 +1,1 @@
-/usr/local/lib/python2.7/site-packages
+/usr/local/lib/python{{item}}/site-packages
