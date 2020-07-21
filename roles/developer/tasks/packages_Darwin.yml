@@ -1,35 +1,31 @@
 ---
-- name: add homebrew taps
-  homebrew_tap: tap="{{ item }}" state=present
-  with_items:
-    - caskroom/cask
-
 - name: install packages
-  homebrew: name="{{ item }}" state=latest
-  with_items:
-    - vim
-    - tmux
-    - git
-    - git-lfs
-    - git-crypt
-    - mercurial
-    - python
-    - python3
-    - nodejs
-    - dash
-    - reattach-to-user-namespace
-    - jq
-    - docker-machine
-    - docker-compose
-    - ctags
-    - direnv
-    - tree
-    - ffmpeg
-    - graphviz
-    - parallel
-    - wireshark
-    - fzf
-    - the_silver_searcher
+  homebrew:
+    state: latest
+    name:
+      - vim
+      - tmux
+      - git
+      - git-lfs
+      - git-crypt
+      - mercurial
+      - python
+      - python3
+      - nodejs
+      - dash
+      - reattach-to-user-namespace
+      - jq
+      - docker-machine
+      - docker-compose
+      - ctags
+      - direnv
+      - tree
+      - ffmpeg
+      - graphviz
+      - parallel
+      - wireshark
+      - fzf
+      - the_silver_searcher
   tags:
     - packages
 
