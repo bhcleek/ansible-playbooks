@@ -44,6 +44,7 @@ function _run_tmux {
 			then
 				tmux new-window -n workspace -c $GOPATH/src/github.com/
 			fi
+			tmux new-window -n vim-go -c $HOME/src/vim-go
 		fi
 	fi
 }
