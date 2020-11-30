@@ -26,6 +26,7 @@
       - wireshark
       - fzf
       - the_silver_searcher
+      - coreutils
   tags:
     - packages
 
