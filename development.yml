@@ -2,7 +2,8 @@
 # file: developer.yml
 - import_playbook: base.yml
 
-- hosts: localhost
+- hosts:
+  - localhost
   roles:
     - developer
     - gpg-user

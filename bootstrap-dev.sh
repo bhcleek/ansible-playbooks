@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-set -e
+set -eu
 
-echo 'Installing Ansible'
+printf "Installing Ansible\n" >&2
 
 # prefer pip for installing python packages over the older easy_install
 #
@@ -20,6 +20,6 @@ then
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-echo 'Running Ansible to configure Dev machine'
-ansible-playbook -i localhost.inv --ask-become-pass site.yml
+printf "Running Ansible to configure Dev machine\n" >&2
+ansible-playbook -i localhost.inv --ask-become-pass development.yml
 

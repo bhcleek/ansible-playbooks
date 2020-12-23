@@ -1,4 +1,5 @@
 ---
 # file: site.yml
 - import_playbook: base.yml
-- import_playbook: development.yml
+
+- hosts:
