@@ -102,14 +102,8 @@
 - name: git config gpg.program gpg
   command: git config --global gpg.program gpg
 
-- name: create $HOME/bin directory
-  file: dest="{{ ansible_env.HOME }}/bin" state=directory
-
-- name: create $HOME/bin/vault-diff.sh
-  copy: src=vault-diff.sh dest="{{ ansible_env.HOME }}/bin/vault-diff.sh" force=yes backup=no
-
 - name: git config diff.vault.command
-  command: git config --global diff.vault.command vault-diff.sh
+  command: git config --global diff.vault.textconv "ansible-vault view"
 
 # TODO(bc): replace include with include_tasks in Ansible 2.4
 - include: git-workspace.yml
