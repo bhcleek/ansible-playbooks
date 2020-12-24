@@ -1,9 +1,19 @@
 ---
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname_short }}"
+  when: ansible_hostname == 'raspberrypi'
+
+- name: update hosts
+  replace:
+    path: /etc/hosts
+    regexp: '\braspberrypi\b'
+    replace: "{{ inventory_hostname_short }}"
+
 ########################################################################
 # apply best security tips from
 # https://www.raspberrypi.org/documentation/configuration/security.md
 ########################################################################
-
 - name: Update apt packages list
   apt:
     upgrade: no
