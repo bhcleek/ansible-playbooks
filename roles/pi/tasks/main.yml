@@ -1,0 +1,159 @@
+---
+########################################################################
+# apply best security tips from
+# https://www.raspberrypi.org/documentation/configuration/security.md
+########################################################################
+
+- name: Update apt packages list
+  apt:
+    upgrade: no
+    update_cache: yes
+    cache_valid_time: 86400
+
+# It would be best to remove the pi user, but it's still required for some
+# features.
+
+- name: pi password
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    state: present
+    update_password: always
+  when: item.username == 'pi'
+  loop: "{{ pi_users }}"
+
+- name: create user group
+  group:
+    name: "{{ item.username }}"
+    state: present
+  loop: "{{ pi_users }}"
+
+- name: create user
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    group: "{{ item.username }}"
+    state: present
+    update_password: on_create
+    shell: /bin/bash
+  loop: "{{ pi_users }}"
+
+- name: set EDITOR
+  lineinfile:
+    path: "/home/{{ item.username }}/.bashrc"
+    regexp: "^(export )?EDITOR="
+    line: "export EDITOR=vim"
+  loop: "{{ pi_users }}"
+
+- name: create .ssh directory
+  file:
+    dest: "/home/{{ item.username }}/.ssh"
+    state: directory
+    mode: 0700
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+  loop: "{{ pi_users }}"
+  when: item.authorized_keys | default([]) | length > 0
+
+- name: copy authorized_keys
+  copy:
+    content: "{{ item.authorized_keys | default([]) | join('\n')}}"
+    dest: "/home/{{ item.username }}/.ssh/authorized_keys"
+    mode: 0644
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+  loop: "{{ pi_users }}"
+
+- name: add users to sudo group
+  user:
+    name: "{{ item.username }}"
+    groups: sudo
+    append: yes
+    state: present
+  loop: "{{ pi_users }}"
+  when: item.sudoer | default(false)
+
+- name: add users to sudo group
+  user:
+    name: "{{ item.username }}"
+    groups: ssh
+    append: yes
+    state: present
+  loop: "{{ pi_users }}"
+  when: item.ssh | default(false)
+
+- name: remove pi sudoer
+  file:
+    path: "/etc/sudoers.d/010_pi-nopasswd"
+    state: absent
+
+- name: require sudo members to use password
+  lineinfile:
+    path: "/etc/sudoers"
+    regexp: '^%sudo +ALL=\(ALL:ALL\) ALL'
+    line: '%sudo   ALL=(ALL:ALL) PASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: update sshd on the daily
+  cron:
+    name: update openssh-server daily
+    user: root
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+    job: "apt-get install openssh-server -y"
+
+# Set AllowUsers before adding DenyUsers to avoid locking everyone out in case something goes wrong.
+- name: set users that are allowed to use SSH
+  lineinfile:
+    path: "{{ sshd_config_path }}"
+    insertafter: "EOF"
+    line: "AllowUsers {{ pi_users | selectattr('ssh') | map(attribute='username') | join(' ') }}"
+    regexp: "^#?AllowUsers "
+    validate: "sshd -t -f %s"
+  notify:
+    - reload sshd
+
+# Set DenyUsers after adding AllowUsers to avoid locking everyone out in case something goes wrong.
+- name: deny ssh to pi and root
+  lineinfile:
+    path: "{{ sshd_config_path }}"
+    insertafter: "EOF"
+    regexp: "^#?DenyUsers "
+    line: "DenyUsers {{ pi_users | rejectattr('ssh') | map(attribute='username') | join(' ') }}"
+    validate: "sshd -t -f %s"
+  notify:
+    - reload sshd
+
+- name: disable ChallengeResponseAuthentication
+  lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?ChallengeResponseAuthentication"
+    line: "ChallengeResponseAuthentication no"
+    validate: "sshd -t -f %s"
+  notify:
+    - reload sshd
+
+- name: disable PasswordAuthentication
+  lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    validate: "sshd -t -f %s"
+  notify:
+    - reload sshd
+
+- name: disable UsePAM
+  lineinfile:
+    path: "{{ sshd_config_path }}"
+    regexp: "^#?UsePAM"
+    line: "UsePAM no"
+    validate: "sshd -t -f %s"
+  notify:
+    - reload sshd
+
+# TODO(bc): install ufw
+# TODO(bc): install fail2ban

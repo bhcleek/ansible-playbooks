@@ -1,0 +1,15 @@
+---
+all:
+  hosts:
+    hifi:
+      ansible_host: 192.168.1.3
+    filecabinet:
+      ansible_host: 192.168.1.4
+  children:
+    pi:
+      hosts:
+        hifi:
+        filecabinet:
+    ham:
+      hosts:
+        hifi:

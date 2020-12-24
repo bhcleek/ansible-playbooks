@@ -2,4 +2,8 @@
 # file: site.yml
 - import_playbook: base.yml
 
-- hosts:
+- name: update Pis
+  hosts: pi
+  become: true
+  roles:
+    - pi
