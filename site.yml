@@ -7,3 +7,5 @@
   become: true
   roles:
     - pi
+  tags:
+    - pi

@@ -83,7 +83,7 @@
   loop: "{{ pi_users }}"
   when: item.sudoer | default(false)
 
-- name: add users to sudo group
+- name: add users to ssh group
   ansible.builtin.user:
     name: "{{ item.username }}"
     groups: ssh
@@ -115,6 +115,16 @@
     weekday: "*"
     state: present
     job: "apt-get install openssh-server -y"
+
+- name: allow the ssh group to use SSH
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    insertafter: "EOF"
+    line: "AllowGroups ssh"
+    regexp: "^#?AllowGroups "
+    validate: "sshd -t -f %s"
+  notify:
+    - reload sshd
 
 # Set AllowUsers before adding DenyUsers to avoid locking everyone out in case something goes wrong.
 - name: set users that are allowed to use SSH
