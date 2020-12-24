@@ -1,11 +1,11 @@
 ---
 - name: set hostname
-  hostname:
+  ansible.builtin.hostname:
     name: "{{ inventory_hostname_short }}"
   when: ansible_hostname == 'raspberrypi'
 
 - name: update hosts
-  replace:
+  ansible.builtin.replace:
     path: /etc/hosts
     regexp: '\braspberrypi\b'
     replace: "{{ inventory_hostname_short }}"
@@ -15,7 +15,7 @@
 # https://www.raspberrypi.org/documentation/configuration/security.md
 ########################################################################
 - name: Update apt packages list
-  apt:
+  ansible.builtin.apt:
     upgrade: no
     update_cache: yes
     cache_valid_time: 86400
@@ -24,7 +24,7 @@
 # features.
 
 - name: pi password
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     password: "{{ item.password }}"
     state: present
@@ -33,13 +33,13 @@
   loop: "{{ pi_users }}"
 
 - name: create user group
-  group:
+  ansible.builtin.group:
     name: "{{ item.username }}"
     state: present
   loop: "{{ pi_users }}"
 
 - name: create user
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     password: "{{ item.password }}"
     group: "{{ item.username }}"
@@ -49,14 +49,14 @@
   loop: "{{ pi_users }}"
 
 - name: set EDITOR
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "/home/{{ item.username }}/.bashrc"
     regexp: "^(export )?EDITOR="
     line: "export EDITOR=vim"
   loop: "{{ pi_users }}"
 
 - name: create .ssh directory
-  file:
+  ansible.builtin.file:
     dest: "/home/{{ item.username }}/.ssh"
     state: directory
     mode: 0700
@@ -75,7 +75,7 @@
   loop: "{{ pi_users }}"
 
 - name: add users to sudo group
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     groups: sudo
     append: yes
@@ -84,7 +84,7 @@
   when: item.sudoer | default(false)
 
 - name: add users to sudo group
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     groups: ssh
     append: yes
@@ -93,19 +93,19 @@
   when: item.ssh | default(false)
 
 - name: remove pi sudoer
-  file:
+  ansible.builtin.file:
     path: "/etc/sudoers.d/010_pi-nopasswd"
     state: absent
 
 - name: require sudo members to use password
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "/etc/sudoers"
     regexp: '^%sudo +ALL=\(ALL:ALL\) ALL'
     line: '%sudo   ALL=(ALL:ALL) PASSWD: ALL'
     validate: 'visudo -cf %s'
 
 - name: update sshd on the daily
-  cron:
+  ansible.builtin.cron:
     name: update openssh-server daily
     user: root
     minute: "0"
@@ -118,7 +118,7 @@
 
 # Set AllowUsers before adding DenyUsers to avoid locking everyone out in case something goes wrong.
 - name: set users that are allowed to use SSH
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config_path }}"
     insertafter: "EOF"
     line: "AllowUsers {{ pi_users | selectattr('ssh') | map(attribute='username') | join(' ') }}"
@@ -129,7 +129,7 @@
 
 # Set DenyUsers after adding AllowUsers to avoid locking everyone out in case something goes wrong.
 - name: deny ssh to pi and root
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config_path }}"
     insertafter: "EOF"
     regexp: "^#?DenyUsers "
@@ -139,7 +139,7 @@
     - reload sshd
 
 - name: disable ChallengeResponseAuthentication
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config_path }}"
     regexp: "^#?ChallengeResponseAuthentication"
     line: "ChallengeResponseAuthentication no"
@@ -148,7 +148,7 @@
     - reload sshd
 
 - name: disable PasswordAuthentication
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config_path }}"
     regexp: "^#?PasswordAuthentication"
     line: "PasswordAuthentication no"
@@ -157,7 +157,7 @@
     - reload sshd
 
 - name: disable UsePAM
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config_path }}"
     regexp: "^#?UsePAM"
     line: "UsePAM no"
