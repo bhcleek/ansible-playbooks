@@ -33,7 +33,8 @@
       - slack
       - minikube
       - wireshark
-    state: present upgrade=true
+    state: present
+    upgrade: true
   ignore_errors: true
   tags:
     - packages
