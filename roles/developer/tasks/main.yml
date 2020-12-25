@@ -3,7 +3,11 @@
   tags: packages
 
 - name: global npm packages
-  npm: name="{{ item }}" global=true production=true state=latest
+  npm:
+    name: "{{ item }}"
+    global: true
+    production: true
+    state: latest
   with_items:
     - coffee-script
     - bower
@@ -13,7 +17,10 @@
     - packages
 
 - name: install pip packages
-  pip: name="{{ item }}" state=latest extra_args=--user
+  pip:
+    name: "{{ item }}"
+    state: latest
+    extra_args: --user
   with_items:
     - awscli
     - neovim
@@ -23,55 +30,82 @@
     - python
 
 - name: bashrc extensions
-  copy: dest="{{ ansible_env.HOME }}/.config/bash" src=bashrc.d/ backup=no
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/bash"
+    src: bashrc.d/
+    backup: no
   tags:
     - conf
 
 - name: create $HOME bin directory
-  file: dest="{{ ansible_env.HOME }}/bin" state=directory
+  file:
+    dest: "{{ ansible_env.HOME }}/bin"
+    state: directory
   tags:
     - packages
 
 - name: install $HOME/bin/color-test
-  copy: dest="{{ ansible_env.HOME }}/bin/color-test" src=color-test backup=no mode=0755
+  copy:
+    dest: "{{ ansible_env.HOME }}/bin/color-test"
+    src: color-test
+    backup: no
+    mode: 0755
   tags:
     - packages
     - homebin
     - bin
 
 - name: install $HOME/bin/color-gradient
-  copy: dest="{{ ansible_env.HOME }}/bin/color-gradient" src=color-gradient backup=no mode=0755
+  copy:
+    dest: "{{ ansible_env.HOME }}/bin/color-gradient"
+    src: color-gradient
+    backup: no
+    mode: 0755
   tags:
     - packages
     - homebin
     - bin
 
 - name: install $HOME/bin/mov2gif
-  copy: dest="{{ ansible_env.HOME }}/bin/mov2gif" src=mov2gif backup=no mode=0755
+  copy:
+    dest: "{{ ansible_env.HOME }}/bin/mov2gif"
+    src: mov2gif
+    backup: no
+    mode: 0755
   tags:
     - packages
     - homebin
     - bin
 
 - name: create tmux config directory
-  file: dest="{{ ansible_env.HOME }}/.config/tmux" state=directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.config/tmux"
+    state: directory
   tags:
     - conf
 
 - name: tmux.conf
-  copy: dest="{{ ansible_env.HOME }}/.tmux.conf" src=tmux.conf backup=yes
+  copy:
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+    src: tmux.conf
+    backup: yes
   tags:
     - conf
 
 - name: tmux config files
-  copy: dest="{{ ansible_env.HOME }}/.config/tmux" src=tmux/ backup=yes
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/tmux"
+    src: tmux/
+    backup: yes
   tags:
     - conf
 
 # https://docs.python.org/3.6/library/site.html
 # https://docs.python.org/2.7/library/site.html
 - name: python site-packages directory
-  file: dest="{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages" state=directory
+  file:
+    dest: "{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages"
+    state: directory
   when: ansible_os_family == 'Darwin'
   loop:
     - '2.7'
@@ -82,7 +116,9 @@
     - python
 
 - name: python site-packages configuration
-  template: dest="{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth" src=homebrew.pth
+  template:
+    dest: "{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth"
+    src: homebrew.pth
   when: ansible_os_family == 'Darwin'
   loop:
     - '2.7'
@@ -93,15 +129,21 @@
     - python
 
 - name: create user font directory
-  file: dest="{{ user_font_dir }}" state=directory
+  file:
+    dest: "{{ user_font_dir }}"
+    state: directory
   tags:
     - conf
 
 - name: install patched Inconsolata
-  copy: dest="{{ user_font_dir }}/Inconsolata for Powerline.otf" src="fonts/Inconsolata/Inconsolata for Powerline.otf"
+  copy:
+    dest: "{{ user_font_dir }}/Inconsolata for Powerline.otf"
+    src: "fonts/Inconsolata/Inconsolata for Powerline.otf"
 
 - name: install go fonts
-  copy: dest="{{ user_font_dir }}" src="fonts/go/"
+  copy:
+    dest: "{{ user_font_dir }}"
+    src: "fonts/go/"
 
 - import_tasks: git.yml
   tags:

@@ -1,6 +1,9 @@
 ---
 - name: install packages
-  apt: name="{{ item }}" state=latest update_cache=yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
   become: yes
   with_items:
     - direnv

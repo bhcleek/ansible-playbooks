@@ -1,16 +1,21 @@
 ---
 - name: download go{{ golang_version }} archive
-  get_url: url=https://storage.googleapis.com/golang/{{ golang_pkg }}
-            checksum={{ golang_checksums[ansible_system] }}
-            dest=/tmp/{{ golang_pkg }}
-            timeout=600
+  get_url:
+    url: https://storage.googleapis.com/golang/{{ golang_pkg }}
+    checksum: "{{ golang_checksums[ansible_system] }}"
+    dest: /tmp/{{ golang_pkg }}
+    timeout: 600
 
 - name: remove go
-  file: path=/usr/local/go state=absent
+  file:
+    path: /usr/local/go
+    state: absent
   become: yes
 
 - name: unpack go{{ golang_version }} archive
-  unarchive: src=/tmp/{{ golang_pkg }} dest=/usr/local copy=no
+  unarchive:
+    src: /tmp/{{ golang_pkg }}
+    dest: /usr/local copy=no
   become: yes
 
 - name: build go toolchain
@@ -26,4 +31,6 @@
   become: yes
 
 - name: remove go archive
-  file: path=/tmp/{{ golang_pkg }} state=absent
+  file:
+    path: /tmp/{{ golang_pkg }}
+    state: absent

@@ -1,6 +1,8 @@
 ---
 - name: install gpg
-  homebrew: name="{{ item }}" state=latest
+  homebrew:
+    name: "{{ item }}"
+    state: latest
   with_items:
     - pinentry-mac
     - gnupg2
@@ -10,7 +12,11 @@
     - gnupg
 
 - name: install gpg
-  apt: name="{{ item }}" state=latest
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
   when: ansible_os_family == 'Debian'
   become: yes
   with_items:
@@ -24,7 +30,9 @@
     - gnupg
 
 - name: create gnupg config directory
-  file: dest="{{ ansible_env.HOME }}/.gnupg" state=directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.gnupg"
+    state: directory
   tags:
     - gnupg
     - gpg
@@ -32,7 +40,9 @@
     - conf
 
 - name: gpg-agent.conf
-  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf" src=gpg-agent.conf.j2
+  template:
+    dest: "{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf"
+    src: gpg-agent.conf.j2
   tags:
     - gnupg
     - gpg
@@ -40,7 +50,9 @@
     - conf
 
 - name: gpg.conf
-  template: dest="{{ ansible_env.HOME }}/.gnupg/gpg.conf" src=gpg.conf.j2
+  template:
+    dest: "{{ ansible_env.HOME }}/.gnupg/gpg.conf"
+    src: gpg.conf.j2
   tags:
     - gnupg
     - gpg
@@ -48,7 +60,9 @@
     - conf
 
 - name: dirmngr.conf
-  template: dest="{{ ansible_env.HOME }}/.gnupg/dirmngr.conf" src=dirmngr.conf.j2
+  template:
+    dest: "{{ ansible_env.HOME }}/.gnupg/dirmngr.conf"
+    src: dirmngr.conf.j2
   tags:
     - gnupg
     - gpg

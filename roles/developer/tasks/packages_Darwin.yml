@@ -26,7 +26,9 @@
     - packages
 
 - name: install packages
-  homebrew_cask: name="{{ item }}" state=present upgrade=true
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present upgrade=true
   with_items:
     - docker
     - iterm2
@@ -48,5 +50,9 @@
 
 # it shouldn't be necessary to do this, but the mode doesn't get set correctly when attempting to use the mode on the get_url task.
 - name: set hyperkit perms
-  file: path=/usr/local/bin/docker-machine-driver-hyperkit mode=4755 owner=root group=admin
+  file:
+    path: /usr/local/bin/docker-machine-driver-hyperkit
+    mode: 4755
+    owner: root
+    group: admin
   become: true

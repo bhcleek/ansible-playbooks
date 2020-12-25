@@ -1,18 +1,29 @@
 ---
 - name: docker apt key
-  apt_key: url=https://download.docker.com/linux/ubuntu/gpg id=0EBFCD88 state=present
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 0EBFCD88
+    state: present
   become: yes
 
 - name: docker apt repository
-  apt_repository: filename=docker repo="deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable" state=present
+  apt_repository:
+    filename: docker
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+    state: present
   become: yes
 
 - name: chrome apt key
-  apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub id=A040830F7FAC5991 state=present
+  apt_key:
+    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    id: A040830F7FAC5991
+    state: present
   become: yes
 
 - name: chrome apt repository
-  apt_repository: filename=google-chrome repo="deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+  apt_repository:
+    filename: google-chrome
+    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
   become: yes
 
 #- name: git-lfs apt key
@@ -28,7 +39,11 @@
 #  become: yes
 
 - name: install packages
-  apt: name="{{ item }}" state=latest update_cache=yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
   become: yes
   with_items:
     - python

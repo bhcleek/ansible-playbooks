@@ -1,15 +1,29 @@
 ---
 - name: create global git config directory
-  file: dest="{{ ansible_env.HOME }}/.config/git" state=directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.config/git"
+    state: directory
 
 - name: create global git ignore file
-  copy: src=gitignore dest="{{ ansible_env.HOME }}/.config/git/ignore" force=yes backup=no
+  copy:
+    src: gitignore
+    dest: "{{ ansible_env.HOME }}/.config/git/ignore"
+    force: yes
+    backup: no
 
 - name: create global git attributes file
-  copy: src=gitattributes dest="{{ ansible_env.HOME }}/.config/git/attributes" force=yes backup=no
+  copy:
+    src: gitattributes
+    dest: "{{ ansible_env.HOME }}/.config/git/attributes"
+    force: yes
+    backup: no
 
 - name: global git config file exists
-  copy: content= dest="{{ ansible_env.HOME }}/.config/git/config" backup=yes force=no
+  copy:
+    content: ""
+    dest: "{{ ansible_env.HOME }}/.config/git/config"
+    backup: yes
+    force: no
 
 - name: git config user.name
   command: git config --global user.name "Billie Cleek"
