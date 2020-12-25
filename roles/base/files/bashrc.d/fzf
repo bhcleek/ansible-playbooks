@@ -9,4 +9,3 @@ if command -v ag > /dev/null 2>&1
 then
 	export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 fi
-
