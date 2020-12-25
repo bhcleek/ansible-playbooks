@@ -27,14 +27,13 @@
 
 - name: install packages
   homebrew_cask:
-    name: "{{ item }}"
+    name:
+      - docker
+      - iterm2
+      - slack
+      - minikube
+      - wireshark
     state: present upgrade=true
-  with_items:
-    - docker
-    - iterm2
-    - slack
-    - minikube
-    - wireshark
   ignore_errors: true
   tags:
     - packages

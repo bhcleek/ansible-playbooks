@@ -1,11 +1,10 @@
 ---
 - name: install gpg
   homebrew:
-    name: "{{ item }}"
+    name:
+      - pinentry-mac
+      - gnupg2
     state: latest
-  with_items:
-    - pinentry-mac
-    - gnupg2
   when: ansible_distribution == 'MacOSX'
   tags:
     - packages
@@ -13,18 +12,17 @@
 
 - name: install gpg
   apt:
-    name: "{{ item }}"
+    name:
+      - pcsc-tools
+      - pcscd
+      - scdaemon
+      - gpg-agent
+      - gnupg
     state: latest
     update_cache: yes
     cache_valid_time: 86400
   when: ansible_os_family == 'Debian'
   become: yes
-  with_items:
-    - pcsc-tools
-    - pcscd
-    - scdaemon
-    - gpg-agent
-    - gnupg
   tags:
     - packages
     - gnupg

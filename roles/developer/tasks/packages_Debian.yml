@@ -40,28 +40,27 @@
 
 - name: install packages
   apt:
-    name: "{{ item }}"
+    name:
+      - python
+      - python-pip
+      - git
+  #   - git-lfs
+      - mercurial
+      - nodejs
+      - npm
+      - dash
+      - tmux
+      - jq
+      - docker.io # once docker-ce is suported on zesty, use docker-ce instead
+      - google-chrome-stable
+      - direnv
+      - ffmpeg
+      - graphviz
+      - silversearcher-ag
     state: latest
     update_cache: yes
     cache_valid_time: 86400
   become: yes
-  with_items:
-    - python
-    - python-pip
-    - git
-#   - git-lfs
-    - mercurial
-    - nodejs
-    - npm
-    - dash
-    - tmux
-    - jq
-    - docker.io # once docker-ce is suported on zesty, use docker-ce instead
-    - google-chrome-stable
-    - direnv
-    - ffmpeg
-    - graphviz
-    - silversearcher-ag
   tags:
     - packages
 

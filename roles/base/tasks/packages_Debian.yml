@@ -1,15 +1,14 @@
 ---
 - name: install packages
   apt:
-    name: "{{ item }}"
+    name:
+      - direnv
+      - fzf
+      - parallel
+      - tree
+      - vim
     state: latest
     update_cache: yes
   become: yes
-  with_items:
-    - direnv
-    - fzf
-    - parallel
-    - tree
-    - vim
   tags:
     - packages
