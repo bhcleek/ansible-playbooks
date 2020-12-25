@@ -11,3 +11,10 @@
     - pi
   tags:
     - pi
+
+- name: media
+  hosts: filecabinet
+  roles:
+    - media-server
+  tags:
+    - media

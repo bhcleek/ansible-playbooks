@@ -1,0 +1,30 @@
+---
+- name: set jellyfin apt key
+  ansible.builtin.apt_key:
+    data: "{{ lookup('file', 'jellyfin_team.gpg.key') }}"
+    id: "0x49023CD01DE21A7B"
+    state: present
+  become: yes
+
+#- name: set jellyfin apt key
+#  ansible.builtin.apt_key:
+#    id: "0x49023CD01DE21A7B"
+#    keyserver: keyserver.ubuntu.com
+#  become: yes
+
+- name: add jellyfin apt repository
+  ansible.builtin.apt_repository:
+    #repo: deb [arch=$( dpkg --print-architecture )] https://repo.jellyfin.org/$( awk -F'=' '/^ID=/{ print $NF }' /etc/os-release ) $( awk -F'=' '/^VERSION_CODENAME=/{ print $NF }' /etc/os-release ) main
+    filename: jellyfin
+    repo: deb https://repo.jellyfin.org/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} main
+    update_cache: yes
+    state: present
+  become: yes
+
+- name: install jellyfin
+  ansible.builtin.apt:
+    name: jellyfin
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest # feeling cute, may change to present later
+  become: yes

@@ -14,7 +14,7 @@
 # apply best security tips from
 # https://www.raspberrypi.org/documentation/configuration/security.md
 ########################################################################
-- name: Update apt packages list
+- name: update apt packages list
   ansible.builtin.apt:
     upgrade: no
     update_cache: yes
