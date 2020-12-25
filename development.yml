@@ -5,7 +5,6 @@
 - hosts:
   - localhost
   roles:
-    - base
     - developer
     - gpg-user
 
