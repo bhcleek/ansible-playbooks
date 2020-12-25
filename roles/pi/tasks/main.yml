@@ -48,13 +48,6 @@
     shell: /bin/bash
   loop: "{{ pi_users }}"
 
-- name: set EDITOR
-  ansible.builtin.lineinfile:
-    path: "/home/{{ item.username }}/.bashrc"
-    regexp: "^(export )?EDITOR="
-    line: "export EDITOR=vim"
-  loop: "{{ pi_users }}"
-
 - name: create .ssh directory
   ansible.builtin.file:
     dest: "/home/{{ item.username }}/.ssh"
