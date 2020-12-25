@@ -24,4 +24,3 @@
 - hosts: all
   roles:
     - base
-
