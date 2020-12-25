@@ -41,7 +41,7 @@ fi
 
 : ${ORIG_PATH:=${PATH}}
 export ORIG_PATH
-export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/go/bin:/usr/local/bin:$ORIG_PATH
 
 GOPATH=$(go env GOPATH)
 export GOBIN=${GOPATH%%:*}/bin
