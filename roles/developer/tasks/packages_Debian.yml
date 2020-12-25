@@ -31,7 +31,6 @@
   apt: name="{{ item }}" state=latest update_cache=yes
   become: yes
   with_items:
-    - vim
     - python
     - python-pip
     - git
@@ -45,10 +44,8 @@
     - docker.io # once docker-ce is suported on zesty, use docker-ce instead
     - google-chrome-stable
     - direnv
-    - tree
     - ffmpeg
     - graphviz
-    - parallel
     - silversearcher-ag
   tags:
     - packages

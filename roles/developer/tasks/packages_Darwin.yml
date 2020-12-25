@@ -3,7 +3,6 @@
   homebrew:
     state: latest
     name:
-      - vim
       - tmux
       - git
       - git-lfs
@@ -19,14 +18,10 @@
       - docker-compose
       - ctags
       - direnv
-      - tree
       - ffmpeg
       - graphviz
-      - parallel
       - wireshark
-      - fzf
       - the_silver_searcher
-      - coreutils
   tags:
     - packages
 
@@ -38,6 +33,7 @@
     - slack
     - minikube
     - wireshark
+  ignore_errors: true
   tags:
     - packages
 
@@ -46,6 +42,7 @@
     url: https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/docker-machine-driver-hyperkit
     dest: /usr/local/bin/docker-machine-driver-hyperkit
     checksum: "{{ minikube_checksum }}"
+  ignore_errors: true
   tags:
     - packages
 

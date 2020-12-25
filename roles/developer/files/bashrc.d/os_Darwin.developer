@@ -13,4 +13,3 @@ if [ "${JAVA_HOME}" != "" ]
 then
 	launchctl setenv JAVA_HOME "${JAVA_HOME}"
 fi
-

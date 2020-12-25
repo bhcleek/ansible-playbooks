@@ -22,6 +22,11 @@
     - packages
     - python
 
+- name: bashrc extensions
+  copy: dest="{{ ansible_env.HOME }}/.config/bash" src=bashrc.d/ backup=no
+  tags:
+    - conf
+
 - name: create $HOME bin directory
   file: dest="{{ ansible_env.HOME }}/bin" state=directory
   tags:
@@ -60,26 +65,6 @@
 
 - name: tmux config files
   copy: dest="{{ ansible_env.HOME }}/.config/tmux" src=tmux/ backup=yes
-  tags:
-    - conf
-
-- name: create bash config directory
-  file: dest="{{ ansible_env.HOME }}/.config/bash" state=directory
-  tags:
-    - conf
-
-- name: bashrc
-  copy: dest="{{ ansible_env.HOME }}/.bashrc" src=bashrc backup=yes
-  tags:
-    - conf
-
-- name: bashrc extensions
-  copy: dest="{{ ansible_env.HOME }}/.config/bash" src=bashrc.d/ backup=yes
-  tags:
-    - conf
-
-- name: bash_profile
-  copy: dest="{{ ansible_env.HOME }}/.bash_profile" src=bash_profile backup=yes
   tags:
     - conf
 

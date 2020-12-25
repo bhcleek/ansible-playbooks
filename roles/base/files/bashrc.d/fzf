@@ -1,0 +1,12 @@
+if command -v fzf > /dev/null 2>&1 && [ -f ~/.config/bash/fzf.bash ]
+then
+	source ~/.config/bash/fzf.bash
+fi
+
+export FZF_DEFAULT_OPTS='--height 25% --reverse --border'
+
+if command -v ag > /dev/null 2>&1
+then
+	export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+fi
+

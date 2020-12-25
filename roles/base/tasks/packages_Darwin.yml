@@ -1,0 +1,13 @@
+---
+- name: install packages
+  homebrew:
+    state: latest
+    name:
+      - coreutils
+      - direnv
+      - fzf
+      - parallel
+      - tree
+      - vim
+  tags:
+    - packages

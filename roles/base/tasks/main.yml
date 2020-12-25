@@ -1,0 +1,30 @@
+---
+- name: create XDG config directory
+  ansible.builtin.file:
+    dest: "{{ ansible_env.HOME }}/.config"
+    state: directory
+    mode: 0750
+
+- include_tasks: packages_{{ ansible_os_family }}.yml
+  tags:
+    - packages
+
+- name: create bash config directory
+  file: dest="{{ ansible_env.HOME }}/.config/bash" state=directory
+  tags:
+    - conf
+
+- name: bashrc
+  copy: dest="{{ ansible_env.HOME }}/.bashrc" src=bashrc backup=yes
+  tags:
+    - conf
+
+- name: bashrc extensions
+  copy: dest="{{ ansible_env.HOME }}/.config/bash" src=bashrc.d/ backup=no
+  tags:
+    - conf
+
+- name: bash_profile
+  copy: dest="{{ ansible_env.HOME }}/.bash_profile" src=bash_profile backup=yes
+  tags:
+    - conf

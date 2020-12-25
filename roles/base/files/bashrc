@@ -1,0 +1,40 @@
+# set options
+# Use a vi-style line editing interface.  By default, Bash is in emacs mode;
+# Use vi mode instead.
+#set -o vi
+# indicate the mode in the prompt. This option was introduced in Bash 4.3; it
+# will have no affect on older versions of Bash. Version 4.3 and later, though,
+# will show a '+' to the very left of the prompt in edit mode and a ':' in
+# command mode.
+#set show-mode-in-prompt on
+
+#if [ -f $(brew --prefix)/etc/bash_completion.d/go-completion.bash ]; then
+#	source $(brew --prefix)/etc/bash_completion.d/go-completion.bash
+#fi
+
+HISTTIMEFORMAT='%F %T '
+HISTFILESIZE=               # allow ~/.bash_history to grow without bound
+HISTSIZE=                   # keep all commands in history
+HISTCONTROL=ignoreboth      # store neither commands that begin with a space nor more than one copy of repeated commands
+HISTIGNORE=?:??             # ignore one and two letter commands
+shopt -s histappend                # append to history, don't overwrite it
+PROMPT_COMMAND="history -a" # append to history at each shell prompt
+
+# the right pointing brackets are U+276F
+PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
+
+export CLICOLOR=1
+
+export VISUAL=vim
+export EDITOR=vim
+
+for FILE in $(find $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -not -name 'os_*')
+do
+	source "$FILE"
+done
+
+for OS_FILE in $(find $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -not -name 'os_'$(uname -s)'*'); do
+	source "$OS_FILE"
+done
+
+eval "$(direnv hook bash)"

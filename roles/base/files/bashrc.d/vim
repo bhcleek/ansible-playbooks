@@ -1,0 +1,10 @@
+function _config_vim {
+	XDG_VIMRC="${HOME}/.config/vim/vimrc"
+	if [ -f "$XDG_VIMRC" ]
+	then
+		export XDG_VIMRC
+		export VIMINIT='let $MYVIMRC="$XDG_VIMRC" | source $MYVIMRC'
+	fi
+}
+
+_config_vim
