@@ -29,7 +29,7 @@
     password: "{{ item.password }}"
     state: present
     update_password: always
-  when: item.username == 'pi'
+  when: item.username == 'pi' and item.password is defined
   loop: "{{ pi_users }}"
 
 - name: create user group
@@ -65,6 +65,7 @@
     mode: 0644
     owner: "{{ item.username }}"
     group: "{{ item.username }}"
+  when: item.authorized_keys | default([]) | length > 0
   loop: "{{ pi_users }}"
 
 - name: add users to sudo group
