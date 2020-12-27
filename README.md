@@ -8,6 +8,10 @@ The ansible playbooks here are mostly for my own benefit, but others may find th
 
 Common configurations that I want on all machines.
 
+## developer
+
+You probably don't want this. It's just how I like to have my development machines configured.
+
 ## gpg-user
 
 Installs and configures gnupg.
