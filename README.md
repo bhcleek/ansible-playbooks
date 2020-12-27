@@ -4,15 +4,15 @@ The ansible playbooks here are mostly for my own benefit, but others may find th
 
 # roles
 
-# base
+## base
 
 Common configurations that I want on all machines.
 
-# gpg-user
+## gpg-user
 
 Installs and configures gnupg.
 
-# media-server
+## media-server
 
 Install [Jellyfin](https://jellyfin.org/).
 
