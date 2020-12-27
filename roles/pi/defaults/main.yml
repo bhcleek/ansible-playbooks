@@ -1,2 +1,7 @@
 ---
 sshd_config_path: /etc/ssh/sshd_config
+pi_users:
+  - username: pi
+    password: raspberry
+    ssh: true
+    sudoer: true
