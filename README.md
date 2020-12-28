@@ -12,6 +12,10 @@ Common configurations that I want on all machines.
 
 You probably don't want this. It's just how I like to have my development machines configured.
 
+## file-server
+
+Installs samba and configures shares.
+
 ## gpg-user
 
 Installs and configures gnupg.
