@@ -131,14 +131,37 @@
   notify:
     - reload sshd
 
+- name: remove empty AllowUsers rule
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    insertafter: "EOF"
+    regexp: "^AllowUsers "
+    validate: "sshd -t -f %s"
+    state: absent
+  when: pi_users | selectattr('ssh') | map(attribute='username') | length == 0
+  notify:
+    - reload sshd
+
 # Set DenyUsers after adding AllowUsers to avoid locking everyone out in case something goes wrong.
-- name: deny ssh to pi and root
+- name: deny ssh to users
   ansible.builtin.lineinfile:
     path: "{{ sshd_config_path }}"
     insertafter: "EOF"
     regexp: "^#?DenyUsers "
     line: "DenyUsers {{ pi_users | rejectattr('ssh') | map(attribute='username') | join(' ') }}"
     validate: "sshd -t -f %s"
+    state: present
+  notify:
+    - reload sshd
+
+- name: remove empty DenyUsers rule
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config_path }}"
+    insertafter: "EOF"
+    regexp: "^DenyUsers "
+    validate: "sshd -t -f %s"
+    state: absent
+  when: pi_users | rejectattr('ssh') | map(attribute='username') | length == 0
   notify:
     - reload sshd
 
