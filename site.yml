@@ -16,5 +16,6 @@
   hosts: filecabinet
   roles:
     - media-server
+    - file-server
   tags:
     - media

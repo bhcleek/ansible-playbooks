@@ -1,0 +1,36 @@
+---
+- name: install samba
+  ansible.builtin.apt:
+    name:
+      - samba
+      - samba-common-bin
+    update_cache: yes
+    cache_valid_time: 86400
+    state: present
+  become: yes
+
+- name: include smb.shares.conf
+  lineinfile:
+    path: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0755
+    regexp: '^include *= */etc/samba/smb.shares.conf'
+    line: 'include = /etc/samba/smb.shares.conf'
+    state: present
+    validate: 'testparm -s %s'
+  become: yes
+  notify:
+    - reload samba config
+
+- name: samba config
+  ansible.builtin.template:
+    src: smb.shares.conf.j2
+    mode: 0744
+    dest: /etc/samba/smb.shares.conf
+    group: root
+    owner: root
+    validate: 'testparm -s %s'
+  become: yes
+  notify:
+    - reload samba config

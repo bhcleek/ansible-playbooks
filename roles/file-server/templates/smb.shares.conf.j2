@@ -1,0 +1,12 @@
+{% for share in shares %}
+[{{ share.name }}]
+Comment = {{ share.comment | default('') }}
+Path = {{ share.path }}
+Browseable = yes
+Writeable = {{ share.writeable | default('no')}}
+only guest = no
+create mask = 0755
+directory mask = 0744
+Public = yes
+Guest ok = yes
+{% endfor %}

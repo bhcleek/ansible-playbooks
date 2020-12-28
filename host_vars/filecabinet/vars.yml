@@ -1,0 +1,8 @@
+---
+shares:
+  - name: music public
+    path: /opt/data/sounds/music
+    writeable: 'no'
+  - name: brain food
+    path: /opt/data/brain-food
+    writeable: 'no'

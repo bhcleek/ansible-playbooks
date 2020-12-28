@@ -1,0 +1,5 @@
+---
+- name: reload samba config
+  ansible.builtin.command:
+    cmd: smbcontrol all reload-config
+  become: yes
