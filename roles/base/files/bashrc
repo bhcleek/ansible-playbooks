@@ -20,6 +20,10 @@ HISTIGNORE=?:??             # ignore one and two letter commands
 shopt -s histappend                # append to history, don't overwrite it
 PROMPT_COMMAND="history -a" # append to history at each shell prompt
 
+if ! command -v __git_ps1 > /dev/null 2>&1
+then
+	function __git_ps1() { : ; }
+fi
 # the right pointing brackets are U+276F
 PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
 
