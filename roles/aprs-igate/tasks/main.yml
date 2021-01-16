@@ -7,8 +7,6 @@
     cache_valid_time: 86400
     state: latest
   become: yes
-  tags:
-    aprs-igate
 
 #- name: modify categories for direwolf.desktop
 #  lineinfile:
@@ -21,5 +19,3 @@
   template:
     src: sdr-igate.conf.tmpl
     dest: sdr-igate.conf
-  tags:
-    aprs-igate
