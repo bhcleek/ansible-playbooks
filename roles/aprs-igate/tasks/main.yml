@@ -1,0 +1,25 @@
+---
+- name: ham packages
+  ansible.builtin.apt:
+    name:
+    - extra-xdg-menus
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+  become: yes
+  tags:
+    aprs-igate
+
+#- name: modify categories for direwolf.desktop
+#  lineinfile:
+#    path: /usr/local/share/applications/direwolf.desktop
+#    regexp: '^Categories=HamRadio'
+#    line: Categories=HamRadio;APRS
+#  become: yes
+
+- name: sdr-igate.conf
+  template:
+    src: sdr-igate.conf.tmpl
+    dest: sdr-igate.conf
+  tags:
+    aprs-igate

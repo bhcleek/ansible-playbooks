@@ -1,0 +1,22 @@
+---
+- name: ham packages
+  ansible.builtin.apt:
+    name:
+    - hamradio-antenna
+    - hamradio-datamodes
+    - hamradio-digitalvoice
+    - hamradio-logging
+    - hamradio-morse
+    - hamradio-packetmodes
+    - hamradio-rigcontrol
+    - hamradio-satellite
+    - hamradio-sdr
+    - hamradio-tools
+    - hamradio-training
+    - extra-xdg-menus
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+  become: yes
+
+- import_playbook: direwolf.yml

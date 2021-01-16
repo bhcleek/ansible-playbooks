@@ -1,0 +1,75 @@
+---
+- name: remove pulseaudio
+  ansible.builtin.apt:
+    name:
+      - pulseaudio
+    purge: yes
+    state: absent
+
+- name: direwolf dependencies
+  ansible.builtin.apt:
+    name:
+    - git
+    - gcc
+    - g++
+    - make
+    - cmake
+    - libasound2-dev
+    - libudev-dev
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+  become: yes
+
+- name: create src directory
+  file:
+    path: "{{ ansible_env.HOME }}/src"
+    state: directory
+
+- name: clone direwolf repo
+  git:
+    repo: https://github.com/wb2osz/direwolf
+    dest: "{{ ansible_env.HOME }}/src/direwolf"
+
+- name: checkout direwolf sources
+  shell: git checkout master
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/direwolf"
+
+- name: create direwolf build directory
+  file:
+    path: "{{ ansible_env.HOME }}/src/direwolf/build"
+    state: directory
+
+- name: build direwolf cmakefiles
+  command: cmake ..
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
+
+- name: build direwolf
+  command: make
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
+
+- name: install direwolf
+  command: make install
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
+  become: yes
+
+- name: check for direwolf.conf
+  stat:
+  path: "{{ ansible_env.HOME}}/direwolf.conf"
+    register: stat_result
+
+- name: direwolf install-conf
+  command: make install-conf
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
+  become: yes
+  when: not stat_result.stat.exists
+
+- name: remove direwolf build directory
+  file:
+    path: "{{ ansible_env.HOME }}/src/direwolf/build"
+    state: absent
