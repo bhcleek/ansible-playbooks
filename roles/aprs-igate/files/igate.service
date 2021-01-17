@@ -1,0 +1,15 @@
+[Unit]
+Description=igate
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/igate.sh
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+Alias=igate.service
+
