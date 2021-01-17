@@ -19,6 +19,8 @@
     upgrade: no
     update_cache: yes
     cache_valid_time: 86400
+  tags:
+    - packages
 
 # It would be best to remove the pi user, but it's still required for some
 # features.

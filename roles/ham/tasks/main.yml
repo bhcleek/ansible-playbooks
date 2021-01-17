@@ -20,5 +20,7 @@
     cache_valid_time: 86400
     state: latest
   become: yes
+  tags:
+    - packages
 
 - include_tasks: direwolf.yml
