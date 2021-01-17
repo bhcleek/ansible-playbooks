@@ -1,0 +1,9 @@
+---
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: restart igate
+  systemd:
+    name: igate
+    status: restarted
