@@ -23,6 +23,7 @@
 - name: ham
   hosts: ham
   roles:
+    - ham
     - role: aprs-igate
       tags:
         - aprs-igate

@@ -14,9 +14,10 @@
     - hamradio-tools
     - hamradio-training
     - extra-xdg-menus
+    - xastir
     update_cache: yes
     cache_valid_time: 86400
     state: latest
   become: yes
 
-- import_playbook: direwolf.yml
+- include_tasks: direwolf.yml
