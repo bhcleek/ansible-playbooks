@@ -5,6 +5,7 @@
       - pulseaudio
     purge: yes
     state: absent
+  become: yes
 
 - name: direwolf dependencies
   ansible.builtin.apt:
@@ -59,8 +60,8 @@
 
 - name: check for direwolf.conf
   stat:
-  path: "{{ ansible_env.HOME}}/direwolf.conf"
-    register: stat_result
+    path: "{{ ansible_env.HOME}}/direwolf.conf"
+  register: stat_result
 
 - name: direwolf install-conf
   command: make install-conf

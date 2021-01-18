@@ -2,8 +2,10 @@
 - name: reload systemd
   systemd:
     daemon_reload: yes
+  become: yes
 
 - name: restart igate
   systemd:
     name: igate
-    status: restarted
+    state: restarted
+  become: yes
