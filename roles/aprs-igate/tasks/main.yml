@@ -29,8 +29,39 @@
     - restart igate
   become: yes
 
-- name: igate service
+- name: aprs unit
+  copy:
+    src: aprs.service
+    dest: /etc/systemd/system/aprs.service
+  notify:
+    - reload systemd
+    - restart aprs
+  become: yes
+
+- name: aprs socket
+  copy:
+    src: aprs.socket
+    dest: /etc/systemd/system/aprs.socket
+  notify:
+    - reload systemd
+    - restart aprs
+    - restart igate
+  become: yes
+
+- name: igate service started
   systemd:
     service: igate
     state: started
+  notify:
+    - reload systemd
+    - restart igate
+  become: yes
+
+- name: aprs service started
+  systemd:
+    service: aprs.service
+    state: started
+  notify:
+    - reload systemd
+    - restart aprs
   become: yes

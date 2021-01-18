@@ -1,0 +1,11 @@
+[Unit]
+Description=APRS FIFO
+After=sockets.target
+
+[Socket]
+ListenFIFO=/run/aprs.pipe
+SocketMode=0644
+
+[Install]
+WantedBy=multi-user.target sockets.target
+Alias=aprs.socket

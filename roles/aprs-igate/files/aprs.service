@@ -1,22 +1,23 @@
 [Unit]
-Description=igate
+Description=APRS
 After=aprs.socket
 Requires=aprs.socket
 
 [Service]
+StandardOutput=fd:aprs.socket
+StandardError=journal
 Sockets=aprs.socket
 
-StandardInput=fd:aprs.socket
-
-ExecStart=direwolf -c /etc/aprs/sdr-igate.conf -r 24000 -D 1 -t 0 -
+#ExecStart=rtl_fm -f 144.390M -g 49.6
+ExecStart=rtl_fm -f 144.390M
 
 KillMode=process
-Restart=on-failure
 RestartSec=5
+Restart=on-failure
 RestartPreventExitStatus=255
 
 Type=simple
 
 [Install]
 WantedBy=multi-user.target sockets.target
-Alias=igate.service
+Alias=aprs.service

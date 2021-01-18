@@ -9,3 +9,9 @@
     name: igate
     state: restarted
   become: yes
+
+- name: restart aprs
+  systemd:
+    name: aprs
+    state: restarted
+  become: yes
