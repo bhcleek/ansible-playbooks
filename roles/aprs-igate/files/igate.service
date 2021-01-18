@@ -7,6 +7,8 @@ Requires=aprs.socket
 Sockets=aprs.socket
 
 StandardInput=fd:aprs.socket
+StandardOutput=journal
+StandardError=journal
 
 ExecStart=direwolf -c /etc/aprs/sdr-igate.conf -r 24000 -D 1 -t 0 -
 

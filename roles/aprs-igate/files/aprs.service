@@ -4,6 +4,7 @@ After=aprs.socket
 Requires=aprs.socket
 
 [Service]
+StandardInput=inherit
 StandardOutput=fd:aprs.socket
 StandardError=journal
 Sockets=aprs.socket
