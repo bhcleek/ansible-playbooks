@@ -1,0 +1,11 @@
+---
+- name: restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+  become: yes
+- name: restart kolibri
+  systemd:
+    name: kolibri-server
+    state: restarted
+  become: yes

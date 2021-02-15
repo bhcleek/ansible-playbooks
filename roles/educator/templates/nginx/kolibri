@@ -1,0 +1,10 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name kolibri kolibri.library;
+
+  location / {
+    proxy_pass http://127.0.0.1:{{ kolibri_http_port }};
+  }
+}

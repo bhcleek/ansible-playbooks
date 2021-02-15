@@ -1,0 +1,121 @@
+---
+- name: kolibri apt key
+  apt_key:
+    id: DC5BAA93F9E4AE4F0411F97C74F88ADB3194DD81
+    keyserver: keyserver.ubuntu.com
+    state: present
+  become: yes
+  tags:
+  - packages
+
+- name: kolibri apt repository
+  apt_repository:
+    filename: kolibri
+    repo: ppa:learningequality/kolibri
+    #codename: "{{ ansible_lsb.codename }}"
+    codename: bionic
+    state: present
+    update_cache: yes
+  become: yes
+  tags:
+  - packages
+
+- name: apt packages
+  ansible.builtin.apt:
+    name:
+      - libffi-dev
+      - python3-pip
+      - python3-pkg-resources
+      - dirmngr
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+  become: yes
+  tags:
+    - packages
+
+- name: pip packages
+  ansible.builtin.pip:
+    name:
+      - pip
+      - setuptools
+      - cffi
+    state: latest
+  become: yes
+  tags:
+    - packages
+
+- name: create user group
+  ansible.builtin.group:
+    name: "{{ kolibri_group }}"
+    state: present
+    system: yes
+  become: yes
+
+- name: create user
+  ansible.builtin.user:
+    name: "{{ kolibri_user }}"
+    group: "{{ kolibri_group }}"
+    state: present
+    system: yes
+    home: "{{ kolibri_user_home }}"
+    create_home: yes
+    shell: /bin/bash
+  become: yes
+
+- name: configure kolibri
+  ansible.builtin.debconf:
+    name: kolibri
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  loop: "{{ kolibri_config }}"
+  become: yes
+  tags:
+    - packages
+
+- name: configure kolibri-server
+  ansible.builtin.debconf:
+    name: kolibri-server
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  loop: "{{ kolibri_server_config }}"
+  become: yes
+  tags:
+    - packages
+
+- name: apt packages
+  ansible.builtin.apt:
+    name:
+      - nginx
+      - kolibri
+      - kolibri-server
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+  become: yes
+  tags:
+    - packages
+  notify:
+    - restart kolibri
+
+- name: kolibri content directory
+  file:
+    dest: "{{ kolibri_content }}"
+    state: directory
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes
+    owner: "{{ kolibri_user }}"
+    group: "{{ kolibri_group }}"
+  become: yes
+  notify:
+    - restart kolibri
+
+- name: kolibri configuration
+  ansible.builtin.template:
+    src: kolibri/options.ini.tmpl
+    dest: "{{ kolibri_user_home }}/.kolibri/options.ini"
+  become: yes
+  notify:
+    - restart kolibri
