@@ -1,0 +1,18 @@
+---
+kolibri_user_home: /home/kolibri
+kolibri_user: kolibri
+kolibri_group: kolibri
+kolibri_http_port: 8080
+kolibri_content: /home/kolibri/.kolibri/content
+kolibri_fallback_dirs: /home/kolibri/.kolibri
+kolibri_config:
+- question: kolibri/init
+  value: "true"
+  vtype: boolean
+- question: kolibri/user
+  value: "{{ kolibri_user }}"
+  vtype: string
+kolibri_server_config:
+- question: kolibri-server/port
+  value: "{{ kolibri_http_port }}"
+  vtype: select

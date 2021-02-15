@@ -1,0 +1,33 @@
+---
+- name: apt packages
+  ansible.builtin.apt:
+    name:
+      - nginx
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+  become: yes
+  tags:
+    - packages
+
+- name: hotspot index.html
+  ansible.builtin.copy:
+    src: nginx/index.html
+    dest: /var/www/html/index.html
+    mode: 0644
+  become: yes
+
+- name: kolibri.library
+  ansible.builtin.template:
+    src: nginx/kolibri
+    dest: /etc/nginx/sites-available/kolibri
+  become: yes
+
+- name: enable kolibri.library site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/kolibri
+    dest: /etc/nginx/sites-enabled/kolibri
+    state: link
+  become: yes
+  notify:
+    - restart nginx

@@ -17,6 +17,10 @@
   roles:
     - media-server
     - file-server
+    - role: educator
+      tags:
+        - educator
+        - education
   tags:
     - media
 

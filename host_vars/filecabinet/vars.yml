@@ -6,3 +6,8 @@ shares:
   - name: brain food
     path: /opt/data/brain-food
     writeable: 'no'
+kolibri_http_port: 8080
+kolibri_content: /opt/data/kolibri/content
+kolibri_user: kolibri
+kolibri_group: kolibri
+kolibri_user_home: /opt/kolibri
