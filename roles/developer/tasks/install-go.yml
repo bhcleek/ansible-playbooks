@@ -15,7 +15,8 @@
 - name: unpack go{{ golang_version }} archive
   unarchive:
     src: /tmp/{{ golang_pkg }}
-    dest: /usr/local copy=no
+    dest: /usr/local
+    copy: no
   become: yes
 
 - name: build go toolchain
