@@ -27,8 +27,8 @@ AGWPORT 0
 KISSPORT 0
 
 # beacon via radio
-PBEACON delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=15 height=20 comment="igate on Raspberry Pi with Yaesu FT-2980" via=WIDE1-1,WIDE2-1
+PBEACON delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=5 height=20 comment="igate on Raspberry Pi with Yaesu FT-2980" via=WIDE1-1,WIDE2-1
 
 # beacon APRS-IS directly
 # TODO(bc): update comment?
-PBEACON sendto=IG delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=15 height=20 comment="igate on Raspbery Pi with Yaesu FT-2980"
+PBEACON sendto=IG delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=5 height=20 comment="igate on Raspbery Pi with Yaesu FT-2980"
