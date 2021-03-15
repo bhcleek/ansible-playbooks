@@ -1,13 +1,13 @@
 [Unit]
 Description=APRS
-After=aprs.socket
-Requires=aprs.socket
+After=sdr-aprs.socket
+Requires=sdr-aprs.socket
 
 [Service]
 StandardInput=inherit
-StandardOutput=fd:aprs.socket
+StandardOutput=fd:sdr-aprs.socket
 StandardError=journal
-Sockets=aprs.socket
+Sockets=sdr-aprs.socket
 
 #ExecStart=rtl_fm -f 144.390M -g 49.6
 ExecStart=rtl_fm -f 144.390M
@@ -21,4 +21,4 @@ Type=simple
 
 [Install]
 WantedBy=multi-user.target sockets.target
-Alias=aprs.service
+Alias=sdr-aprs.service

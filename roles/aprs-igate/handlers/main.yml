@@ -10,8 +10,14 @@
     state: restarted
   become: yes
 
-- name: restart aprs
+- name: restart sdr-igate
   systemd:
-    name: aprs
+    name: sdr-igate
+    state: restarted
+  become: yes
+
+- name: restart sdr-aprs
+  systemd:
+    name: sdr-aprs
     state: restarted
   become: yes
