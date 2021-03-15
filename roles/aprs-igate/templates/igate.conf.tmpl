@@ -1,0 +1,34 @@
+#
+# configuration for IGate.
+#
+
+ADEVICE {{ igate.input_device | default('null') }} {{ igate.output_device | default('null') }}
+PTT /dev/ttyUSB0 RTS DTR
+CHANNEL 0
+MYCALL {{ igate.call }}
+
+# First you need to specify the name of a Tier 2 server.
+# The current preferred way is to use one of these regional rotate addresses:
+
+#	noam.aprs2.net 		- for North America
+#	soam.aprs2.net		- for South America
+#	euro.aprs2.net		- for Europe and Africa
+#	asia.aprs2.net 		- for Asia
+#	aunz.aprs2.net		- for Oceania
+
+IGSERVER {{ igate.tier2_server | default('noam.aprs2.net') }}
+IGLOGIN {{ igate.login }} {{ igate.passcode }}
+
+IGTXVIA 0 {{ igate.via | default('WIDE1-1') }}
+
+# disable AGW
+AGWPORT 0
+# disable KISS
+KISSPORT 0
+
+# beacon via radio
+PBEACON delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=15 height=20 comment="igate on Raspberry Pi with Yaesu FT-2980" via=WIDE1-1,WIDE2-1
+
+# beacon APRS-IS directly
+# TODO(bc): update comment?
+PBEACON sendto=IG delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=15 height=20 comment="igate on Raspbery Pi with Yaesu FT-2980"

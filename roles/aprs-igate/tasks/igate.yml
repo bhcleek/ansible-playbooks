@@ -1,0 +1,32 @@
+---
+- name: aprs config directory
+  file:
+    path: /etc/aprs
+    state: directory
+  become: yes
+
+- name: igate.conf
+  template:
+    src: igate.conf.tmpl
+    dest: /etc/aprs/igate.conf
+  notify:
+    - restart igate
+  become: yes
+
+- name: igate unit
+  copy:
+    src: igate.service
+    dest: /etc/systemd/system/igate.service
+  notify:
+    - reload systemd
+    - restart igate
+  become: yes
+
+- name: igate service started
+  systemd:
+    service: igate
+    state: started
+  notify:
+    - reload systemd
+    - restart igate
+  become: yes

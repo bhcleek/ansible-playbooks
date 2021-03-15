@@ -6,7 +6,7 @@
 # We will override the input half on the command line.
 ADEVICE null null
 CHANNEL 0
-MYCALL {{ sdr_igate.call }}
+MYCALL {{ igate.call }}
 
 # First you need to specify the name of a Tier 2 server.
 # The current preferred way is to use one of these regional rotate addresses:
@@ -17,15 +17,16 @@ MYCALL {{ sdr_igate.call }}
 #	asia.aprs2.net 		- for Asia
 #	aunz.aprs2.net		- for Oceania
 
-IGSERVER {{ sdr_igate.tier2_server | default('noam.aprs2.net') }}
+IGSERVER {{ igate.tier2_server | default('noam.aprs2.net') }}
+IGLOGIN {{ igate.login }} {{ igate.passcode }}
 
-# You also need to specify your login name and passcode.
-# Contact the author if you can't figure out how to generate the passcode.
-
-IGLOGIN {{ sdr_igate.login }} {{ sdr_igate.passcode }}
+# disable AGW
+AGWPORT 0
+# disable KISS
+KISSPORT 0
 
 # That's all you need for a receive only IGate which relays
 # messages from the local radio channel to the global servers.
 
 # beacon APRS-IS directly
-PBEACON sendto=IG delay=1 every=30 overlay=R symbol="igate" lat={{ sdr_igate.lat }} long={{ sdr_igate.long }} height=20 comment="receive only igate"
+PBEACON sendto=IG delay=1 every=30 overlay=R symbol="igate" lat={{ igate.lat }} long={{ igate.long }} height=20 comment="receive only igate"

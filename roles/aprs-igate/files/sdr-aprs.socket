@@ -3,9 +3,9 @@ Description=APRS FIFO
 After=sockets.target
 
 [Socket]
-ListenFIFO=/run/aprs.pipe
+ListenFIFO=/run/sdr-aprs.pipe
 SocketMode=0644
 
 [Install]
 WantedBy=multi-user.target sockets.target
-Alias=aprs.socket
+Alias=sdr-aprs.socket

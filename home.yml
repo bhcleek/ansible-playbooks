@@ -13,9 +13,11 @@ all:
     ham:
       hosts:
         hifi:
-          sdr_igate:
+          igate:
             login: "{{ vault_igate_login }}"
             passcode: "{{ vault_igate_passcode }}"
             call: K7BCX-10
             lat: "45.568449N"
             long: "122.670984W"
+            input_device: plughw:2,0
+            output_device: plughw:2,0
