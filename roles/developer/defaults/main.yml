@@ -4,12 +4,12 @@ golang_checksums:
   Darwin: "sha256:c98cde81517c5daf427f3071412f39d5bc58f6120e90a0d94cc51480fa04dbc1"
   Linux: "sha256:542e936b19542e62679766194364f45141fde55169db2d8d01046555ca9eb4b8"
 golang_pkg: "go{{ golang_version }}.{{ ansible_system | lower }}-amd64.tar.gz"
-protoc_version: "3.2.0"
+protoc_version: "3.15.6"
 protoc_os: "{{ ansible_system | lower }}"
 protoc_pkg: protoc-{{ protoc_version }}-{{ protoc_os }}-x86_64.zip
 protoc_checksums:
-  Linux: 9cf9a8661d649b8477fe0ad32a8b28d351a170a62e210bf848d90a29f1f4df9d
-  Darwin: 69fbd04599c53af7826f9a6cf2a34f15aec6e0800c24cd572f4f5ba9e156a2cb
+  Linux: 38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
+  Darwin: ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
 npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_env.HOME }}/.fonts"

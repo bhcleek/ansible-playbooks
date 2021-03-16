@@ -10,7 +10,7 @@
   register: installed_protoc_version
 
 - include: install-proto.yml
-  when: protoc_check.rc != 0 or installed_protoc_version.stdout.find('libprotoc {{ protoc_version }}') != 0
+  when: protoc_check.rc != 0 or installed_protoc_version.stdout.find('libprotoc ' + protoc_version) != 0
 
 - name: install Go protoc plugin
   command: go get -u github.com/golang/protobuf/{{ item }}
