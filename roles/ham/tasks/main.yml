@@ -22,5 +22,3 @@
   become: yes
   tags:
     - packages
-
-- include_tasks: direwolf.yml
