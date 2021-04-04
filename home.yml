@@ -21,3 +21,6 @@ all:
             long: "122.670984W"
             input_device: plughw:2,0
             output_device: plughw:2,0
+    flight-tracker:
+      hosts:
+        hifi:
