@@ -1,0 +1,6 @@
+---
+piaware_repository:
+  deb: piaware-repository_5.0_all.deb
+  pkg: piaware-repository
+  version: "5.0"
+
