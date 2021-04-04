@@ -31,6 +31,7 @@
   git:
     repo: https://github.com/wb2osz/direwolf
     dest: "{{ ansible_env.HOME }}/src/direwolf"
+  register: direwolf_git_result
 
 - name: checkout direwolf sources
   shell: git checkout master
@@ -51,24 +52,27 @@
   command: make
   args:
     chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
+  when: direwolf_git_result.before != direwolf_git_result.after
 
 - name: install direwolf
   command: make install
   args:
     chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
   become: yes
+  when: direwolf_git_result.before != direwolf_git_result.after
 
 - name: check for direwolf.conf
   stat:
     path: "{{ ansible_env.HOME}}/direwolf.conf"
   register: stat_result
+  when: direwolf_git_result.before != direwolf_git_result.after
 
 - name: direwolf install-conf
   command: make install-conf
   args:
     chdir: "{{ ansible_env.HOME }}/src/direwolf/build"
   become: yes
-  when: not stat_result.stat.exists
+  when: direwolf_git_result.before != direwolf_git_result.after and not stat_result.stat.exists
 
 - name: remove direwolf build directory
   file:
