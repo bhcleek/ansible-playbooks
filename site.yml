@@ -33,3 +33,10 @@
         - aprs-igate
   tags:
     - ham
+
+- name: flight-tracker
+  hosts: flight-tracker
+  roles:
+    - flight-tracker
+  tags:
+    - flight-tracker
