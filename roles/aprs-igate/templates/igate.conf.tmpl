@@ -32,3 +32,6 @@ PBEACON delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ ig
 # beacon APRS-IS directly
 # TODO(bc): update comment?
 PBEACON sendto=IG delay=1 every=30 symbol="igate" overlay=T lat={{ igate.lat }} long={{ igate.long }} power=5 height=20 comment="igate on Raspbery Pi with Yaesu FT-2980"
+
+# beacon IGATE stats to APRS-IS directly
+IBEACON sendto=IG delay=1 every=30
