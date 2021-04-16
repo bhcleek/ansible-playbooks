@@ -1,4 +1,9 @@
 ---
+- name: taps
+  community.general.homebrew_tap:
+    name: hashicorp/tap
+    state: present
+
 - name: install packages
   homebrew:
     state: latest
@@ -22,6 +27,7 @@
       - graphviz
       - wireshark
       - the_silver_searcher
+      - hashicorp/tap/Packer
   tags:
     - packages
 
