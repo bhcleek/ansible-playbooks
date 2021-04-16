@@ -34,6 +34,9 @@
 - name: git config core.editor
   command: git config --global core.editor vim
 
+- name: git config init.defaultBranch
+  command: git config --global init.defaultBranch main
+
 - name: git config core.autocrlf
   command: git config --global core.autocrlf false
 
