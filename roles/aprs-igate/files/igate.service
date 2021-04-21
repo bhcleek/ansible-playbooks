@@ -3,7 +3,7 @@ Description=igate
 
 [Service]
 StandardInput=null
-StandardOutput=journal
+StandardOutput=journal+console
 StandardError=journal
 
 ExecStart=direwolf -c /etc/aprs/igate.conf -r 24000 -D 1 -t 0

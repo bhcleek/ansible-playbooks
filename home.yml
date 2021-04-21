@@ -19,8 +19,8 @@ all:
             call: K7BCX-10
             lat: "45.568449N"
             long: "122.670984W"
-            input_device: plughw:2,0
-            output_device: plughw:2,0
+            input_device: plughw:usb_audio,0
+            output_device: plughw:usb_audio,0
     flight-tracker:
       hosts:
         hifi:

@@ -1,0 +1,4 @@
+SUBSYSTEM!="sound", GOTO="usb_audio_end"
+ACTION!="add", GOTO="usb_audio_end"
+DEVPATH=="{{ usb_audio_device }}", ATTR{id}="{{ usb_audio_id }}"
+LABEL="usb_audio_end"

@@ -1,0 +1,11 @@
+---
+- name: usb audio rules
+  ansible.builtin.template:
+    src: usb-audio.rules
+    dest: /etc/udev/rules.d/85-usb-audio.rules
+    owner: root
+    group: root
+  become: yes
+  notify:
+    - reload udev rules
+    - resync udev
