@@ -35,7 +35,7 @@
     - ham
 
 - name: flight-tracker
-  hosts: flight-tracker
+  hosts: flight_tracker
   roles:
     - flight-tracker
   tags:
