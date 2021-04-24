@@ -26,6 +26,6 @@ all:
     pitft:
       hosts:
         hifi:
-    flight-tracker:
+    flight_tracker:
       hosts:
         hifi:
