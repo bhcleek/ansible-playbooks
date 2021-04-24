@@ -6,7 +6,6 @@
 
 - name: install packages
   homebrew:
-    state: latest
     name:
       - tmux
       - git
@@ -28,6 +27,8 @@
       - wireshark
       - the_silver_searcher
       - hashicorp/tap/Packer
+      - minikube
+    state: latest
   tags:
     - packages
 
@@ -37,10 +38,8 @@
       - docker
       - iterm2
       - slack
-      - minikube
       - wireshark
-    state: present
-    upgrade: true
+    state: latest
   ignore_errors: true
   tags:
     - packages
