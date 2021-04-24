@@ -50,7 +50,7 @@
    #- restart sdr-igate
   become: yes
 
-- name: sdr-igate service started
+- name: sdr-igate service stopped
   systemd:
     service: sdr-igate
     state: stopped
@@ -59,7 +59,7 @@
    #- restart sdr-igate
   become: yes
 
-- name: sdr-aprs service started
+- name: sdr-aprs service stopped
   systemd:
     service: sdr-aprs.service
     state: stopped
