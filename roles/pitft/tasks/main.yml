@@ -1,0 +1,80 @@
+---
+# configure a PiTFT screen as documented on
+# https://learn.adafruit.com/adafruit-pitft-3-dot-5-touch-screen-for-raspberry-pi/easy-install-2
+
+- name: PiTFT packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - python3-pip
+    state: latest
+    update_cache: yes
+    cache_valid_time: 86400
+  become: yes
+  tags:
+    - packages
+
+- name: install adafruit-python-shell
+  ansible.builtin.pip:
+    name: adafruit-python-shell
+    state: latest
+    extra_args: --user
+  tags:
+    - packages
+    - python
+
+- name: install adafruit-python-shell
+  ansible.builtin.pip:
+    name: click
+    version: "7.0"
+    extra_args: --user
+  tags:
+    - packages
+    - python
+
+- name: create src directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/src"
+    state: directory
+
+- name: clone adafruit raspi installer scripts
+  ansible.builtin.git:
+    repo: https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
+    dest: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
+  register: raspi_installer_scripts_git_result
+
+- name: checkout adafruit raspi installer scripts sources
+  ansible.builtin.command:
+    cmd: git checkout master
+  args:
+    chdir: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
+
+- name: register timestamp
+  command:
+    cmd: date -u --iso-8601=seconds
+  register: timestamp
+
+- name: backup /boot/config.txt
+  ansible.builtin.command:
+    cmd: cp /boot/config.txt "{{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }}"
+
+- name: configure PiTFT
+  ansible.builtin.command:
+    argv:
+      - python3
+      - adafruit-pitft.py
+      - --display={{ pitft.display }}
+      - --rotation={{ pitft.rotation }}
+      - --install-type={{ pitft.type }}
+      - --reboot=no
+    chdir: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
+  become: yes
+
+- name: /boot/config.txt changed
+  ansible.builtin.command:
+    cmd: diff -u {{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }} /boot/config.txt
+  register: boot_config_diff
+  failed_when: boot_config_diff.rc == 2
+  changed_when: boot_config_diff.rc == 1
+  notify:
+    - reboot prompt

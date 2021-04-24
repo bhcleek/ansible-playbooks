@@ -10,6 +10,8 @@ all:
       hosts:
         hifi:
         filecabinet:
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
     ham:
       hosts:
         hifi:
@@ -21,6 +23,9 @@ all:
             long: "122.670984W"
             input_device: plughw:usb_audio,0
             output_device: plughw:usb_audio,0
+    pitft:
+      hosts:
+        hifi:
     flight-tracker:
       hosts:
         hifi:

@@ -34,6 +34,13 @@
   tags:
     - ham
 
+- name: pitft
+  hosts: pitft
+  roles:
+    - pitft
+  tags:
+    - pitft
+
 - name: flight-tracker
   hosts: flight_tracker
   roles:
