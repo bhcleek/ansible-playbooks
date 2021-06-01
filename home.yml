@@ -14,6 +14,7 @@ all:
       vars:
         ansible_python_interpreter: /usr/bin/python3
         venv: "{{ ansible_env.HOME }}/venv"
+        fluentbit_distribution: debian
     ham:
       hosts:
         hifi:
