@@ -21,3 +21,9 @@
     name: sdr-aprs
     state: restarted
   become: yes
+
+- name: restart fluent-bit
+  systemd:
+    name: fluent-bit
+    state: restarted
+  become: yes

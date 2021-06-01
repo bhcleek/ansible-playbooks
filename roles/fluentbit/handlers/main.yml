@@ -1,0 +1,16 @@
+---
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: restart fluent-bit
+  systemd:
+    name: fluent-bit
+    state: restarted
+  become: yes
+
+- name: reboot prompt
+  debug:
+    msg: "/boot/config.txt has changed. Changes will take effect after rebooting.\n\n {{ boot_config_diff.stdout }}"
+  when: boot_config_diff.rc == 1

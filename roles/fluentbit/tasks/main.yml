@@ -1,0 +1,78 @@
+---
+- name: fluentbit key temp file
+  ansible.builtin.tempfile:
+  register: fluentbit_gpg_asc
+
+- name: fluentbit key
+  ansible.builtin.get_url:
+    dest: "{{ fluentbit_gpg_asc.path }}"
+    url: https://packages.fluentbit.io/fluentbit.key
+
+- name: dearmor fluentbit key
+  ansible.builtin.shell:
+    cmd: cat {{ fluentbit_gpg_asc.path | quote }} | gpg --dearmor > /usr/share/keyrings/fluentbit-archive-keyring.gpg
+    creates: /usr/share/keyrings/fluentbit-archive-keyring.gpg
+  become: yes
+
+- name: fluentbit apt repository
+  apt_repository:
+    filename: fluentbit
+    repo: deb [signed-by=/usr/share/keyrings/fluentbit-archive-keyring.gpg] https://packages.fluentbit.io/{{ fluentbit_distribution }}/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main
+    state: present
+  become: yes
+
+- name: install fluentbit
+  ansible.builtin.apt:
+    name:
+      - fluent-bit
+    state: present
+    update_cache: yes
+    cache_valid_time: 86400
+  become: yes
+  tags:
+    - packages
+
+- name: fluent-bit.conf
+  ansible.builtin.copy:
+    src: fluent-bit.conf
+    dest: /etc/fluent-bit/fluent-bit.conf
+  notify:
+    - restart fluent-bit
+  become: yes
+
+- name: create /etc/fluent-bit/conf.d directory
+  file:
+    dest: /etc/fluent-bit/conf.d
+    state: directory
+  become: yes
+
+- name: register timestamp
+  command:
+    cmd: date -u --iso-8601=seconds
+  register: timestamp
+
+- name: backup /boot/firmware/config.txt
+  ansible.builtin.command:
+    cmd: cp /boot/firmware/config.txt "{{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }}"
+
+# This sucks, but fluentbit seems to require the 4K page size instead of
+# dynamically supporting whatever size the kernel uses. The default kernel
+# image On Raspberry Pi 5, kernel_2712.img, uses a 16K page size and includes
+# other optimizations that aren't in the kernel8.img. Unfortunately, we're
+# going to lose all those optimizations until fluentbit is fixed to support a
+# page size of 16K. Can check the page size with getconf PAGE_SIZE
+- name: configure kernel for fluentbit
+  ansible.builtin.lineinfile:
+    line: "kernel=kernel8.img"
+    path: /boot/firmware/config.txt
+    backup: false
+  become: yes
+
+- name: /boot/firmware/config.txt changed
+  ansible.builtin.command:
+    cmd: diff -u {{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }} /boot/firmware/config.txt
+  register: boot_config_diff
+  failed_when: boot_config_diff.rc == 2
+  changed_when: boot_config_diff.rc == 1
+  notify:
+    - reboot prompt
