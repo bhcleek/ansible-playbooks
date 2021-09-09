@@ -56,7 +56,7 @@
   raw: git config --global alias.pr '!pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr'
 
 - name: git config alias.done
-  raw: git config --global alias.done '!done() { branch=$(git rev-parse --abbref-ref HEAD); if [[ "$branch" == "master" || "$branch" == "HEAD" ]]; then printf "cowardly refusing to delete this branch\n" >&2; exit 1; fi;  git checkout master && git remote update -p && git merge --ff-only origin/master && git branch -d ${branch}; }; done'
+  raw: git config --global alias.done '!done() { branch=$(git rev-parse --abbrev-ref HEAD); if [[ "$branch" == "master" || "$branch" == "HEAD" ]]; then printf "cowardly refusing to delete this branch\n" >&2; exit 1; fi;  git checkout master && git remote update -p && git merge --ff-only origin/master && git branch -d ${branch}; }; done'
 
 - name: git config alias.prlog
   raw: git config --global alias.prlog "log --format='tformat:##### %s%n%+b%n' --reverse origin/master.."
