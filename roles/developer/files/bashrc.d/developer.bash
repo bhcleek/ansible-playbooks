@@ -41,7 +41,15 @@ fi
 
 : ${ORIG_PATH:=${PATH}}
 export ORIG_PATH
-export PATH=/usr/local/go/bin:/usr/local/bin:$ORIG_PATH
+
+CPU=$(uname -p)
+if [[ "$CPU" == "arm" ]]; then
+    PATH="/opt/homebrew/bin:$ORIG_PATH"
+else
+    PATH="/usr/local/bin:$ORIG_PATH"
+fi
+export PATH=/usr/local/go/bin:$PATH
+
 
 GOPATH=$(go env GOPATH)
 export GOBIN=${GOPATH%%:*}/bin
