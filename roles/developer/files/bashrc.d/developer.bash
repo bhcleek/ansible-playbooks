@@ -43,10 +43,9 @@ fi
 export ORIG_PATH
 
 CPU=$(uname -p)
+PATH="/usr/local/bin:$ORIG_PATH"
 if [[ "$CPU" == "arm" ]]; then
-    PATH="/opt/homebrew/bin:$ORIG_PATH"
-else
-    PATH="/usr/local/bin:$ORIG_PATH"
+    PATH="/opt/homebrew/bin:$PATH"
 fi
 export PATH=/usr/local/go/bin:$PATH
 

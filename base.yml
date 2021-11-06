@@ -12,7 +12,7 @@
     - name: install Homebrew
       command: ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
       args:
-        creates: /usr/local/bin/brew 
+        creates: "{{ homebrew_prefix[ansible_architecture] }}/bin/brew"
       tags:
         - packages
 
