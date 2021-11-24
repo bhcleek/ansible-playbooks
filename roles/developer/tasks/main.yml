@@ -20,11 +20,12 @@
   pip:
     name: "{{ item }}"
     state: latest
+    executable: pip3
     extra_args: --user
   with_items:
     - awscli
     - neovim
-  become: "{{ pip_become }}"
+  #become: "{{ pip_become }}"
   tags:
     - packages
     - python
