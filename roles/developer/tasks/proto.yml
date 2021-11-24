@@ -8,6 +8,7 @@
   command: protoc --version
   when: protoc_check.rc == 0
   register: installed_protoc_version
+  ignore_errors: yes
 
 - include: install-proto.yml
   when: protoc_check.rc != 0 or installed_protoc_version.stdout.find('libprotoc ' + protoc_version) != 0
