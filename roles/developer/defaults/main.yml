@@ -1,24 +1,46 @@
 ---
-golang_version: "1.17.1"
+golang_version: "1.17.3"
 golang_checksums:
-  Darwin: "sha256:3c452046b1dfa27b70d3217c9fe6de266f9fd74d83aad81382fead70efcdffca"
-  Linux: "sha256:dab7d9c34361dc21ec237d584590d72500652e7c909bf082758fb63064fca0ef"
-golang_pkg: "go{{ golang_version }}.{{ ansible_system | lower }}-amd64.tar.gz"
+  arm64:
+    Darwin: "sha256:ffe45ef267271b9681ca96ca9b0eb9b8598dd82f7bb95b27af3eef2461dc3d2c"
+    Linux: "sha256:06f505c8d27203f78706ad04e47050b49092f1b06dc9ac4fbee4f0e4d015c8d4"
+  x86_64:
+    Darwin: "sha256:765c021e372a87ce0bc58d3670ab143008dae9305a79e9fa83440425529bb636"
+    Linux: "sha256:550f9845451c0c94be679faf116291e7807a8d78b43149f9506c1b15eb89008c"
+golang_pkg: "go{{ golang_version }}.{{ ansible_system | lower }}-{{ ansible_architecture }}.tar.gz"
 protoc_version: "3.15.6"
 protoc_os: "{{ ansible_system | lower }}"
-protoc_pkg: protoc-{{ protoc_version }}-{{ protoc_os }}-x86_64.zip
+protoc_pkg:
+  arm64:
+    Darwin: protoc-{{ protoc_version }}-osx-x86_64.zip
+    Linux: protoc-{{ protoc_version }}-{{ protoc_os }}-aarch64.zip
+  x86_64:
+    Darwin: protoc-{{ protoc_version }}-osx-x86_64.zip
+    Linux: protoc-{{ protoc_version }}-{{ protoc_os }}-x86_64.zip
 protoc_checksums:
-  Linux: 38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
-  Darwin: ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
+  arm64:
+    Linux: 38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
+    Darwin: ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
+  x86_64:
+    Linux: 38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
+    Darwin: ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
 npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_env.HOME }}/.fonts"
 gcloud_install_path: "{{ ansible_env.HOME }}"
-gcloud_version: "183.0.0"
+gcloud_version: "365.0.1"
 gcloud_checksums:
-  Darwin: "sha256:605332cb305a04d377572d61063db88433862521f1aa4887d3b3fbfaaf1519a2"
-  Linux: "sha256:6e5c76999ff3f14621d26e3c76967dc4c43613344947ab42fcc764311642c898"
-gcloud_pkg: "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_system | lower }}-x86_64.tar.gz"
+  arm64:
+    Darwin: "sha256:636591e597730649011f510fc8c78e2b133ef8b417992f8d923a87a528dc6d5e"
+    Linux: "sha256:fbe88d385e2648ac21bd67586c669e824160424627ac2f9c3fd17c79c765286b"
+  x86_64:
+    Darwin: "sha256:4ae8a3274eb9b6fca5761ef2eed713bc3486256d11268575febe3351e9e4d902"
+    Linux: "sha256:17003cdba67a868c2518ac16efa60dc6175533b7a9fb87304459784308e30fb0"
+gcloud_pkg:
+  arm64:
+    "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_system | lower }}-arm.tar.gz"
+  x86_64:
+    "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_system | lower }}-x86_64.tar.gz"
 minikube_version: v0.25.2
 minikube_checksum: sha256:f108e0125e45297f74b34e0dfd1a8e015220305832d437507afc20250f8f6ea5
 

@@ -39,17 +39,9 @@ then
 	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
-: ${ORIG_PATH:=${PATH}}
-export ORIG_PATH
-
-CPU=$(uname -p)
-if [[ "$CPU" == "arm" ]]; then
-    PATH="/opt/homebrew/bin:$ORIG_PATH"
-else
-    PATH="/usr/local/bin:$ORIG_PATH"
-fi
-export PATH=/usr/local/go/bin:$PATH
-
+: ${DEV_ORIG_PATH:=${PATH}}
+export DEV_ORIG_PATH
+export PATH=/usr/local/go/bin:$DEV_ORIG_PATH
 
 GOPATH=$(go env GOPATH)
 export GOBIN=${GOPATH%%:*}/bin

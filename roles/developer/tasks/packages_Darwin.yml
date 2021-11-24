@@ -52,6 +52,7 @@
   ignore_errors: true
   tags:
     - packages
+  become: true
 
 # it shouldn't be necessary to do this, but the mode doesn't get set correctly when attempting to use the mode on the get_url task.
 - name: set hyperkit perms

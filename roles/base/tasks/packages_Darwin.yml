@@ -6,7 +6,12 @@
       - coreutils
       - direnv
       - fzf
+      - gnu-getopt
+      - gnu-sed
+      - gnu-tar
+      - gnu-time
       - parallel
+      - tmux
       - tree
       - vim
   tags:

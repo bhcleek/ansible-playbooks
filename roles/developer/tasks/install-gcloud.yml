@@ -1,9 +1,9 @@
 ---
 - name: download gcloud {{ gcloud_version }} archive
   get_url:
-    url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_pkg }}
-    checksum: "{{ gcloud_checksums[ansible_system] }}"
-    dest: /tmp/{{ gcloud_pkg }}
+    url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_pkg[ansible_architecture] }}"
+    checksum: "{{ gcloud_checksums[ansible_architecture][ansible_system] }}"
+    dest: /tmp/{{ gcloud_pkg[ansible_architecture] }}
     timeout: 600
 
 #- name: remove gcloud archive directory
@@ -12,7 +12,7 @@
 
 - name: unpack gcloud {{ gcloud_version }} archive
   unarchive:
-    src: /tmp/{{ gcloud_pkg }}
+    src: /tmp/{{ gcloud_pkg[ansible_architecture] }}
     dest: "{{ ansible_env.HOME }}"
     copy: no
   become: no
@@ -25,6 +25,6 @@
 
 - name: remove gcloud archive
   file:
-    path: /tmp/{{ gcloud_pkg }}
+    path: /tmp/{{ gcloud_pkg[ansible_architecture] }}
     state: absent
   become: no

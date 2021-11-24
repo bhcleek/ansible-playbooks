@@ -2,7 +2,7 @@
 - name: download go{{ golang_version }} archive
   get_url:
     url: https://storage.googleapis.com/golang/{{ golang_pkg }}
-    checksum: "{{ golang_checksums[ansible_system] }}"
+    checksum: "{{ golang_checksums[ansible_architecture][ansible_system] }}"
     dest: /tmp/{{ golang_pkg }}
     timeout: 600
 
