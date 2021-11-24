@@ -1,18 +1,21 @@
+
 if [[  "$(uname -s)" == 'Darwin' ]];
 then
 	# Setup fzf
 	# ---------
-	if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-		export PATH="$PATH:/usr/local/opt/fzf/bin"
+	if command -v brew > /dev/null; then
+		if [[ ! "$PATH" == *$(brew --prefix)/opt/fzf/bin* ]]; then
+			export PATH="$PATH:$(brew --prefix)/opt/fzf/bin"
+		fi
+
+		# Auto-completion
+		# ---------------
+		[[ $- == *i* ]] && source "$(brew --prefix)/opt/fzf/shell/completion.bash" 2> /dev/null
+
+		# Key bindings
+		# ------------
+		source "$(brew --prefix)/opt/fzf/shell/key-bindings.bash"
 	fi
-
-	# Auto-completion
-	# ---------------
-	[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.bash" 2> /dev/null
-
-	# Key bindings
-	# ------------
-	source "/usr/local/opt/fzf/shell/key-bindings.bash"
 elif [[ "$(uname -s)" == 'Linux' ]];
 then
 	# Auto-completion
