@@ -5,6 +5,12 @@
     state: directory
     mode: 0750
 
+- name: Set pkg_arch
+  set_fact:
+    pkg_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture  }}"
+  tags:
+    - always
+
 - include_tasks: packages_{{ ansible_os_family }}.yml
   tags:
     - packages
