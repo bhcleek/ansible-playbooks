@@ -5,7 +5,7 @@ golang_checksums:
     Darwin: "sha256:40ecd383c941cc9f0682e6a6f2a333539d58c7dea15c842434d03afafe2f7242"
     Linux: "sha256:fc4ad28d0501eaa9c9d6190de3888c9d44d8b5fb02183ce4ae93713f67b8a35b"
   x86_64:
-    Darwin: "sha256:beacbe1441bee4d7978b900136d1d6a71d150f0a9bb77e9d50c822065623a35a"
+    Darwin: "sha256:d9dcf8fc35da54c6f259be41954783a9f4984945a855d03a003a7fd6ea4c5ca1"
     Linux: "sha256:956f8507b302ab0bb747613695cdae10af99bbd39a90cae522b7c0302cc27245"
 golang_pkg: "go{{ golang_version }}.{{ ansible_system | lower }}-{{ pkg_arch }}.tar.gz"
 protoc_version: "3.15.6"
