@@ -25,6 +25,11 @@ then
 	function __git_ps1() { : ; }
 fi
 # the right pointing brackets are U+276F
+# set PS1 so PS1 will be set even when the default __git_ps1 implementation
+# (which does nothing to set PS1 as git's __git_ps1 does) is used.
+PS1="╭─\u@\h:\w\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "
+# use __git_ps1 in PROMPT_COMMAND instead of in PS1 so that GITSHOWCOLORHINTS
+# will be honored.
 PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
 
 export CLICOLOR=1
