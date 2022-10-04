@@ -1,4 +1,4 @@
-export PATH=$PATH:~/Library/Python/3.8/bin
+export PATH=$PATH:~/Library/Python/3.9/bin
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
