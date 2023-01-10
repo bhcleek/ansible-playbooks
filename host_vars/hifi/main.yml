@@ -2,6 +2,6 @@
 usb_audio_device: "/devices/platform/soc/3f980000.usb/usb1/1-1/1-1.2/1-1.2:1.0/sound/card?"
 pitft:
   display: "35r"
-  rotation: "90"
+  rotation: "270"
   type: console
   #type: fbcp
