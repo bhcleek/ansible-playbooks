@@ -6,7 +6,7 @@
 - name: get piaware repo deb
   ansible.builtin.get_url:
     dest: "{{ansible_env.HOME}}/{{piaware_repository.deb}}"
-    url: https://flightaware.com/adsb/piaware/files/packages/pool/piaware/p/piaware-support/{{piaware_repository.deb}}
+    url: https://flightaware.com/adsb/piaware/files/packages/pool/piaware/f/flightaware-apt-repository/{{piaware_repository.deb}}
   when: ansible_facts.packages['piaware-repository'] is not defined or piaware_repository.version not in (ansible_facts.packages['piaware-repository'] | map(attribute='version' ) | list)
 
 - name: install piaware repo deb

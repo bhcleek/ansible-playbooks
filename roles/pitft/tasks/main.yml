@@ -14,20 +14,22 @@
   tags:
     - packages
 
-- name: install adafruit-python-shell
+- name: install adafruit-python-shell via pip
   ansible.builtin.pip:
     name: adafruit-python-shell
     state: latest
     extra_args: --user
+  become: yes
   tags:
     - packages
     - python
 
-- name: install adafruit-python-shell
+- name: install click via pip
   ansible.builtin.pip:
     name: click
     version: "7.0"
     extra_args: --user
+  become: yes
   tags:
     - packages
     - python
@@ -45,7 +47,7 @@
 
 - name: checkout adafruit raspi installer scripts sources
   ansible.builtin.command:
-    cmd: git checkout master
+    cmd: git checkout main
   args:
     chdir: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
 

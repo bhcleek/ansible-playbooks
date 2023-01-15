@@ -1,6 +1,6 @@
 ---
 piaware_repository:
-  deb: piaware-repository_5.0_all.deb
-  pkg: piaware-repository
+  deb: flightaware-apt-repository_1.1_all.deb
+  pkg: flightaware-apt-repository_1.1_all.deb
   version: "5.0"
 
