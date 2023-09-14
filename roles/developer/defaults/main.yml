@@ -1,12 +1,12 @@
 ---
-golang_version: "1.21.0"
+golang_version: "1.21.1"
 golang_checksums:
   arm64:
-    Darwin: "sha256:3aca44de55c5e098de2f406e98aba328898b05d509a2e2a356416faacf2c4566"
-    Linux: "sha256:f3d4548edf9b22f26bbd49720350bbfe59d75b7090a1a2bff1afad8214febaf3"
+    Darwin: "sha256:ffd40391a1e995855488b008ad9326ff8c2e81803a6e80894401003bae47fcf1"
+    Linux: "sha256:7da1a3936a928fd0b2602ed4f3ef535b8cd1990f1503b8d3e1acc0fa0759c967"
   x86_64:
-    Darwin: "sha256:b314de9f704ab122c077d2ec8e67e3670affe8865479d1f01991e7ac55d65e70"
-    Linux: "sha256:d0398903a16ba2232b389fb31032ddf57cac34efda306a0eebac34f0965a0742"
+    Darwin: "sha256:809f5b0ef4f7dcdd5f51e9630a5b2e5a1006f22a047126d61560cdc365678a19"
+    Linux: "sha256:b3075ae1ce5dab85f89bc7905d1632de23ca196bd8336afd93fa97434cfa55ae"
 golang_pkg: "go{{ golang_version }}.{{ ansible_system | lower }}-{{ pkg_arch }}.tar.gz"
 protoc_version: "3.15.6"
 protoc_os: "{{ ansible_system | lower }}"
