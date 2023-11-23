@@ -10,13 +10,12 @@
   register: installed_protoc_version
   ignore_errors: yes
 
-- include: install-proto.yml
+- include_tasks: install-proto.yml
   when: protoc_check.rc != 0 or installed_protoc_version.stdout.find('libprotoc ' + protoc_version) != 0
 
 - name: install Go protoc plugin
-  command: go get -u github.com/golang/protobuf/{{ item }}
+  command: go install google.golang.org/protobuf/{{ item }}@latest
   #environment:
           # GOPATH: "{{ansible_env.GOPATH}}"
   with_items:
-    - proto
-    - protoc-gen-go
+    - cmd/protoc-gen-go
