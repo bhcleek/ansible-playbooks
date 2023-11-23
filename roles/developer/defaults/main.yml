@@ -19,11 +19,11 @@ protoc_pkg:
     Linux: protoc-{{ protoc_version }}-{{ protoc_os }}-x86_64.zip
 protoc_checksums:
   arm64:
-    Linux: 38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
-    Darwin: ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
+    Linux: sha256:38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
+    Darwin: sha256:ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
   x86_64:
-    Linux: 38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
-    Darwin: ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
+    Linux: sha256:38a2f024a0ce68897b1868c59b613939bd41f16c0c8d8890843eccdbbf46ab00
+    Darwin: sha256:ca025c889efbe02f390b251c153c752a05fb04f5ac8c93929f8dba2818a5392a
 npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_env.HOME }}/.fonts"

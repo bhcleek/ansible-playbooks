@@ -123,7 +123,7 @@
   command: git config --global diff.vault.textconv "ansible-vault view"
 
 # TODO(bc): replace include with include_tasks in Ansible 2.4
-- include: git-workspace.yml
+- include_tasks: git-workspace.yml
   with_items: "{{ workspaces }}"
   loop_control:
     loop_var: workspace

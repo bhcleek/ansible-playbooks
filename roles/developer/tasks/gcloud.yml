@@ -11,5 +11,5 @@
   register: installed_gcloud_version
   ignore_errors: yes
 
-- include: install-gcloud.yml
+- include_tasks: install-gcloud.yml
   when: gcloud_check.rc != 0 or installed_gcloud_version.stdout.find('Google Cloud SDK ' + gcloud_version) != 0

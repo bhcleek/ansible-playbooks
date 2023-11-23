@@ -2,7 +2,7 @@
 - name: download protoc {{ protoc_version }} archive
   get_url:
     url: https://github.com/google/protobuf/releases/download/v{{ protoc_version }}/{{ protoc_pkg[ansible_architecture][ansible_system] }}
-    sha256sum: "{{ protoc_checksums[ansible_architecture][ansible_system] }}"
+    checksum: "{{ protoc_checksums[ansible_architecture][ansible_system] }}"
     dest: /tmp/{{ protoc_pkg }}
     timeout: 600
 
