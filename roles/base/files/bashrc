@@ -24,13 +24,20 @@ if ! command -v __git_ps1 > /dev/null 2>&1
 then
 	function __git_ps1() { : ; }
 fi
+
+nonprintablestart=$'\x01'
+nonprintableend=$'\x02'
+bold=$(tput bold)
+green=$(tput setaf 2)
+
 # the right pointing brackets are U+276F
 # set PS1 so PS1 will be set even when the default __git_ps1 implementation
 # (which does nothing to set PS1 as git's __git_ps1 does) is used.
-PS1="╭─\u@\h:\w\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "
+PS1="╭─\u@\h:\w\n╰─${nonprintablestart}${bold}${green}${nonprintableend}❯❯❯${nonprintablestart}$(tput sgr0)${nonprintableend} "
 # use __git_ps1 in PROMPT_COMMAND instead of in PS1 so that GITSHOWCOLORHINTS
 # will be honored.
-PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
+PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─${nonprintablestart}${bold}${green}${nonprintableend}❯❯❯${nonprintablestart}$(tput sgr0)${nonprintableend} "'
+#PROMPT_COMMAND=$PROMPT_COMMAND';__git_ps1 "╭─\u@\h:\w" "\n╰─\[\e[32;1m\]❯❯❯\[\e[0m\] "'
 
 export CLICOLOR=1
 
