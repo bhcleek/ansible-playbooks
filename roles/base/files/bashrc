@@ -46,12 +46,12 @@ if [[ "$CPU" == "arm" ]]; then
     PATH="/opt/homebrew/bin:$PATH"
 fi
 
-for FILE in $(find $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -not -name 'os_*')
+for FILE in $(find -s $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -not -name 'os_*')
 do
 	source "$FILE"
 done
 
-for OS_FILE in $(find $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -name 'os_'$(uname -s)'*'); do
+for OS_FILE in $(find -s $HOME/.config/bash -mindepth 1 -maxdepth 1 -type f -name 'os_'$(uname -s)'*'); do
 	source "$OS_FILE"
 done
 
