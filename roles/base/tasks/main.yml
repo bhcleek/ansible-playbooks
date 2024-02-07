@@ -4,6 +4,8 @@
     dest: "{{ ansible_env.HOME }}/.config"
     state: directory
     mode: 0750
+  tags:
+    - conf
 
 - name: Set pkg_arch
   set_fact:
