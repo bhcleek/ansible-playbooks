@@ -78,6 +78,29 @@
     - homebin
     - bin
 
+- name: create iterm2 config directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.config/iterm2"
+    state: directory
+  tags:
+    - conf
+
+- name: iterm2 preferences
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/iterm2/com.googlecode.iterm2.plist"
+    src: iterm2/com.googlecode.iterm2.plist
+    backup: yes
+  tags:
+    - conf
+
+- name: iterm2 profiles
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/iterm2/Profiles.json"
+    src: iterm2/Profiles.json
+    backup: yes
+  tags:
+    - conf
+
 - name: create tmux config directory
   file:
     dest: "{{ ansible_env.HOME }}/.config/tmux"
