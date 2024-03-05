@@ -25,8 +25,8 @@ then
 	function __git_ps1() { : ; }
 fi
 
-nonprintablestart='\001'
-nonprintableend='\002'
+nonprintablestart=$'\x01'
+nonprintableend=$'\x02'
 bold="$(tput bold)"
 green="$(tput setaf 2)"
 reset="$(tput sgr0)"
