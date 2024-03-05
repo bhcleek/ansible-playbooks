@@ -14,5 +14,12 @@
       - tmux
       - tree
       - vim
+      - bash
   tags:
     - packages
+
+- name: homebrew bash in /etc/shells
+  ansible.builtin.lineinfile:
+    path: /etc/shells
+    insertafter: "EOF"
+    line: "/opt/homebrew/bin/bash"
