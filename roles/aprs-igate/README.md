@@ -1,16 +1,16 @@
 # aprs-igate
 
-The aprs-igate role provides three distinct services for running an igate. Two of them, aprs-igate and sdr-igate, do not transmit. The third,  and igate, is a TX igate.
+The aprs-igate role provides two method for running an igate. The first is a listen-only igate that relies on an SDR. The other provides a TX igate.
 
 ## services
 
+### sdr-aprs
+
+sdr-aprs is a service that listens to APRS on 144.390 via an rtl-sdr device with rtl-fm and sends the output to a socket. Disabled by default.
+
 ### sdr-igate
 
-sdr-igate is a listen only igate that works with an SDR device. Disabled by default.
-
-### aprs-igate
-
-aprs-igate is a listen only igate that works with a physical radio. Disabled by default.
+sdr-igate is a listen only igate that works with an SDR device. It listens for its data on the socket that sdr-aprs outputs to. Disabled by default.
 
 ### igate
 
