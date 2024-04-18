@@ -25,14 +25,14 @@
 # It would be best to remove the pi user, but it's still required for some
 # features.
 
-- name: pi password
-  ansible.builtin.user:
-    name: "{{ item.username }}"
-    password: "{{ item.password }}"
-    state: present
-    update_password: always
-  when: item.username == 'pi' and item.password is defined
-  loop: "{{ pi_users }}"
+#- name: pi password
+#  ansible.builtin.user:
+#    name: "{{ item.username }}"
+#    password: "{{ item.password }}"
+#    state: present
+#    update_password: always
+#  when: item.username == 'pi' and item.password is defined
+#  loop: "{{ pi_users }}"
 
 - name: create user group
   ansible.builtin.group:
