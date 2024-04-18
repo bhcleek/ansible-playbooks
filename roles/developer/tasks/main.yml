@@ -2,20 +2,6 @@
 - include_tasks: packages_{{ ansible_os_family }}.yml
   tags: packages
 
-- name: global npm packages
-  npm:
-    name: "{{ item }}"
-    global: true
-    production: true
-    state: latest
-  with_items:
-    - coffee-script
-    - bower
-    - grunt-cli
-  become: "{{ npm_become }}"
-  tags:
-    - packages
-
 - name: install pip packages
   pip:
     name: "{{ item }}"
@@ -24,8 +10,6 @@
     extra_args: --user
   with_items:
     - awscli
-    - neovim
-  #become: "{{ pip_become }}"
   tags:
     - packages
     - python
