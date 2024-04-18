@@ -175,14 +175,5 @@
   notify:
     - reload sshd
 
-- name: disable UsePAM
-  ansible.builtin.lineinfile:
-    path: "{{ sshd_config_path }}"
-    regexp: "^#?UsePAM"
-    line: "UsePAM no"
-    validate: "sshd -t -f %s"
-  notify:
-    - reload sshd
-
 # TODO(bc): install ufw
 # TODO(bc): install fail2ban
