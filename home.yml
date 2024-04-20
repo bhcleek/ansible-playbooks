@@ -4,7 +4,7 @@ all:
     filecabinet:
       ansible_host: 192.168.1.2
     hifi:
-      ansible_host: 192.168.8.110
+      ansible_host: 192.168.8.232
   children:
     pi:
       hosts:
@@ -26,7 +26,6 @@ all:
             output_device: plughw:usb_audio,0
     pitft:
       hosts:
-        hifi:
     flight_tracker:
       hosts:
         hifi:
