@@ -159,6 +159,7 @@
     line: "DenyUsers {{ pi_users | rejectattr('ssh') | map(attribute='username') | join(' ') }}"
     validate: "sshd -t -f %s"
     state: present
+  when: pi_users | rejectattr('ssh') | length > 0
   notify:
     - reload sshd
 
