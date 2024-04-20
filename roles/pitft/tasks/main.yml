@@ -7,6 +7,7 @@
     name:
       - git
       - python3-pip
+      - python3-venv
     state: latest
     update_cache: yes
     cache_valid_time: 86400
@@ -18,8 +19,8 @@
   ansible.builtin.pip:
     name: adafruit-python-shell
     state: latest
-    extra_args: --user
-  become: yes
+    virtualenv: "{{ venv }}"
+    virtualenv_command: "python3 -m venv"
   tags:
     - packages
     - python
@@ -27,9 +28,8 @@
 - name: install click via pip
   ansible.builtin.pip:
     name: click
-    version: "7.0"
-    extra_args: --user
-  become: yes
+    virtualenv: "{{ venv }}"
+    virtualenv_command: "python3 -m venv"
   tags:
     - packages
     - python
@@ -63,7 +63,7 @@
 - name: configure PiTFT
   ansible.builtin.command:
     argv:
-      - python3
+      - "{{ ansible_env.HOME }}/ansible/bin/python3"
       - adafruit-pitft.py
       - --display={{ pitft.display }}
       - --rotation={{ pitft.rotation }}

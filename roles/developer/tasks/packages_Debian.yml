@@ -42,7 +42,8 @@
   apt:
     name:
       - python
-      - python-pip
+      - python3-pip
+      - python3-venv
       - git
   #   - git-lfs
       - mercurial

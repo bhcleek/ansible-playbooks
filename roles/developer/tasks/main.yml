@@ -6,8 +6,8 @@
   pip:
     name: "{{ item }}"
     state: latest
-    executable: pip3
-    extra_args: --user
+    virtualenv: "{{ venv }}"
+    virtualenv_command: "python3 -m venv"
   with_items:
     - awscli
   tags:
