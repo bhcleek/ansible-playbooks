@@ -56,9 +56,9 @@
     cmd: date -u --iso-8601=seconds
   register: timestamp
 
-- name: backup /boot/config.txt
+- name: backup /boot/firmware/config.txt
   ansible.builtin.command:
-    cmd: cp /boot/config.txt "{{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }}"
+    cmd: cp /boot/firmware/config.txt "{{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }}"
 
 - name: configure PiTFT
   ansible.builtin.command:
@@ -72,9 +72,9 @@
     chdir: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
   become: yes
 
-- name: /boot/config.txt changed
+- name: /boot/firmware/config.txt changed
   ansible.builtin.command:
-    cmd: diff -u {{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }} /boot/config.txt
+    cmd: diff -u {{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }} /boot/firmware/config.txt
   register: boot_config_diff
   failed_when: boot_config_diff.rc == 2
   changed_when: boot_config_diff.rc == 1
