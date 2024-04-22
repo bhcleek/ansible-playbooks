@@ -25,12 +25,11 @@ then
 	function __git_ps1() { : ; }
 fi
 
-# \[ and \] could be $'\x01' and $'\x02', respectively, but some
-# systems/configurations/versions of bash don't respect the hex values. Using
-# \[ and \] seems more reliable and doesn't come with the problems that using
-# the octal escapes have.
-nonprintablestart=$'\['
-nonprintableend=$'\]'
+# Use the ansi-C style hex escapes for the start and end of nonprintable
+# character sequences. If you're having problems with these, be sure $SHELL is
+# a version of bash ANSI-C quoting supports hex.
+nonprintablestart=$'\x01'
+nonprintableend=$'\x02'
 bold="$(tput bold)"
 green="$(tput setaf 2)"
 reset="$(tput sgr0)"
