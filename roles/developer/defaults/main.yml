@@ -50,6 +50,11 @@ insteadOfs:
       - git://github.com/
       - "github:"
       - https://github.com/
+  - base: "git@gist.github.com:"
+    urls:
+      - git://gist.github.com/
+      - "gist:"
+      - https://gist.github.com/
 
 workspaces:
   - name: do
