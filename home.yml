@@ -19,9 +19,10 @@ all:
           igate:
             login: "{{ vault_igate_login }}"
             passcode: "{{ vault_igate_passcode }}"
-            call: K7BCX-10
-            lat: "45.568449N"
-            long: "122.670984W"
+            call: K7BCX
+            ssid: 10
+            lat_decimal: "45.568449"
+            long_decimal: "-122.670984"
             input_device: plughw:usb_audio,0
             output_device: plughw:usb_audio,0
     pitft:
