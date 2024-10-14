@@ -1,3 +1,4 @@
+# inventory file for home lab.
 ---
 all:
   hosts:
