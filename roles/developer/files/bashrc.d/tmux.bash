@@ -22,9 +22,9 @@ function _run_tmux {
 			tmux set-option -w remain-on-exit off
 			tmux select-pane -t 0
 			tmux select-layout main-vertical
-			if [ -d "$GOPATH/src/github.com" ]
+			if [ -d "$HOME/src" ]
 			then
-				tmux new-window -n workspace -c $GOPATH/src/github.com/
+				tmux new-window -n workspace -c $HOME/src
 			fi
 			tmux new-window -n vim-go -c $HOME/src/vim-go
 		fi
