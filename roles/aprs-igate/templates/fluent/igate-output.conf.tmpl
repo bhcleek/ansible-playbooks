@@ -1,0 +1,9 @@
+[OUTPUT]
+  name        http
+  host        {{ logforwarding.collector.host }}
+  port        {{ logforwarding.collector.port }}
+  header      Authorization Bearer {{ logforwarding.shared_key }}
+  format      msgpack
+  compress    gzip
+  tls         On
+  tls.verify  On
