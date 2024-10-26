@@ -9,7 +9,6 @@
     virtualenv: "{{ venv }}"
     virtualenv_command: "python3 -m venv"
   with_items:
-    - awscli
   tags:
     - packages
     - python

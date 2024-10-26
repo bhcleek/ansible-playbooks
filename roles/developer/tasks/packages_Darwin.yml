@@ -30,6 +30,7 @@
       - the_silver_searcher
       - hashicorp/tap/Packer
       - minikube
+      - awscli
     state: latest
   tags:
     - packages
