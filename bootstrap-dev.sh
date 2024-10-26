@@ -40,4 +40,4 @@ then
 fi
 
 printf "Running Ansible to configure Dev machine\n" >&2
-ansible-playbook -i localhost.inv --ask-become-pass development.yml
+ansible-playbook -i localhost.inv.yaml --ask-become-pass development.yml
