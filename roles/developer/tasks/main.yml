@@ -2,16 +2,16 @@
 - include_tasks: packages_{{ ansible_os_family }}.yml
   tags: packages
 
-- name: install pip packages
-  pip:
-    name: "{{ item }}"
-    state: latest
-    virtualenv: "{{ venv }}"
-    virtualenv_command: "python3 -m venv"
-  with_items:
-  tags:
-    - packages
-    - python
+#- name: install pip packages
+#  pip:
+#    name: "{{ item }}"
+#    state: latest
+#    virtualenv: "{{ venv }}"
+#    virtualenv_command: "python3 -m venv"
+#  with_items:
+#  tags:
+#    - packages
+#    - python
 
 - name: bashrc extensions
   copy:
