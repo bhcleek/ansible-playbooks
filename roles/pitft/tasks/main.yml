@@ -63,7 +63,7 @@
 - name: configure PiTFT
   ansible.builtin.command:
     argv:
-      - "{{ ansible_env.HOME }}/ansible/bin/python3"
+      - "{{ ansible_env.HOME }}/python-venv/primary/bin/python3"
       - adafruit-pitft.py
       - --display={{ pitft.display }}
       - --rotation={{ pitft.rotation }}

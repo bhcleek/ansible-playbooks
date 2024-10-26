@@ -21,6 +21,7 @@
   shell: "{{ gcloud_install_path }}/google-cloud-sdk/install.sh --quiet"
   environment:
     PATH: "{{ gcloud_install_path }}/google-cloud-sdk/bin:{{ ansible_env.PATH }}"
+    CLOUDSDK_PYTHON: /usr/bin/python3
   become: no
 
 - name: remove gcloud archive
