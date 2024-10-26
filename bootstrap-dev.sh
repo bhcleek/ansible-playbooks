@@ -3,7 +3,7 @@ set -eu
 
 rootdir="$(cd -P "$(dirname "$0")" > /dev/null && pwd -P)"
 
-printf "Creating virtualenv for ansible-installed modules" >&2
+printf "Creating virtualenv for ansible-installed modules\n" >&2
 if [[ ! -d "${HOME}/python-venv" ]]
 then
 	mkdir "${HOME}/python-venv"
