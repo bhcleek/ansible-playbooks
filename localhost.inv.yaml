@@ -1,0 +1,8 @@
+# inventory file for the localhost - mostly used for workstations
+---
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /usr/bin/python3
+      venv: "{{ ansible_env.HOME }}/python-venv/ansible"

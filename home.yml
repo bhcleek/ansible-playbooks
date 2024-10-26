@@ -13,7 +13,7 @@ all:
         filecabinet:
       vars:
         ansible_python_interpreter: /usr/bin/python3
-        venv: "{{ ansible_env.HOME }}/venv"
+        venv: "{{ ansible_env.HOME }}/python-venv/ansible"
     ham:
       hosts:
         hifi:

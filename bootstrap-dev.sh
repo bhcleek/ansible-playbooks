@@ -1,6 +1,24 @@
 #!/usr/bin/env bash
 set -eu
 
+rootdir="$(cd -P "$(dirname "$0")" > /dev/null && pwd -P)"
+
+printf "Creating virtualenv for ansible-installed modules" >&2
+if [[ ! -d "${HOME}/python-venv" ]]
+then
+	mkdir "${HOME}/python-venv"
+fi
+
+cd "${HOME}/python-venv"
+
+if [[ ! -d "ansible" ]]
+then
+	python3 -m venv ansible
+fi
+
+#source ansible/bin/activate
+cd "${rootdir}"
+
 printf "Installing Ansible\n" >&2
 
 # prefer pip for installing python packages over the older easy_install
@@ -23,4 +41,3 @@ fi
 
 printf "Running Ansible to configure Dev machine\n" >&2
 ansible-playbook -i localhost.inv --ask-become-pass development.yml
-
