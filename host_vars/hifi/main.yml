@@ -5,3 +5,8 @@ pitft:
   rotation: "270"
   type: console
   #type: fbcp
+logforwarding:
+  collector:
+    host: logs.k7bcx.com
+    port: "443"
+  shared_key: "{{ vault_igate_fluent_shared_key }}"
