@@ -5,6 +5,15 @@ pitft:
   rotation: "270"
   type: console
   #type: fbcp
+igate:
+  login: "{{ vault_igate_login }}"
+  passcode: "{{ vault_igate_passcode }}"
+  call: K7BCX
+  ssid: 10
+  lat_decimal: "45.568449"
+  long_decimal: "-122.670984"
+  input_device: plughw:usb_audio,0
+  output_device: plughw:usb_audio,0
 logforwarding:
   collector:
     host: logs.k7bcx.com
