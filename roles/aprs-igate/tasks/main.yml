@@ -1,3 +1,4 @@
 ---
 - import_tasks: igate.yml
 - import_tasks: sdr-igate.yml
+- import_tasks: observability.yaml
