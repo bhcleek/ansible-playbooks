@@ -19,3 +19,7 @@ logforwarding:
     host: logs.k7bcx.com
     port: "443"
   shared_key: "{{ vault_igate_fluent_shared_key }}"
+metrics:
+  org: K7BCX-10
+  bucket: metrics
+  token: "{{ vault_igate_telegraf_token }}"
