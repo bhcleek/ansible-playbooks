@@ -51,3 +51,39 @@
   notify:
     - restart fluent-bit
   become: yes
+
+- name: create telegraf.service.d
+  file:
+    dest: /etc/systemd/system/telegraf.service.d
+    state: directory
+  become: yes
+  when: true
+
+- name: telegraf env
+  ansible.builtin.template:
+    src: telegraf/env.conf.tmpl
+    dest: /etc/systemd/system/telegraf.service.d/env.conf
+  notify:
+    - restart telegraf
+  become: yes
+  when: true
+
+- name: telegraf hostname
+  ansible.builtin.lineinfile:
+    line: '  hostname = "{{ igate.call }}-{{ igate.ssid }}"'
+    insertafter: '^\[agent]'
+    regex: '^\s*hostname ='
+    path: /etc/telegraf/telegraf.conf
+  notify:
+    - reload systemd
+    - reload telegraf
+  become: yes
+
+- name: telegraf direwolf.conf
+  ansible.builtin.template:
+    src: telegraf/direwolf.conf.tmpl
+    dest: /etc/telegraf/telegraf.d/direwolf.conf
+  notify:
+    - reload telegraf
+  become: yes
+  when: true
