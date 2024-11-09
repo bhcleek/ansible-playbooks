@@ -34,7 +34,7 @@
   register: direwolf_git_result
 
 - name: checkout direwolf sources
-  shell: git checkout master
+  shell: git checkout {{ direwolf_version }}
   args:
     chdir: "{{ ansible_env.HOME }}/src/direwolf"
 

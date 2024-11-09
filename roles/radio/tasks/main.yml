@@ -1,2 +1,4 @@
 ---
 - include_tasks: direwolf.yml
+  tags:
+    - direwolf
