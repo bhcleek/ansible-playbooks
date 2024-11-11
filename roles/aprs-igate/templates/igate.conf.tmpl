@@ -6,6 +6,7 @@ ADEVICE {{ igate.input_device | default('null') }} {{ igate.output_device | defa
 PTT /dev/ttyUSB0 RTS DTR
 CHANNEL 0
 MYCALL {{ igate.call }}-{{ igate.ssid }}
+LOGFILE /var/log/direwolf/direwolf.log
 
 # First you need to specify the name of a Tier 2 server.
 # The current preferred way is to use one of these regional rotate addresses:

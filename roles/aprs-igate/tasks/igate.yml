@@ -30,3 +30,10 @@
     - reload systemd
     - restart igate
   become: yes
+
+- name: create /var/log/direwolf
+  file:
+    dest: /var/log/direwolf
+    state: directory
+  become: yes
+  when: true
