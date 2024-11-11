@@ -1,6 +1,6 @@
 # aprs-igate
 
-The aprs-igate role provides two method for running an igate. The first is a listen-only igate that relies on an SDR. The other provides a TX igate.
+The aprs-igate role provides two method for running an igate. The first is a listen-only igate that relies on an SDR. The other provides a TX igate. Fluent-bit and Telegraf are used to ship logs and metrics for observability purposes.
 
 ## services
 
@@ -10,7 +10,7 @@ sdr-aprs is a service that listens to APRS on 144.390 via an rtl-sdr device with
 
 ### sdr-igate
 
-sdr-igate is a listen only igate that works with an SDR device. It listens for its data on the socket that sdr-aprs outputs to. Disabled by default.
+sdr-igate is a listen-only igate that works with an SDR device. It listens for its data on the socket that sdr-aprs outputs to. Disabled by default.
 
 ### igate
 
