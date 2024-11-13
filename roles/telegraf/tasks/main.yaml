@@ -1,0 +1,32 @@
+---
+- name: influx key temp file
+  ansible.builtin.tempfile:
+  register: influx_gpg_asc
+
+- name: get influx key
+  ansible.builtin.get_url:
+    dest: "{{ influx_gpg_asc.path }}"
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+    force: true
+
+- name: dearmor influxdb key
+  ansible.builtin.shell:
+    cmd: cat {{ influx_gpg_asc.path | quote }} | gpg --dearmor > /etc/apt/keyrings/influxdb-keyring.gpg
+    creates: /etc/apt/keyrings/influxdb-keyring.gpg
+  become: yes
+
+- name: influx apt repository
+  apt_repository:
+    filename: influxdata
+    repo: deb [signed-by=/etc/apt/keyrings/influxdb-keyring.gpg] https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_facts.lsb.codename | lower }} main
+    state: present
+  become: yes
+
+- name: telegraf
+  ansible.builtin.apt:
+    name:
+    - telegraf
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+  become: yes

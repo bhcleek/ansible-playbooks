@@ -1,0 +1,89 @@
+---
+- name: igate-input.conf
+  ansible.builtin.copy:
+    src: fluent/igate-input.conf
+    dest: /etc/fluent-bit/conf.d/igate-input.conf
+  notify:
+    - restart fluent-bit
+  become: yes
+  when: true
+
+- name: igate-filter.conf
+  ansible.builtin.copy:
+    src: fluent/igate-filter.conf
+    dest: /etc/fluent-bit/conf.d/igate-filter.conf
+  notify:
+    - restart fluent-bit
+  become: yes
+  when: true
+
+- name: igate-output.conf
+  ansible.builtin.template:
+    src: fluent/igate-output.conf.tmpl
+    dest: /etc/fluent-bit/conf.d/igate-output.conf
+  notify:
+    - restart fluent-bit
+  become: yes
+  when: true
+
+- name: igate-parser.conf
+  ansible.builtin.blockinfile:
+    #append_newline: true
+    block: |
+      [PARSER]
+          Name direwolf-stats
+          Format regex
+          Regex ^\[(?<channel>ig)]\s(?<source>[A-Z0-9-]+)>(?<deviceid>[A-Z0-9-]+):<IGATE,MSG_CNT=(?<dwstats_msg>[0-9]+),PKT_CNT=(?<dwstats_pkt>[0-9]+),DIR_CNT=(?<dwstats_dir>[0-9]+),LOC_CNT=(?<dwstats_loc>[0-9]+),RF_CNT=(?<dwstats_rf>[0-9]+),UPL_CNT=(?<dwstats_up>[0-9]+),DNL_CNT=(?<dwstats_down>[0-9]+)
+          #[ig] K7BCX-10>APDW17:<IGATE,MSG_CNT=21,PKT_CNT=3,DIR_CNT=1,LOC_CNT=1,RF_CNT=1,UPL_CNT=9365,DNL_CNT=6195
+          #<IGATE,MSG_CNT=%d,PKT_CNT=%d,DIR_CNT=%d,LOC_CNT=%d,RF_CNT=%d,UPL_CNT=%d,DNL_CNT=%d
+          types channel:string source:string deviceid:string dwstats_msg:integer dwstats_pkt:integer dwstats_dir:integer dwstats_loc:integer dwstats_rf:integer dwstats_up:integer dwstats_down:integer
+      
+      [PARSER]
+          Name direwolf-pos
+          Format regex
+          Regex ^\[(?<channel>\d\.\d)]\s(?<source>[A-Z0-9-]+)>(?<deviceid>[A-Z0-9-]+),?[^:]+:(?<data_type>[!=])(?<latitude>\d{4}\.\d{2}[NS])(?<overlay>.)(?<longitude>\d{5}\.\d{2}[EW])(?<symbol>.)
+      
+      [PARSER]
+          Name direwolf-timestamp-pos
+          Format regex
+          Regex ^\[(?<channel>\d\.\d)]\s(?<source>[A-Z0-9-]+)>(?<deviceid>[A-Z0-9-]+),?[^:]+:(?<data_type>[/@])(?<timestamp>\d{6}[zh/])(?<latitude>\d{4}\.\d{2}[NS])(?<overlay>.)(?<longitude>\d{5}\.\d{2}[EW])(?<symbol>.)
+    path: /etc/fluent-bit/parsers.conf
+  notify:
+    - restart fluent-bit
+  become: yes
+
+- name: create telegraf.service.d
+  file:
+    dest: /etc/systemd/system/telegraf.service.d
+    state: directory
+  become: yes
+  when: true
+
+- name: telegraf env
+  ansible.builtin.template:
+    src: telegraf/env.conf.tmpl
+    dest: /etc/systemd/system/telegraf.service.d/env.conf
+  notify:
+    - restart telegraf
+  become: yes
+  when: true
+
+- name: telegraf hostname
+  ansible.builtin.lineinfile:
+    line: '  hostname = "{{ igate.call }}-{{ igate.ssid }}"'
+    insertafter: '^\[agent]'
+    regex: '^\s*hostname ='
+    path: /etc/telegraf/telegraf.conf
+  notify:
+    - reload systemd
+    - reload telegraf
+  become: yes
+
+- name: telegraf direwolf.conf
+  ansible.builtin.template:
+    src: telegraf/direwolf.conf.tmpl
+    dest: /etc/telegraf/telegraf.d/direwolf.conf
+  notify:
+    - reload telegraf
+  become: yes
+  when: true

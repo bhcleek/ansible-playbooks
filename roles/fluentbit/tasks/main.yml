@@ -7,17 +7,18 @@
   ansible.builtin.get_url:
     dest: "{{ fluentbit_gpg_asc.path }}"
     url: https://packages.fluentbit.io/fluentbit.key
+    force: yes
 
 - name: dearmor fluentbit key
   ansible.builtin.shell:
-    cmd: cat {{ fluentbit_gpg_asc.path | quote }} | gpg --dearmor > /usr/share/keyrings/fluentbit-archive-keyring.gpg
-    creates: /usr/share/keyrings/fluentbit-archive-keyring.gpg
+    cmd: cat {{ fluentbit_gpg_asc.path | quote }} | gpg --dearmor > /etc/apt/keyrings/fluentbit-archive-keyring.gpg
+    creates: /etc/apt/keyrings/fluentbit-archive-keyring.gpg
   become: yes
 
 - name: fluentbit apt repository
   apt_repository:
     filename: fluentbit
-    repo: deb [signed-by=/usr/share/keyrings/fluentbit-archive-keyring.gpg] https://packages.fluentbit.io/{{ fluentbit_distribution }}/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main
+    repo: deb [signed-by=/etc/apt/keyrings/fluentbit-archive-keyring.gpg arch=arm64] https://packages.fluentbit.io/{{ ansible_distribution | lower }}/{{ ansible_facts.lsb.codename }} {{ ansible_facts.lsb.codename }} main
     state: present
   become: yes
 

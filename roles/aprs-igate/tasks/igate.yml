@@ -31,29 +31,9 @@
     - restart igate
   become: yes
 
-- name: igate-input.conf
-  ansible.builtin.copy:
-    src: fluent/igate-input.conf
-    dest: /etc/fluent-bit/conf.d/igate-input.conf
-  notify:
-    - restart fluent-bit
-  become: yes
-  when: true
-
-- name: igate-filter.conf
-  ansible.builtin.copy:
-    src: fluent/igate-filter.conf
-    dest: /etc/fluent-bit/conf.d/igate-filter.conf
-  notify:
-    - restart fluent-bit
-  become: yes
-  when: true
-
-- name: igate-output.conf
-  ansible.builtin.template:
-    src: fluent/igate-output.conf.tmpl
-    dest: /etc/fluent-bit/conf.d/igate-output.conf
-  notify:
-    - restart fluent-bit
+- name: create /var/log/direwolf
+  file:
+    dest: /var/log/direwolf
+    state: directory
   become: yes
   when: true

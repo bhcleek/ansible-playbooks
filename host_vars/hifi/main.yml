@@ -5,8 +5,22 @@ pitft:
   rotation: "270"
   type: console
   #type: fbcp
+igate:
+  login: "{{ vault_igate_login }}"
+  passcode: "{{ vault_igate_passcode }}"
+  call: K7BCX
+  ssid: 10
+  lat_decimal: "45.568449"
+  long_decimal: "-122.670984"
+  input_device: plughw:usb_audio,0
+  output_device: plughw:usb_audio,0
 logforwarding:
   collector:
     host: logs.k7bcx.com
     port: "443"
   shared_key: "{{ vault_igate_fluent_shared_key }}"
+metrics:
+  host: metrics.k7bcx.com
+  org: K7BCX-10
+  bucket: metrics
+  token: "{{ vault_igate_telegraf_token }}"
