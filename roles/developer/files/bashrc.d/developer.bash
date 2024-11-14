@@ -46,7 +46,7 @@ export PATH=/usr/local/go/bin:$DEV_ORIG_PATH
 GOPATH=$(go env GOPATH)
 export GOBIN=${GOPATH%%:*}/bin
 
-export PATH=$HOME/bin:${GOPATH//:/bin:}/bin:${PATH}
+export PATH=$HOME/bin:$HOME/.rd/bin:${GOPATH//:/bin:}/bin:${PATH}
 CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
 
 export GOPRIVATE=*.internal.digitalocean.com,github.com/digitalocean
