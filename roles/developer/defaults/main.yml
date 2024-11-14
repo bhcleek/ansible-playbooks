@@ -61,7 +61,7 @@ workspaces:
 #    gitdir: "~/src/org/"
 #    email: user@example.com
 #    insteadOfs:
-#      - base: "git@github.internal.example.com.com:"
+#      - base: "git@github.internal.example.com:"
 #        urls:
 #          - git://github.internal.example.com/
 #          - "ghe:"

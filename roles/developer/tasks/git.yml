@@ -125,5 +125,6 @@
 # TODO(bc): replace include with include_tasks in Ansible 2.4
 - include_tasks: git-workspace.yml
   with_items: "{{ workspaces }}"
+  when: workspaces | default([], true)
   loop_control:
     loop_var: workspace
