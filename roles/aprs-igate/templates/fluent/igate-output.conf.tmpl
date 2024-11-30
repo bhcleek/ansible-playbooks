@@ -11,17 +11,18 @@
   tls.verify  On
 
 [OUTPUT]
-  name influxdb
+  name          influxdb
   #match_regex  direwolf\.(((timestamp\.)?pos)|(stats))
-  match direwolf.stats
-  host localhost
-  port 8186
-  bucket {{ metrics.bucket }}
-  org {{ metrics.org }}
-  http_token {{ metrics.token }}
-  tag_keys station deviceid
+  match         direwolf.stats
+  host          localhost
+  port          8186
+  bucket        {{ metrics.bucket }}
+  org           {{ metrics.org }}
+  http_token    {{ metrics.token }}
+  sequence_tag  off
+  tag_keys      station deviceid
 
 [OUTPUT]
-  name NULL
-  #match_regex  direwolf\.(((timestamp\.)?pos)|(stats))
-  match direwolf.*
+  name          NULL
+  #match_regex    direwolf\.(((timestamp\.)?pos)|(stats))
+  match         direwolf.*
