@@ -32,6 +32,7 @@ urls =  ["https://{{ metrics.host }}"]
 organization = "{{ metrics.org }}"
 bucket = "{{ metrics.bucket }}"
 token = "${INFLUX_TOKEN}"
+namedrop = ["cpu","disk","diskio","kernel","mem","processes","swap","system"]
 #   ## The URLs of the InfluxDB cluster nodes.
 #   ##
 #   ## Multiple URLs can be specified for a single cluster, only ONE of the
