@@ -11,6 +11,19 @@
   tls.verify  On
 
 [OUTPUT]
+  Name              http
+  Match             direwolf.log
+  host              {{ logforwarding.collector.host }}
+  port              {{ logforwarding.collector.port }}
+  uri               /insert/jsonline?_stream_fields=stream&_msg_field=MESSAGE&_time_field=date
+  header            Authorization Bearer {{ logforwarding.shared_key }}
+  format            json_lines
+  json_date_format  iso8601
+  compress          gzip
+  tls               On
+  tls.verify        On
+
+[OUTPUT]
   name          influxdb
   #match_regex  direwolf\.(((timestamp\.)?pos)|(stats))
   match         direwolf.stats
