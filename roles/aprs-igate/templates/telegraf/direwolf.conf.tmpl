@@ -14,7 +14,7 @@ token = "${INFLUX_TOKEN}"
 # parsed packets that direwolf has received.
 [[inputs.tail]]
   files = ["/var/log/direwolf/direwolf.log"]
-  name_override = "dwlogs"
+  name_override = "aprs_packets"
   from_beginning = false
   pipe = false
   data_format = "csv"
@@ -28,13 +28,13 @@ token = "${INFLUX_TOKEN}"
   csv_timestamp_format = "unix"
   csv_skip_errors = true
   [inputs.tail.tags]
-    metric_type = "logs"
+    metric_type = "aprs_packets"
     log_source = "direwolf"
 
 [[outputs.http]]
   url = "https://{{ logforwarding.collector.host }}/insert/jsonline?_msg_field=fields.comment&_time_field=timestamp,_stream_fields=tags.log_source,tags.host,tags.path"
   data_format = "json"
-  namepass = ["dwlogs"]
+  namepass = ["aprs_packets"]
   use_batch_format = false
   [outputs.http.headers]
   Content-Type = "application/json"
