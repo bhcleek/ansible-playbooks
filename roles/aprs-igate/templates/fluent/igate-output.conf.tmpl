@@ -3,7 +3,7 @@
   Match             direwolf.log
   host              {{ logforwarding.collector.host }}
   port              {{ logforwarding.collector.port }}
-  uri               /insert/jsonline?_stream_fields=stream&_msg_field=MESSAGE&_time_field=date
+  uri               /insert/jsonline?_stream_fields=SYSTEMD_UNIT,SYSLOG_IDENTIFIER,host&_msg_field=MESSAGE&_time_field=date
   header            Authorization Bearer {{ logforwarding.shared_key }}
   format            json_lines
   json_date_format  iso8601
