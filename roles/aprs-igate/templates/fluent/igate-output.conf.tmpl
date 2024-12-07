@@ -1,16 +1,4 @@
 [OUTPUT]
-  name        http
-  match       direwolf.log
-  host        {{ logforwarding.collector.host }}
-  port        {{ logforwarding.collector.port }}
-  uri         /{{ igate.call }}_{{ igate.ssid }}
-  header      Authorization Bearer {{ logforwarding.shared_key }}
-  format      json
-  compress    gzip
-  tls         On
-  tls.verify  On
-
-[OUTPUT]
   Name              http
   Match             direwolf.log
   host              {{ logforwarding.collector.host }}
