@@ -31,5 +31,6 @@ KISSPORT 0
 # beacon APRS-IS directly
 PBEACON sendto=IG delay=1 every=30 overlay=R symbol="igate" lat={{ igate.lat_decimal }} long={{ igate.long_decimal }} height=20 comment="receive only igate"
 
+#CBEACON sendto=IG delay=00:60 every=60 info=">console/map/stats/logs @ {{ igate.dashboard_url }}"
 # beacon IGATE stats to APRS-IS directly
 IBEACON sendto=IG delay=1 every=30
