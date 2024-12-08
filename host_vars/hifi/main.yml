@@ -14,6 +14,7 @@ igate:
   long_decimal: "-122.670984"
   input_device: plughw:usb_audio,0
   output_device: plughw:usb_audio,0
+  dashboard_url: http://dashboard.k7bcx.com
 logforwarding:
   collector:
     host: logs.k7bcx.com
