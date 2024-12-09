@@ -6,6 +6,9 @@ StandardInput=null
 StandardOutput=journal+console
 StandardError=journal
 
+User=igate
+Group=igate
+
 ExecStart=direwolf -c /etc/aprs/igate.conf -r 24000 -D 1 -t 0
 
 KillMode=process
