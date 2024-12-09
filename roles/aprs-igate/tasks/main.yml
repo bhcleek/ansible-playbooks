@@ -1,4 +1,30 @@
 ---
+- name: create user group
+  ansible.builtin.group:
+    name: igate
+    state: present
+  become: yes
+
+- name: create user
+  ansible.builtin.user:
+    name: igate
+    password: '*'
+    group: igate
+    groups: audio
+    state: present
+    update_password: on_create
+    shell: /sbin/nologin
+  become: yes
+
+- name: create /var/log/direwolf directory
+  file:
+    path: /var/log/direwolf
+    state: directory
+    owner: igate
+    group: igate
+    mode: '6775'
+  become: yes
+
 - import_tasks: igate.yml
 - import_tasks: sdr-igate.yml
 - import_tasks: observability.yaml
