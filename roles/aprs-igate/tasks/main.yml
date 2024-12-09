@@ -22,7 +22,7 @@
     state: directory
     owner: igate
     group: igate
-    mode: '6775'
+    mode: '4775'
   become: yes
 
 - import_tasks: igate.yml
