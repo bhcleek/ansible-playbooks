@@ -65,3 +65,11 @@ if command -v kubectl > /dev/null; then
 	alias kube=kubectl
 	complete -o default -F __start_kubectl kube
 fi
+
+if command -v assume > /dev/null; then
+	alias assume=". assume"
+fi
+
+if command -v aws_completer > /dev/null; then
+	complete -C 'aws_completer' aws
+fi
