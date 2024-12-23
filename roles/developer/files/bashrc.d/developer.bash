@@ -52,3 +52,16 @@ CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:
 export GOPRIVATE=*.internal.digitalocean.com,github.com/digitalocean
 # set GOMODCACHE to a single location, regardless of what GOPATH may be.
 export GOMODCACHE=$(go env GOMODCACHE)
+
+if command -v kubectl > /dev/null; then
+	source <(kubectl completion bash)
+
+	alias k=kubectl
+	complete -o default -F __start_kubectl k
+
+	alias k8s=kubectl
+	complete -o default -F __start_kubectl k8s
+
+	alias kube=kubectl
+	complete -o default -F __start_kubectl kube
+fi
