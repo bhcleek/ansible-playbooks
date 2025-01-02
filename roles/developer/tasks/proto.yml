@@ -17,5 +17,5 @@
   command: go install google.golang.org/protobuf/{{ item }}@latest
   #environment:
           # GOPATH: "{{ansible_env.GOPATH}}"
-  with_items:
+  loop:
     - cmd/protoc-gen-go

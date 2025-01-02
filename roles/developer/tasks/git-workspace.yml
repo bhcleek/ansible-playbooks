@@ -6,19 +6,16 @@
 ## (see: https://stackoverflow.com/questions/15935624/how-do-i-avoid-empty-sections-when-removing-a-setting-from-git-config)
 #- name: keep url section
 #  command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" "url.{{ item.base }}.placeholder" placeholder
-#  with_items: "{{ workspace.insteadOfs }}"
+#  loop: "{{ workspace.insteadOfs }}"
 
 - name: remove workspace insteadOf values
   command: git config unset -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" --all "url.{{ item.base | default("") }}.insteadOf"
-  with_items: "{{ workspace.insteadOfs | default([]) }}"
+  loop: "{{ workspace.insteadOfs | default([]) }}"
   when: item.base is defined
 
 - name: git config workspace insteadOf
   command: git config -f "{{ ansible_env.HOME }}/.config/git/{{ workspace.name }}.inc" --add url.{{ item.0.base }}.insteadOf "{{ item.1 }}"
-  with_subelements:
-    - "{{ workspace.insteadOfs | default([]) }}"
-    - urls
-    - skip_missing: yes
+  loop: "{{ workspaces.insteadOfs | default([]) | subelements('urls', skip_missing=True) }}"
 
 - name: git config includeIf workspace
   command: git config --global --replace-all includeIf."gitdir:{{ workspace.gitdir }}".path {{ workspace.name }}.inc

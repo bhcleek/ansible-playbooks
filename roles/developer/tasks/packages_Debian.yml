@@ -67,7 +67,7 @@
 
 #- name: install packages
 #  homebrew_cask: name="{{ item }}" state=present
-#  with_items:
+#  loop:
 #    - slack
 #  tags:
 #    - packages

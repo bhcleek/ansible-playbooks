@@ -25,7 +25,7 @@
     GOOS: "{{ item | lower }}"
     GOARCH: amd64
     PATH: /usr/local/go/bin:{{ ansible_env.PATH }}
-  with_items:
+  loop:
     - Linux
     - Darwin
   when: ansible_system != item
