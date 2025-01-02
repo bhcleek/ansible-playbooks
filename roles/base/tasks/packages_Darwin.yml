@@ -22,5 +22,5 @@
   ansible.builtin.lineinfile:
     path: /etc/shells
     insertafter: "EOF"
-    line: "{{ homebrew_prefix }}/bin/bash"
+    line: "{{ homebrew_prefix[ansible_architecture] }}/bin/bash"
   become: yes
