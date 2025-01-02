@@ -86,20 +86,21 @@
 
 # keep the creation of new insteadOf entries from adding a whole new section
 # (see: https://stackoverflow.com/questions/15935624/how-do-i-avoid-empty-sections-when-removing-a-setting-from-git-config)
-- name: keep url section
-  command: git config --global "url.{{ item.base }}.placeholder" placeholder
-  with_items: "{{ insteadOfs }}"
-
+#- name: keep url section
+#  command: git config --global "url.{{ item.base }}.placeholder" placeholder
+#  with_items: "{{ insteadOfs }}"
+#
 - name: remove insteadOf values
-  command: git config --global --unset-all "url.{{ item.base }}.insteadOf"
+  command: git config unset --global --all "url.{{ item.base }}.insteadOf"
   with_items: "{{ insteadOfs }}"
-  ignore_errors: yes # ignore any errors; when the option doesn't exist, git-config returns an error.
+  when: item.base is defined
 
 - name: git config insteadOf
   command: git config --global --add url.{{ item.0.base }}.insteadOf "{{ item.1 }}"
   with_subelements:
     - "{{ insteadOfs }}"
     - urls
+    - skip_missing: yes
 
 - name: git config web.browser
   command: git config --global web.browser open

@@ -57,13 +57,17 @@ insteadOfs:
       - https://gist.github.com/
 
 workspaces:
-#  - name: org
-#    gitdir: "~/src/org/"
-#    email: user@example.com
-#    insteadOfs:
-#      - base: "git@github.internal.example.com:"
-#        urls:
-#          - git://github.internal.example.com/
-#          - "ghe:"
-#          - https://github.internal.example.com/
-#          - http://github.internal.example.com/
+  - name: work
+    gitdir: "~/src/work/"
+    email: billie.cleek@lambdal.com
+    insteadOfs: []
+    #  - base: "git@github.internal.example.com:"
+    #    urls:
+    #      - git://github.internal.example.com/
+    #      - "ghe:"
+    #      - https://github.internal.example.com/
+    #      - http://github.internal.example.com/
+  - name: personal
+    gitdir: "~/src/personal/"
+    email: bhcleek@gmail.com
+    insteadOfs: []
