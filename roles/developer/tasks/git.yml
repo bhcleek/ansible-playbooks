@@ -59,7 +59,7 @@
   raw: git config --global alias.done '!branchdone() { branch=$(git rev-parse --abbrev-ref HEAD); if [[ "$branch" == "master" || "$branch" == "HEAD" ]]; then printf "cowardly refusing to delete this branch\n" >&2; exit 1; fi;  git checkout master && git remote update -p && git merge --ff-only origin/master && git branch -d ${branch}; }; branchdone'
 
 - name: git config alias.prlog
-  raw: git config --global alias.prlog "log --format='tformat:##### %s%n%+b%n' --reverse origin/master.."
+  raw: git config --global alias.prlog "log --format='tformat:##### %s%n%+b%n' --reverse origin/main.."
 
 - name: git config apply.whitepace
   command: git config --global apply.whitespace fix
