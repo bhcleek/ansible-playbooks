@@ -1,6 +1,8 @@
 ---
 # file: developer.yml
 - import_playbook: base.yml
+  tags:
+    - always
 
 - hosts:
   - localhost
