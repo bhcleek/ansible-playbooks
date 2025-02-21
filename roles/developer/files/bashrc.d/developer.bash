@@ -49,7 +49,6 @@ export GOBIN=${GOPATH%%:*}/bin
 export PATH=$HOME/bin:$HOME/.rd/bin:${GOPATH//:/bin:}/bin:${PATH}
 CDPATH=.:${GOPATH//:/src/github.com:}/src/github.com:${GOPATH//:/src/golang.org:}/src/golang.org:${HOME}/src:${GOPATH//:/src:}/src
 
-export GOPRIVATE=*.internal.digitalocean.com,github.com/digitalocean
 # set GOMODCACHE to a single location, regardless of what GOPATH may be.
 export GOMODCACHE=$(go env GOMODCACHE)
 
