@@ -26,12 +26,11 @@
       - direnv
       - ffmpeg
       - graphviz
-      - wireshark
       - the_silver_searcher
       - hashicorp/tap/Packer
       - minikube
       - awscli
-      - 1password-cli
+      - int128/kubelogin/kubelogin
     state: latest
   tags:
     - packages
@@ -39,9 +38,11 @@
 - name: install maybe managed casks
   homebrew_cask:
     name:
+      - 1password-cli
       - docker
       - iterm2
       - slack
+      - visual-studio-code
       - wireshark
     state: latest
   ignore_errors: true
