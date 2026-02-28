@@ -2,7 +2,7 @@
 - name: set hostname
   ansible.builtin.hostname:
     name: "{{ inventory_hostname_short }}"
-  when: ansible_hostname == 'raspberrypi'
+  when: ansible_facts['hostname'] == 'raspberrypi'
 
 - name: update hosts
   ansible.builtin.replace:

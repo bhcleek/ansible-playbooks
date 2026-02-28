@@ -18,7 +18,7 @@
 - name: fluentbit apt repository
   apt_repository:
     filename: fluentbit
-    repo: deb [signed-by=/etc/apt/keyrings/fluentbit-archive-keyring.gpg arch=arm64] https://packages.fluentbit.io/{{ ansible_distribution | lower }}/{{ ansible_facts.lsb.codename }} {{ ansible_facts.lsb.codename }} main
+    repo: deb [signed-by=/etc/apt/keyrings/fluentbit-archive-keyring.gpg arch=arm64] https://packages.fluentbit.io/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['lsb']['codename'] }} {{ ansible_facts['lsb']['codename']}} main
     state: present
   become: yes
 
@@ -54,7 +54,7 @@
 
 - name: backup /boot/firmware/config.txt
   ansible.builtin.command:
-    cmd: cp /boot/firmware/config.txt "{{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }}"
+    cmd: cp /boot/firmware/config.txt "{{ ansible_facts['env']['HOME'] }}/config.txt.{{ timestamp.stdout }}"
 
 # This sucks, but fluentbit seems to require the 4K page size instead of
 # dynamically supporting whatever size the kernel uses. The default kernel
@@ -71,7 +71,7 @@
 
 - name: /boot/firmware/config.txt changed
   ansible.builtin.command:
-    cmd: diff -u {{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }} /boot/firmware/config.txt
+    cmd: diff -u {{ ansible_facts['env']['HOME'] }}/config.txt.{{ timestamp.stdout }} /boot/firmware/config.txt
   register: boot_config_diff
   failed_when: boot_config_diff.rc == 2
   changed_when: boot_config_diff.rc == 1

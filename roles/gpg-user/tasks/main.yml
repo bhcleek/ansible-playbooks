@@ -5,7 +5,7 @@
       - pinentry-mac
       - gnupg2
     state: latest
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_facts['distribution'] == 'MacOSX'
   tags:
     - packages
     - gnupg
@@ -21,7 +21,7 @@
     state: latest
     update_cache: yes
     cache_valid_time: 86400
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   become: yes
   tags:
     - packages
@@ -29,7 +29,7 @@
 
 - name: create gnupg config directory
   file:
-    dest: "{{ ansible_env.HOME }}/.gnupg"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.gnupg"
     state: directory
   tags:
     - gnupg
@@ -39,7 +39,7 @@
 
 - name: gpg-agent.conf
   template:
-    dest: "{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.gnupg/gpg-agent.conf"
     src: gpg-agent.conf.j2
   tags:
     - gnupg
@@ -49,7 +49,7 @@
 
 - name: gpg.conf
   template:
-    dest: "{{ ansible_env.HOME }}/.gnupg/gpg.conf"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.gnupg/gpg.conf"
     src: gpg.conf.j2
   tags:
     - gnupg
@@ -59,7 +59,7 @@
 
 - name: dirmngr.conf
   template:
-    dest: "{{ ansible_env.HOME }}/.gnupg/dirmngr.conf"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.gnupg/dirmngr.conf"
     src: dirmngr.conf.j2
   tags:
     - gnupg

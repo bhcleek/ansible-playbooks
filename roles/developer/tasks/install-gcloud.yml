@@ -1,9 +1,9 @@
 ---
 - name: download gcloud {{ gcloud_version }} archive
   get_url:
-    url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_pkg[ansible_architecture] }}"
-    checksum: "{{ gcloud_checksums[ansible_architecture][ansible_system] }}"
-    dest: /tmp/{{ gcloud_pkg[ansible_architecture] }}
+    url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_pkg[ansible_facts['architecture']] }}"
+    checksum: "{{ gcloud_checksums[ansible_facts['architecture']][ansible_facts['system']] }}"
+    dest: /tmp/{{ gcloud_pkg[ansible_facts['architecture']] }}
     timeout: 600
 
 #- name: remove gcloud archive directory
@@ -12,20 +12,20 @@
 
 - name: unpack gcloud {{ gcloud_version }} archive
   unarchive:
-    src: /tmp/{{ gcloud_pkg[ansible_architecture] }}
-    dest: "{{ ansible_env.HOME }}"
+    src: /tmp/{{ gcloud_pkg[ansible_facts['architecture']] }}
+    dest: "{{ ansible_facts['env']['HOME'] }}"
     copy: no
   become: no
 
 - name: install gcloud
   shell: "{{ gcloud_install_path }}/google-cloud-sdk/install.sh --quiet"
   environment:
-    PATH: "{{ gcloud_install_path }}/google-cloud-sdk/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ gcloud_install_path }}/google-cloud-sdk/bin:{{ ansible_facts['env']['PATH'] }}"
     CLOUDSDK_PYTHON: /usr/bin/python3
   become: no
 
 - name: remove gcloud archive
   file:
-    path: /tmp/{{ gcloud_pkg[ansible_architecture] }}
+    path: /tmp/{{ gcloud_pkg[ansible_facts['architecture']] }}
     state: absent
   become: no

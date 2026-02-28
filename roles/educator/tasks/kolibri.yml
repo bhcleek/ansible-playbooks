@@ -12,7 +12,7 @@
   apt_repository:
     filename: kolibri
     repo: ppa:learningequality/kolibri
-    #codename: "{{ ansible_lsb.codename }}"
+    #codename: "{{ ansible_facts['lsb']['codename'] }}"
     codename: bionic
     state: present
     update_cache: yes

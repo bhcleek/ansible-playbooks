@@ -2,7 +2,7 @@
 # file: base.yml
 - hosts: all
   tasks:
-    - group_by: key=os_{{ ansible_system }}
+    - group_by: key=os_{{ ansible_facts['system'] }}
   tags:
     - always
 
@@ -12,7 +12,7 @@
     - name: install Homebrew
       command: ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
       args:
-        creates: "{{ homebrew_prefix[ansible_architecture] }}/bin/brew"
+        creates: "{{ homebrew_prefix[ansible_facts['architecture']] }}/bin/brew"
       tags:
         - packages
 

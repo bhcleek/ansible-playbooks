@@ -18,7 +18,7 @@
 - name: influx apt repository
   apt_repository:
     filename: influxdata
-    repo: deb [signed-by=/etc/apt/keyrings/influxdb-keyring.gpg] https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_facts.lsb.codename | lower }} main
+    repo: deb [signed-by=/etc/apt/keyrings/influxdb-keyring.gpg] https://repos.influxdata.com/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['lsb']['codename'] | lower }} main
     state: present
   become: yes
 

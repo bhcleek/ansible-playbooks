@@ -2,7 +2,7 @@
 - name: download go{{ golang_version }} archive
   get_url:
     url: https://go.dev/dl/{{ golang_pkg }}
-    checksum: "{{ golang_checksums[ansible_architecture][ansible_system] }}"
+    checksum: "{{ golang_checksums[ansible_facts['architecture']][ansible_facts['system']] }}"
     dest: /tmp/{{ golang_pkg }}
     timeout: 600
 
@@ -24,11 +24,11 @@
   environment:
     GOOS: "{{ item | lower }}"
     GOARCH: amd64
-    PATH: /usr/local/go/bin:{{ ansible_env.PATH }}
+    PATH: /usr/local/go/bin:{{ ansible_facts['env']['PATH'] }}
   loop:
     - Linux
     - Darwin
-  when: ansible_system != item
+  when: ansible_facts['system'] != item
   become: yes
 
 - name: remove go archive

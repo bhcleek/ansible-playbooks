@@ -16,6 +16,6 @@
 - name: install Go protoc plugin
   command: go install google.golang.org/protobuf/{{ item }}@latest
   #environment:
-          # GOPATH: "{{ansible_env.GOPATH}}"
+          # GOPATH: "{{ansible_facts['env']['GOPATH']}}"
   loop:
     - cmd/protoc-gen-go

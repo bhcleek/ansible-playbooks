@@ -16,7 +16,7 @@
   ansible.builtin.apt_repository:
     #repo: deb [arch=$( dpkg --print-architecture )] https://repo.jellyfin.org/$( awk -F'=' '/^ID=/{ print $NF }' /etc/os-release ) $( awk -F'=' '/^VERSION_CODENAME=/{ print $NF }' /etc/os-release ) main
     filename: jellyfin
-    repo: deb https://repo.jellyfin.org/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} main
+    repo: deb https://repo.jellyfin.org/{{ ansible_facts['lsb']['id'] | lower }} {{ ansible_facts['lsb']['codename'] }} main
     update_cache: yes
     state: present
   become: yes

@@ -4,7 +4,7 @@ use-standard-socket
 # Allow gpg-agent to manage SSH keys; needed for Authenticating SSH with gpg keys
 enable-ssh-support
 
-{% if ansible_distribution == "MacOSX" %}
+{% if ansible_facts['distribution'] == "MacOSX" %}
 # Use pinentry-mac as the PIN entry.
 pinentry-program /usr/local/bin/pinentry-mac
 {% endif %}

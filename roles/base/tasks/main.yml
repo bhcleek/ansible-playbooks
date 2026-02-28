@@ -1,7 +1,7 @@
 ---
 - name: create XDG config directory
   ansible.builtin.file:
-    dest: "{{ ansible_env.HOME }}/.config"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config"
     state: directory
     mode: 0750
   tags:
@@ -9,30 +9,30 @@
 
 - name: Set pkg_arch
   set_fact:
-    pkg_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture  }}"
+    pkg_arch: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else ansible_facts['architecture']  }}"
   tags:
     - always
 
-- include_tasks: packages_{{ ansible_os_family }}.yml
+- include_tasks: packages_{{ ansible_facts['os_family'] }}.yml
   tags:
     - packages
 
 - name: create bash config directory
-  file: dest="{{ ansible_env.HOME }}/.config/bash" state=directory
+  file: dest="{{ ansible_facts['env']['HOME'] }}/.config/bash" state=directory
   tags:
     - conf
 
 - name: bashrc
-  copy: dest="{{ ansible_env.HOME }}/.bashrc" src=bashrc backup=yes
+  copy: dest="{{ ansible_facts['env']['HOME'] }}/.bashrc" src=bashrc backup=yes
   tags:
     - conf
 
 - name: bashrc extensions
-  copy: dest="{{ ansible_env.HOME }}/.config/bash" src=bashrc.d/ backup=no
+  copy: dest="{{ ansible_facts['env']['HOME'] }}/.config/bash" src=bashrc.d/ backup=no
   tags:
     - conf
 
 - name: bash_profile
-  copy: dest="{{ ansible_env.HOME }}/.bash_profile" src=bash_profile backup=yes
+  copy: dest="{{ ansible_facts['env']['HOME'] }}/.bash_profile" src=bash_profile backup=yes
   tags:
     - conf

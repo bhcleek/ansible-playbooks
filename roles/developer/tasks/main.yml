@@ -1,5 +1,5 @@
 ---
-- include_tasks: packages_{{ ansible_os_family }}.yml
+- include_tasks: packages_{{ ansible_facts['os_family'] }}.yml
   tags: packages
 
 #- name: install pip packages
@@ -15,7 +15,7 @@
 
 - name: bashrc extensions
   copy:
-    dest: "{{ ansible_env.HOME }}/.config/bash"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/bash"
     src: bashrc.d/
     backup: no
   tags:
@@ -23,14 +23,14 @@
 
 - name: create $HOME bin directory
   file:
-    dest: "{{ ansible_env.HOME }}/bin"
+    dest: "{{ ansible_facts['env']['HOME'] }}/bin"
     state: directory
   tags:
     - packages
 
 - name: install $HOME/bin/color-test
   copy:
-    dest: "{{ ansible_env.HOME }}/bin/color-test"
+    dest: "{{ ansible_facts['env']['HOME'] }}/bin/color-test"
     src: color-test
     backup: no
     mode: 0755
@@ -41,7 +41,7 @@
 
 - name: install $HOME/bin/color-gradient
   copy:
-    dest: "{{ ansible_env.HOME }}/bin/color-gradient"
+    dest: "{{ ansible_facts['env']['HOME'] }}/bin/color-gradient"
     src: color-gradient
     backup: no
     mode: 0755
@@ -52,7 +52,7 @@
 
 - name: install $HOME/bin/mov2gif
   copy:
-    dest: "{{ ansible_env.HOME }}/bin/mov2gif"
+    dest: "{{ ansible_facts['env']['HOME'] }}/bin/mov2gif"
     src: mov2gif
     backup: no
     mode: 0755
@@ -63,14 +63,14 @@
 
 - name: create iterm2 config directory
   file:
-    dest: "{{ ansible_env.HOME }}/.config/iterm2"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/iterm2"
     state: directory
   tags:
     - conf
 
 - name: iterm2 preferences
   copy:
-    dest: "{{ ansible_env.HOME }}/.config/iterm2/com.googlecode.iterm2.plist"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/iterm2/com.googlecode.iterm2.plist"
     src: iterm2/com.googlecode.iterm2.plist
     backup: yes
   tags:
@@ -78,7 +78,7 @@
 
 - name: iterm2 profiles
   copy:
-    dest: "{{ ansible_env.HOME }}/.config/iterm2/Profiles.json"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/iterm2/Profiles.json"
     src: iterm2/Profiles.json
     backup: yes
   tags:
@@ -86,14 +86,14 @@
 
 - name: create tmux config directory
   file:
-    dest: "{{ ansible_env.HOME }}/.config/tmux"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/tmux"
     state: directory
   tags:
     - conf
 
 - name: tmux.conf
   copy:
-    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.tmux.conf"
     src: tmux.conf
     backup: yes
   tags:
@@ -101,7 +101,7 @@
 
 - name: tmux config files
   copy:
-    dest: "{{ ansible_env.HOME }}/.config/tmux"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/tmux"
     src: tmux/
     backup: yes
   tags:
@@ -111,9 +111,9 @@
 # https://docs.python.org/2.7/library/site.html
 - name: python site-packages directory
   file:
-    dest: "{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages"
+    dest: "{{ ansible_facts['env']['HOME'] }}/Library/Python/{{ item }}/lib/python/site-packages"
     state: directory
-  when: ansible_os_family == 'Darwin'
+  when: ansible_facts['os_family'] == 'Darwin'
   loop:
     - '2.7'
     - '3.6'
@@ -126,9 +126,9 @@
 
 - name: python site-packages configuration
   template:
-    dest: "{{ ansible_env.HOME }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth"
+    dest: "{{ ansible_facts['env']['HOME'] }}/Library/Python/{{ item }}/lib/python/site-packages/homebrew.pth"
     src: homebrew.pth
-  when: ansible_os_family == 'Darwin'
+  when: ansible_facts['os_family'] == 'Darwin'
   loop:
     - '2.7'
     - '3.6'

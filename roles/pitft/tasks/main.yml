@@ -36,20 +36,20 @@
 
 - name: create src directory
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/src"
+    path: "{{ ansible_facts['env']['HOME'] }}/src"
     state: directory
 
 - name: clone adafruit raspi installer scripts
   ansible.builtin.git:
     repo: https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
-    dest: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
+    dest: "{{ ansible_facts['env']['HOME'] }}/src/Raspberry-Pi-Installer-Scripts"
   register: raspi_installer_scripts_git_result
 
 - name: checkout adafruit raspi installer scripts sources
   ansible.builtin.command:
     cmd: git checkout main
   args:
-    chdir: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
+    chdir: "{{ ansible_facts['env']['HOME'] }}/src/Raspberry-Pi-Installer-Scripts"
 
 - name: register timestamp
   command:
@@ -58,23 +58,23 @@
 
 - name: backup /boot/firmware/config.txt
   ansible.builtin.command:
-    cmd: cp /boot/firmware/config.txt "{{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }}"
+    cmd: cp /boot/firmware/config.txt "{{ ansible_facts['env']['HOME'] }}/config.txt.{{ timestamp.stdout }}"
 
 - name: configure PiTFT
   ansible.builtin.command:
     argv:
-      - "{{ ansible_env.HOME }}/python-venv/primary/bin/python3"
+      - "{{ ansible_facts['env']['HOME'] }}/python-venv/primary/bin/python3"
       - adafruit-pitft.py
       - --display={{ pitft.display }}
       - --rotation={{ pitft.rotation }}
       - --install-type={{ pitft.type }}
       - --reboot=no
-    chdir: "{{ ansible_env.HOME }}/src/Raspberry-Pi-Installer-Scripts"
+    chdir: "{{ ansible_facts['env']['HOME'] }}/src/Raspberry-Pi-Installer-Scripts"
   become: yes
 
 - name: /boot/firmware/config.txt changed
   ansible.builtin.command:
-    cmd: diff -u {{ ansible_env.HOME }}/config.txt.{{ timestamp.stdout }} /boot/firmware/config.txt
+    cmd: diff -u {{ ansible_facts['env']['HOME'] }}/config.txt.{{ timestamp.stdout }} /boot/firmware/config.txt
   register: boot_config_diff
   failed_when: boot_config_diff.rc == 2
   changed_when: boot_config_diff.rc == 1
