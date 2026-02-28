@@ -14,11 +14,10 @@ function _run_tmux {
 			# not inherit the option value
 			tmux new-session -s ${session_name} -n dashboard -d
 			tmux set-option -p remain-on-exit on
-			tmux set-option -p -t "${pane}" remain-on-exit on
 			pane=$(tmux split-window -P -d -v)
 			tmux set-option -p -t "${pane}" remain-on-exit on
-			tmux set-option -w remain-on-exit on
 			pane=$(tmux split-window -P -d -h 'ulimit -n 4096 && godoc -http=:6060 -notes="BUG|TODO"')
+			tmux set-option -p -t "${pane}" remain-on-exit on
 			tmux set-option -w remain-on-exit off
 			tmux select-pane -t 0
 			tmux select-layout main-vertical
