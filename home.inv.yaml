@@ -5,7 +5,7 @@ all:
     filecabinet:
       ansible_host: 192.168.1.2
     hifi:
-      ansible_host: 192.168.8.232
+      ansible_host: 192.168.1.39
   children:
     pi:
       hosts:
