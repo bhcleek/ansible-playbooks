@@ -13,16 +13,12 @@
       - git
       - git-lfs
       - git-crypt
-      - mercurial
       - python
       - python3
       - nodejs
       - dash
-      - reattach-to-user-namespace
       - jq
-      - docker-machine
-      - docker-compose
-      - ctags
+      - universal-ctags
       - direnv
       - ffmpeg
       - graphviz
@@ -49,22 +45,3 @@
   ignore_errors: true
   tags:
     - packages
-
-- name: install hyperkit
-  get_url:
-    url: https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/docker-machine-driver-hyperkit
-    dest: /usr/local/bin/docker-machine-driver-hyperkit
-    checksum: "{{ minikube_checksum }}"
-  ignore_errors: true
-  tags:
-    - packages
-  become: true
-
-# it shouldn't be necessary to do this, but the mode doesn't get set correctly when attempting to use the mode on the get_url task.
-- name: set hyperkit perms
-  file:
-    path: /usr/local/bin/docker-machine-driver-hyperkit
-    mode: 4755
-    owner: root
-    group: admin
-  become: true

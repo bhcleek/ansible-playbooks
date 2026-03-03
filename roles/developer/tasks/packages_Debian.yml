@@ -46,7 +46,6 @@
       - python3-venv
       - git
   #   - git-lfs
-      - mercurial
       - nodejs
       - npm
       - dash

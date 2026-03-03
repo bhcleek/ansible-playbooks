@@ -70,7 +70,7 @@
   when: ansible_facts['os_family'] == 'Darwin'
 
 - name: git config credential.helper
-  command: git config --global credential.helper cache
+  command: git config --global credential.helper osxkeychain
 
 - name: git config http.cookiefile
   command: git config --global http.cookiefile ~/.cache/git/cookies
@@ -79,7 +79,7 @@
   command: git config --global merge.tool opendiff
 
 - name: git config pull.rebase
-  command: git config --global pull.rebase preserve
+  command: git config --global pull.rebase merges
 
 - name: git config push.default
   command: git config --global push.default simple

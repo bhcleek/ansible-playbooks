@@ -41,8 +41,6 @@ gcloud_pkg:
     "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_facts['system'] | lower }}-arm.tar.gz"
   x86_64:
     "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_facts['system'] | lower }}-x86_64.tar.gz"
-minikube_version: v0.25.2
-minikube_checksum: sha256:f108e0125e45297f74b34e0dfd1a8e015220305832d437507afc20250f8f6ea5
 
 insteadOfs:
   - base: "git@github.com:"
