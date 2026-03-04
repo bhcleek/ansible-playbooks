@@ -13,7 +13,6 @@
       - git
       - git-lfs
       - git-crypt
-      - python
       - python3
       - nodejs
       - dash
