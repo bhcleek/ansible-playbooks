@@ -89,11 +89,14 @@
 #- name: keep url section
 #  command: git config --global "url.{{ item.base }}.placeholder" placeholder
 #  loop: "{{ insteadOfs }}"
-#
+
 - name: remove insteadOf values
   command: git config unset --global --all "url.{{ item.base }}.insteadOf"
   loop: "{{ insteadOfs }}"
   when: item.base is defined
+  register: result
+  # git config returns 5 if the value doesn't exist, which is fine since we want to remove all existing values
+  failed_when: result.rc != 0 and result.rc != 5
 
 - name: git config insteadOf
   command: git config --global --add url.{{ item.0.base }}.insteadOf "{{ item.1 }}"
@@ -120,9 +123,8 @@
 - name: git config diff.vault.command
   command: git config --global diff.vault.textconv "ansible-vault view"
 
-# TODO(bc): replace include with include_tasks in Ansible 2.4
 - include_tasks: git-workspace.yml
   loop: "{{ workspaces }}"
-  when: workspaces | default([], true)
+  when: workspaces | default([]) | length > 0
   loop_control:
     loop_var: workspace
