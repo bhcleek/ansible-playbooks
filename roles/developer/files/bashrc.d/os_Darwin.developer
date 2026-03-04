@@ -1,4 +1,4 @@
-export PATH=$PATH:$(python3 -m site --user-base)/bin
+export PATH=$PATH:$(python3 -m site --user-base)/bin:$HOME/python-venv/primary/bin:$HOME/python-venv/ansible/bin
 
 launchctl setenv PATH "${PATH}"
 
