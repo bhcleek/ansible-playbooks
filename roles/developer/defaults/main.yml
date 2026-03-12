@@ -28,19 +28,19 @@ npm_become: no
 pip_become: no
 user_font_dir: "{{ ansible_facts['env']['HOME'] }}/.fonts"
 gcloud_install_path: "{{ ansible_facts['env']['HOME'] }}"
-gcloud_version: "365.0.1"
+gcloud_version: "560.0.0"
 gcloud_checksums:
   arm64:
-    Darwin: "sha256:636591e597730649011f510fc8c78e2b133ef8b417992f8d923a87a528dc6d5e"
-    Linux: "sha256:fbe88d385e2648ac21bd67586c669e824160424627ac2f9c3fd17c79c765286b"
+    Darwin: "sha256:5374eea1b294eb2455ef849b797003a96190fbd688e2262e1a8fbf7046250d1f"
+    Linux: "sha256:5560c93c62eec321776bd0cafafe3fbce673b69f4c010836dffe40322fa2aebe"
   x86_64:
-    Darwin: "sha256:4ae8a3274eb9b6fca5761ef2eed713bc3486256d11268575febe3351e9e4d902"
-    Linux: "sha256:17003cdba67a868c2518ac16efa60dc6175533b7a9fb87304459784308e30fb0"
+    Darwin: "sha256:203e9e015cda82fe589273548b4c4e509a6c66a1bcc0a6df2f637a569df4f6d9"
+    Linux: "sha256:4ee13c74063894c859bfe77455c0c728303267f4d3650148f26d509b721e5022"
 gcloud_pkg:
   arm64:
-    "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_facts['system'] | lower }}-arm.tar.gz"
+    "google-cloud-cli-{{ gcloud_version }}-{{ ansible_facts['system'] | lower }}-arm.tar.gz"
   x86_64:
-    "google-cloud-sdk-{{ gcloud_version }}-{{ ansible_facts['system'] | lower }}-x86_64.tar.gz"
+    "google-cloud-cli-{{ gcloud_version }}-{{ ansible_facts['system'] | lower }}-x86_64.tar.gz"
 
 insteadOfs:
   - base: "git@github.com:"

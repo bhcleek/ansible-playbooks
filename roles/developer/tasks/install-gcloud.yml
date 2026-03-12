@@ -1,7 +1,7 @@
 ---
 - name: download gcloud {{ gcloud_version }} archive
   get_url:
-    url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/{{ gcloud_pkg[ansible_facts['architecture']] }}"
+    url: "https://storage.googleapis.com/cloud-sdk-release/{{ gcloud_pkg[ansible_facts['architecture']] }}"
     checksum: "{{ gcloud_checksums[ansible_facts['architecture']][ansible_facts['system']] }}"
     dest: /tmp/{{ gcloud_pkg[ansible_facts['architecture']] }}
     timeout: 600
