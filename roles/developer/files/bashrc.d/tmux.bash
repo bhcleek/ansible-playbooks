@@ -24,8 +24,15 @@ function _run_tmux {
 			if [ -d "$HOME/src" ]
 			then
 				tmux new-window -n workspace -c $HOME/src
+
+				vimgodir=$HOME/src/vim-go
+				if [ -d "$HOME/src/personal/vim-go" ]
+				then
+					vimgodir="$HOME/src/personal/vim-go"
+				fi
+				tmux new-window -n vim-go -c "${vimgodir}" -t "${session_name}:workspace" -a -d
 			fi
-			tmux new-window -n vim-go -c $HOME/src/vim-go
+
 		fi
 	fi
 }
