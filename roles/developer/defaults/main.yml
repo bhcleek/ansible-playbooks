@@ -57,7 +57,7 @@ insteadOfs:
 workspaces:
   - name: work
     gitdir: "~/src/work/"
-    email: billie.cleek@lambdal.com
+    email: billie.cleek@sfcompute.com
     insteadOfs: []
     #  - base: "git@github.internal.example.com:"
     #    urls:
