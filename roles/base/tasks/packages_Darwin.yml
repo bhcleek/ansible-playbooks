@@ -1,6 +1,6 @@
 ---
 - name: install packages
-  homebrew:
+  community.general.homebrew:
     state: latest
     name:
       - coreutils
